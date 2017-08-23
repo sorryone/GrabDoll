@@ -7,8 +7,10 @@ from grabDoll.models.user import User
 
 def use_item(uid, item_id):
     if item_id is None:
+        print "item_id is None"
         return False
     if InventoryModel.get(uid) is None:
+        print "InventoryModel is None"
         return False
     inven = InventoryModel(uid)
     user = User(uid)
