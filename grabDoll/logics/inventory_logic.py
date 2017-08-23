@@ -37,7 +37,7 @@ def use_item(uid, item_id):
             # 如果是娃娃
             # 如果是Gacha蛋
         return awards
-    return False
+    return 404
 
 
 # 查看奖励
