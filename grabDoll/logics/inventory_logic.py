@@ -8,10 +8,10 @@ from grabDoll.models.user import User
 def use_item(uid, item_id):
     if item_id is None:
         print "item_id is None"
-        return False
+        return 10004
     if InventoryModel.get(uid) is None:
         print "InventoryModel is None"
-        return False
+        return 10005
     inven = InventoryModel(uid)
     user = User(uid)
     # 先判定抓到的娃娃蛋存不存在
