@@ -6,6 +6,8 @@ from grabDoll.models.user import User
 
 
 def use_item(uid, item_id):
+    if item_id is None:
+        return False
     if InventoryModel.get(uid) is None:
         return False
     inven = InventoryModel(uid)
@@ -14,6 +16,7 @@ def use_item(uid, item_id):
     # 存在的话删除掉
     del_res = inven.reduce_item(item_id)
     if del_res:
+        print del_res
         # 奖励
         awards = get_award(item_id)
         for a_id, ct in awards:
