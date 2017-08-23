@@ -7,4 +7,5 @@ urlpatterns = patterns("",
     url(r'^get_user', 'grabDoll.views.user.get_user'),
     url(r'^set_user', 'grabDoll.views.user.set_user'),
     url(r'^get_inventory', 'grabDoll.views.inventory.get_inventory'),
+    url(r'^grab_egg', 'grabDoll.views.game_method.grab_egg'),
 )
