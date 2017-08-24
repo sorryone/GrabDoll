@@ -69,7 +69,7 @@ class RedisBase(object):
         """
         _storage_key = cls.get_storage_key(pkey)
         if cls.get_client().type(_storage_key) != cls.data_type:
-            print cls.data_type, _storage_key, cls.get_client().type(_storage_key)
+            # print cls.data_type, _storage_key, cls.get_client().type(_storage_key)
             return None
 
         o = cls(pkey)
