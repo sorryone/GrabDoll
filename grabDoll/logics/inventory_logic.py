@@ -78,22 +78,6 @@ def get_award(item_id):
     return data
 
 
-# 获取所有的物品信息
-def get_item_info(uid):
-    if ItemModel.get(uid) is None:
-        return False
-    item_model = ItemModel(uid)
-    return item_model.get_all()
-
-
-def get_egg_info(uid):
-    if MachineModel.get(uid) is None:
-        return False
-    mach = MachineModel(uid)
-    data = mach.get_machine_info()
-    return data
-
-
 # 初始化娃娃机里的娃娃蛋
 def init_eggs(uid):
     mach = MachineModel(uid)
