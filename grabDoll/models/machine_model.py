@@ -19,5 +19,6 @@ class MachineModel(HashModel):
 
     def add_egg_list(self, data):
         print data
+        print self.data_type, self.storage_key
         res = self.set_values(data)
         return res
