@@ -3,17 +3,22 @@
 from grabDoll.models.item_model import ItemModel
 from grabDoll.models.user import User
 from grabDoll.models.machine_model import MachineModel
+from grabDoll.models.doll_model import DollModel
+from grabDoll.models.gacha_model import GachaModel
+
 __author__ = 'du_du'
 
 
 def get_inventory_info(uid):
     item_model = ItemModel(uid)
-    mach = MachineModel(uid)
+    mach_model = MachineModel(uid)
+    doll_model = DollModel(uid)
+    gacha_model = GachaModel(uid)
     data = {
         'items': item_model.get_all(),
-        'eggs': mach.get_machine_info(),
-        'gacha': [],
-        'dolls': [],
+        'eggs': mach_model.get_model_info(),
+        'gacha': gacha_model.get_model_info(),
+        'dolls': doll_model.get_model_info(),
     }
     return data
 

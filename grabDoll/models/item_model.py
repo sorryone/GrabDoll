@@ -4,6 +4,9 @@ __author__ = 'du_du'
 
 
 class ItemModel(HashModel):
+    def get_model_info(self):
+        return self.get_all()
+
     # 增加物品
     def add_item(self, item_id, num=1):
         res = self.incr(item_id, num)

@@ -5,7 +5,7 @@ __author__ = 'du_du'
 
 class MachineModel(HashModel):
     # 移除当前娃娃机里的娃娃蛋
-    def get_machine_info(self):
+    def get_model_info(self):
         return self.get_all()
 
     # 移除当前娃娃机里的娃娃蛋
