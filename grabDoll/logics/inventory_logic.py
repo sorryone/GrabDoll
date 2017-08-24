@@ -54,7 +54,7 @@ def use_item(uid, item_id):
         print del_res
         # 奖励
         awards = get_award(item_id)
-        for a_id, ct in awards:
+        for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
                 user.add_gold(ct)
@@ -89,7 +89,7 @@ def reduce_gacha(item_id):
 # 查看奖励
 def get_award(item_id):
     ct = 1000
-    data = []
+    data = dict()
     data['gold'] = ct
     return data
 
