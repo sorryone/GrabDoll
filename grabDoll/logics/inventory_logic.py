@@ -65,7 +65,7 @@ def use_item(uid, item_id):
             if a_id == "exp":
                 user.add_gold(ct)
             # 如果是道具添加道具
-            if a_id/1000 == 2:
+            if int(a_id)/1000 == 2:
                 item_model.add_item(a_id, ct)
             # 如果是娃娃
             # 如果是Gacha蛋
