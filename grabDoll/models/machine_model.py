@@ -18,5 +18,6 @@ class MachineModel(HashModel):
         return res
 
     def add_egg_list(self, data):
+        print data
         res = self.set_values(data)
         return res

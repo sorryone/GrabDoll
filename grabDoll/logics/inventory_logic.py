@@ -93,11 +93,12 @@ def init_eggs(uid):
     if MachineModel.get(uid) is None:
         return False
     mach = MachineModel(uid)
-    eggs = []
+    eggs = dict()
     eggs['10001_1'] = {'id': 10001, 'x': 2, 'y': 50, 'r': 30}
     eggs['10001_2'] = {'id': 10001, 'x': 3, 'y': 50, 'r': 30}
     eggs['10001_3'] = {'id': 10001, 'x': 4, 'y': 50, 'r': 30}
     eggs['10001_4'] = {'id': 10001, 'x': 5, 'y': 50, 'r': 30}
+
     res = mach.add_egg_list(eggs)
     '''
     eggs = {
