@@ -39,12 +39,18 @@ def use_item(uid, item_id):
     if ItemModel.get(uid) is None:
         print "InventoryModel is None"
         return False
+    # 先判定抓到的娃娃蛋存不存在
+    values = {
+        1: reduce_egg,
+        2: reduce_item,
+        3: reduce_gacha,
+    }
 
+    del_res = values.get(item_type)(item_id)
     item_model = ItemModel(uid)
     user = User(uid)
-    # 先判定抓到的娃娃蛋存不存在
+
     # 存在的话删除掉
-    del_res = item_model.reduce_item(item_id)
 
     if del_res:
         print del_res
@@ -68,6 +74,18 @@ def use_item(uid, item_id):
         return awards
     print "item  is not exits"
     return False
+
+
+def reduce_item(item_id):
+    return True
+
+
+def reduce_egg(item_id):
+    return True
+
+
+def reduce_gacha(item_id):
+    return True
 
 
 # 查看奖励
