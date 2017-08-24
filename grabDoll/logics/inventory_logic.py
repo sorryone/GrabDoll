@@ -7,7 +7,6 @@ __author__ = 'du_du'
 
 
 def get_inventory_info(uid):
-
     item_model = ItemModel(uid)
     mach = MachineModel(uid)
     data = {

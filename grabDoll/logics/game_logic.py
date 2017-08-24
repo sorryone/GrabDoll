@@ -9,7 +9,7 @@ def get_game_info(uid):
     data = {
         'userInfo': user_logic.get_user_info(uid),
         'inventory': inventory_logic.get_inventory_info(uid),
-        't': time()
+        'config': {}
     }
     return data
 
