@@ -11,7 +11,7 @@ def get_inventory_info(uid):
     mach = MachineModel(uid)
     data = {
         'items': item_model.get_all(),
-        'eggs': mach.get_all(),
+        'eggs': mach.get_machine_info(),
         'gacha': [],
         'dolls': [],
     }
@@ -89,6 +89,7 @@ def get_egg_info(uid):
     return data
 
 
+# 初始化娃娃机里的娃娃蛋
 def init_eggs(uid):
     mach = MachineModel(uid)
     eggs = dict()
@@ -96,6 +97,7 @@ def init_eggs(uid):
     eggs['10001_2'] = {'id': 10001, 'x': 3, 'y': 50, 'r': 30}
     eggs['10001_3'] = {'id': 10001, 'x': 4, 'y': 50, 'r': 30}
     eggs['10001_4'] = {'id': 10001, 'x': 5, 'y': 50, 'r': 30}
+    eggs['10001_5'] = {'id': 10001, 'x': 6, 'y': 50, 'r': 30}
 
     res = mach.add_egg_list(eggs)
     '''
@@ -105,8 +107,7 @@ def init_eggs(uid):
     for egg_id, data in eggs.iteritems():
         res = mach.add_egg(egg_id, data)
     '''
-
-    return 2222
+    return res
 
 
 
