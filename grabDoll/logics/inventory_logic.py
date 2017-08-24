@@ -36,9 +36,7 @@ def use_item(uid, item_id):
     config_id = int(item_id.split("_")[0])
     item_type = config_id/10000
     print 'config_id', config_id, 'item_type', item_type
-    if ItemModel.get(uid) is None:
-        print "InventoryModel is None"
-        return False
+
     # 先判定抓到的娃娃蛋存不存在
     values = {
         1: reduce_egg,
