@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'dudu'
 from lib.redis_model import StringModel, HashModel
+__author__ = 'du_du'
 
 
 class MachineModel(HashModel):

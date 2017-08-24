@@ -91,6 +91,7 @@ def get_egg_info(uid):
 
 def init_eggs(uid):
     if MachineModel.get(uid) is None:
+        print uid, "MachineModel is None"
         return False
     mach = MachineModel(uid)
     eggs = dict()
