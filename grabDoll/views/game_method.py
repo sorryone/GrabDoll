@@ -18,11 +18,11 @@ def grab_egg(request):
         except Exception as e:
             print(e)
             return 1, "参数错误"
-
-    data = inventory_logic.use_item(uid, item_id)
-    if(data):
+    try:
+        data = inventory_logic.use_item(uid, item_id)
         return 0, data
-    else:
+    except Exception as e:
+        print(e)
         return 1, "数据错误"
 
 

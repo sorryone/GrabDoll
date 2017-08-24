@@ -3,20 +3,37 @@ __author__ = 'dudu'
 
 from grabDoll.models.inventory_model import InventoryModel
 from grabDoll.models.user import User
+from grabDoll.models.machine_model import MachineModel
+
+
+def get_inventory_info(uid):
+    data = {}
+    return data
+
+
+def add_item(uid, item_id):
+    inven = InventoryModel(uid)
+    res = inven.add_item(item_id, 1)
+    return res
 
 
 def use_item(uid, item_id):
     if item_id is None:
         print "item_id is None"
         return False
+    config_id = item_id.split("_")[0]
+    item_type = config_id/10000
+    print 'config_id', config_id, 'item_type', item_type
     if InventoryModel.get(uid) is None:
         print "InventoryModel is None"
         return False
+    
     inven = InventoryModel(uid)
     user = User(uid)
     # 先判定抓到的娃娃蛋存不存在
     # 存在的话删除掉
     del_res = inven.reduce_item(item_id)
+
     if del_res:
         print del_res
         # 奖励
@@ -55,4 +72,35 @@ def get_item_info(uid):
         return False
     inven = InventoryModel(uid)
     return inven.get_all()
+
+
+def get_egg_info(uid):
+    if MachineModel.get(uid) is None:
+        return False
+    mach = MachineModel(uid)
+    data = mach.get_machine_info()
+    return data
+
+
+def init_eggs(uid):
+    if MachineModel.get(uid) is None:
+        return False
+    mach = MachineModel(uid)
+    eggs = []
+    eggs['10001_1'] = {'id': 10001, 'x': 2, 'y': 50, 'r': 30}
+    eggs['10001_2'] = {'id': 10001, 'x': 3, 'y': 50, 'r': 30}
+    eggs['10001_3'] = {'id': 10001, 'x': 4, 'y': 50, 'r': 30}
+    eggs['10001_4'] = {'id': 10001, 'x': 5, 'y': 50, 'r': 30}
+    res = mach.add_egg_list(eggs)
+    '''
+    eggs = {
+        '10001_1': {'id': 10001, 'x': 2, 'y': 50, 'r': 30},
+    }
+    for egg_id, data in eggs.iteritems():
+        res = mach.add_egg(egg_id, data)
+    '''
+
+    return res
+
+
 
