@@ -14,7 +14,7 @@ def grab_egg(request):
         try:
             print(request.query_params)
             uid = int(request.query_params.get('uid'))
-            item_id = str(request.query_params.get('item_id'))
+            item_id = request.query_params.get('item_id')
         except Exception as e:
             print(e)
             return 1, "参数错误"
