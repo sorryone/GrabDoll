@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
-__author__ = 'dudu'
 
-from grabDoll.models.inventory_model import InventoryModel
+from grabDoll.models.item_model import ItemModel
 from grabDoll.models.user import User
 from grabDoll.models.machine_model import MachineModel
+__author__ = 'du_du'
 
 
 def get_inventory_info(uid):
-    data = {}
+
+    item_model = ItemModel(uid)
+    mach = MachineModel(uid)
+    data = {
+        'items': item_model.get_all(),
+        'eggs': mach.get_all(),
+        'gacha': [],
+        'dolls': [],
+    }
     return data
 
 
 def add_item(uid, item_id):
-    inven = InventoryModel(uid)
-    res = inven.add_item(item_id, 1)
+    item_model = ItemModel(uid)
+    res = item_model.add_item(item_id, 1)
     return res
 
 
@@ -24,15 +32,15 @@ def use_item(uid, item_id):
     config_id = item_id.split("_")[0]
     item_type = config_id/10000
     print 'config_id', config_id, 'item_type', item_type
-    if InventoryModel.get(uid) is None:
+    if ItemModel.get(uid) is None:
         print "InventoryModel is None"
         return False
-    
-    inven = InventoryModel(uid)
+
+    item_model = ItemModel(uid)
     user = User(uid)
     # 先判定抓到的娃娃蛋存不存在
     # 存在的话删除掉
-    del_res = inven.reduce_item(item_id)
+    del_res = item_model.reduce_item(item_id)
 
     if del_res:
         print del_res
@@ -50,7 +58,7 @@ def use_item(uid, item_id):
                 user.add_gold(ct)
             # 如果是道具添加道具
             if a_id/1000 == 2:
-                inven.add_item(a_id, ct)
+                item_model.add_item(a_id, ct)
             # 如果是娃娃
             # 如果是Gacha蛋
         return awards
@@ -68,10 +76,10 @@ def get_award(item_id):
 
 # 获取所有的物品信息
 def get_item_info(uid):
-    if InventoryModel.get(uid) is None:
+    if ItemModel.get(uid) is None:
         return False
-    inven = InventoryModel(uid)
-    return inven.get_all()
+    item_model = ItemModel(uid)
+    return item_model.get_all()
 
 
 def get_egg_info(uid):

@@ -3,7 +3,7 @@ __author__ = 'dudu'
 from lib.redis_model import StringModel, HashModel
 
 
-class InventoryModel(HashModel):
+class ItemModel(HashModel):
     # 增加物品
     def add_item(self, item_id, num=1):
         res = self.incr(item_id, num)

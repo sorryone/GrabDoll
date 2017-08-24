@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = 'maxijie'
-
 from grabDoll.models.user import User
+__author__ = 'maxijie'
 
 
 def set_userinfo(uid, data):
@@ -11,6 +10,20 @@ def set_userinfo(uid, data):
     u = User(uid)
     u.set_values(data)
     return u
+
+
+def create_user(uid):
+    if User.get(uid) is None:
+        return False
+    data = {
+        'gold': 1000,
+        'diamond': 100,
+        'uid': uid,
+        'exp': 0,
+        'lv': 1,
+    }
+    u = User(uid)
+    u.set_values(data)
 
 
 # 添加
@@ -24,7 +37,7 @@ def add_awards(uid, data):
     return True
 
 
-def get_userinfo(uid):
+def get_user_info(uid):
     if User.get(uid) is None:
         return False
 

@@ -4,7 +4,7 @@ __author__ = 'maxijie'
 import json
 from lib.djhelper.api_view import api_render, api_view, api_result
 from grabDoll.logics import user as user_logic
-from grabDoll.logics import inventory_logic as inventory_logic
+from grabDoll.logics import game_logic as game_logic
 
 @api_view(["GET"])
 @api_result
@@ -40,10 +40,7 @@ def get_user(request):
             return 1, "参数错误"
 
     try:
-        data = {
-            'userInfo': user_logic.get_userinfo(uid),
-            'inventory': inventory_logic.get_inventory_info(uid),
-        }
+        data = game_logic.get_game_info(uid)
         return 0, data
     except Exception as e:
         print(e)
