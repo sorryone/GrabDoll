@@ -26,6 +26,8 @@ def grab_egg(request):
         return 1, "数据错误"
 
 
+@api_view(["GET"])
+@api_result
 def create_user(request):
     if request.method == "GET":
         try:
