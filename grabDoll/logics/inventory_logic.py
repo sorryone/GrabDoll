@@ -109,7 +109,7 @@ def init_eggs(uid):
         res = mach.add_egg(egg_id, data)
     '''
 
-    return res
+    return 2222
 
 
 
