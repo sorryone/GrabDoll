@@ -23,7 +23,8 @@ def create_user(uid):
         'lv': 1,
     }
     u = User(uid)
-    u.set_values(data)
+    res = u.set_values(data)
+    return res
 
 
 # 添加

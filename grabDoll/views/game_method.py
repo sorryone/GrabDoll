@@ -14,7 +14,7 @@ def grab_egg(request):
         try:
             print(request.query_params)
             uid = int(request.query_params.get('uid'))
-            item_id = int(request.query_params.get('uid'))
+            item_id = int(request.query_params.get('item_id'))
         except Exception as e:
             print(e)
             return 1, "参数错误"
@@ -24,6 +24,23 @@ def grab_egg(request):
     except Exception as e:
         print(e)
         return 1, "数据错误"
+
+
+def create_user(request):
+    if request.method == "GET":
+        try:
+            print(request.query_params)
+            uid = int(request.query_params.get('uid'))
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = user_logic.create_user(uid)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
 
 
 
