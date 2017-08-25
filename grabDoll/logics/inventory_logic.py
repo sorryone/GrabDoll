@@ -47,17 +47,13 @@ def use_item(uid, item_id):
         3: reduce_gacha,
     }
 
-    del_res = values.get(item_type)(item_id)
-    item_model = ItemModel(uid)
-    user = User(uid)
-
+    del_res = values.get(item_type)(uid, item_id)
     # 存在的话删除掉
-
     if del_res:
-
         # 奖励
         awards = get_award(item_id)
-
+        item_model = ItemModel(uid)
+        user = User(uid)
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
@@ -80,15 +76,17 @@ def use_item(uid, item_id):
     return False
 
 
-def reduce_item(item_id):
+def reduce_item(uid, item_id):
     return True
 
 
-def reduce_egg(item_id):
+def reduce_egg(uid, item_id):
+    mach_model = MachineModel(uid)
+    mach_model.delete_egg(item_id)
     return True
 
 
-def reduce_gacha(item_id):
+def reduce_gacha(uid, item_id):
     return True
 
 
