@@ -8,15 +8,16 @@ class GachaModel(ListModel):
     def get_model_info(self):
         res = self.range(0, -1)
         data_dict = dict()
-        for index, value in res.iteritems():
-            try:
-                model_info = eval(value)
-                data_dict[index] = model_info
-            except Exception as e:
-                print e
-                continue
-        return data_dict
-        # return self.range(0, -1)
+        if type(res) is list:
+            for index, value in res.iteritems():
+                try:
+                    model_info = eval(value)
+                    data_dict[index] = model_info
+                except Exception as e:
+                    print e
+                    continue
+            return data_dict
+        return self.range(0, -1)
 
     # 增加物品
     def add_model(self, item_id, num=1):
