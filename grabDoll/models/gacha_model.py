@@ -9,7 +9,7 @@ class GachaModel(ListModel):
         res = self.range(0, -1)
         data_dict = dict()
         if type(res) is list:
-            for index, value in res.iteritems():
+            for index, value in enumerate(res):
                 try:
                     model_info = eval(value)
                     data_dict[index] = model_info
