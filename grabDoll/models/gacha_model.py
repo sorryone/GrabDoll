@@ -13,9 +13,9 @@ class GachaModel(ListModel):
         # cur_models = self.length()
         # gacha蛋的数据结构
         data = {
-            'id': item_id,
-            't': time.time(),
-            'ad': 0,
+            "id": item_id,
+            "t": time.time(),
+            "ad": 0,
         }
         res = self.rpush(data)
         if res is not False:
