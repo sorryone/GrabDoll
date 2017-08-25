@@ -55,6 +55,9 @@ class GachaModel(ListModel):
         cur_time = time.time()
         need_time = 300     # 需要的时间 先写死
         yuji_time = float(dict_data['t']) + float(dict_data['ad']) + need_time
+        print '当前时间戳', cur_time
+        print '预计时间', yuji_time
+        print '存的时间', float(dict_data['t'])
         if cur_time < yuji_time:
             dict_data['ad'] = float(dict_data['ad']) + int(exp)
             res = self.set_i(index, dict_data)
