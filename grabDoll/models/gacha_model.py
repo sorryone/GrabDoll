@@ -6,7 +6,7 @@ __author__ = 'du_du'
 
 class GachaModel(ListModel):
     def get_model_info(self):
-        return self.get_all()
+        return self.range(0, -1)
 
     # 增加物品
     def add_model(self, item_id, num=1):
@@ -25,11 +25,12 @@ class GachaModel(ListModel):
         return False
 
     # 移除物品
-    def remove_model(self, item_id, num=1):
-        cur_ct = self.get_value(item_id)
-        if cur_ct < num:
+    def remove_model(self, index):
+        if index > self.length():
             return False
-        res = self.incr(item_id, -num)
+        gacha = self.index(index)
+        res = self.trim(index, 1)
+        print res
         if res == 0 or res is not False:
             return True
         return False
