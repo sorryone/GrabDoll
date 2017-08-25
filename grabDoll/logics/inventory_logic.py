@@ -82,8 +82,7 @@ def reduce_item(uid, item_id):
 
 def reduce_egg(uid, item_id):
     mach_model = MachineModel(uid)
-    mach_model.delete_egg(item_id)
-    return True
+    return mach_model.delete_egg(item_id)
 
 
 def reduce_gacha(uid, item_id):
