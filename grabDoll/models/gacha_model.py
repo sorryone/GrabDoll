@@ -36,13 +36,18 @@ class GachaModel(ListModel):
     def add_exp(self, index, exp):
         if index > self.length():
             return False
-        gacha = self.index(index)
+        gachaStr = self.index(index)
+        try:
+            dict_data = eval(gachaStr)
+        except Exception as e:
+            print e
+            pass
         cur_time = time.time()
         need_time = 300     # 需要的时间 先写死
-        yuji_time = float(gacha['t']) + float(gacha['ad']) + need_time
+        yuji_time = float(dict_data['t']) + float(dict_data['ad']) + need_time
         if cur_time < yuji_time:
-            gacha['ad'] = float(gacha['ad']) + int(exp)
-            res = self.set_i(index, gacha)
+            dict_data['ad'] = float(dict_data['ad']) + int(exp)
+            res = self.set_i(index, dict_data)
             print res
             if res == 0 or res is not False:
                 return True
