@@ -53,6 +53,9 @@ def use_item(uid, item_id):
         # 奖励
         awards = get_award(item_id)
         item_model = ItemModel(uid)
+        doll_model = DollModel(uid)
+        gacha_model = GachaModel(uid)
+        book_model = HandBookModel(uid)
         user = User(uid)
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
@@ -66,7 +69,13 @@ def use_item(uid, item_id):
                 user.add_gold(ct)
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:
-                item_model.add_item(a_id, ct)
+                item_model.add_model(a_id, ct)
+            elif int(a_id)/10000 == 3:
+                gacha_model.add_model(a_id, ct)
+            elif int(a_id)/10000 == 4:
+                doll_model.add_model(a_id, ct)
+            elif int(a_id)/10000 == 5:
+                book_model.add_model(a_id, ct)
             else:
                 pass
             # 如果是娃娃
@@ -77,7 +86,8 @@ def use_item(uid, item_id):
 
 
 def reduce_item(uid, item_id):
-    return True
+    item_model = ItemModel(uid)
+    return item_model.remove_model(item_id, 1)
 
 
 def reduce_egg(uid, item_id):
@@ -86,7 +96,8 @@ def reduce_egg(uid, item_id):
 
 
 def reduce_gacha(uid, item_id):
-    return True
+    gach_model = GachaModel(uid)
+    return gach_model.remove_model(item_id)
 
 
 # 查看奖励

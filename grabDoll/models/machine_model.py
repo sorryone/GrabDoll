@@ -11,7 +11,6 @@ class MachineModel(HashModel):
     # 移除当前娃娃机里的娃娃蛋
     def delete_egg(self, item_id):
         res = self.pop(item_id)
-        print res
         return res
 
     def add_egg(self, data):
@@ -19,6 +18,5 @@ class MachineModel(HashModel):
         return res
 
     def add_egg_list(self, data):
-        print data
         res = self.set_values(data)
         return res
