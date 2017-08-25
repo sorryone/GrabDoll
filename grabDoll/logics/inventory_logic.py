@@ -5,6 +5,7 @@ from grabDoll.models.user import User
 from grabDoll.models.machine_model import MachineModel
 from grabDoll.models.doll_model import DollModel
 from grabDoll.models.gacha_model import GachaModel
+from grabDoll.models.handbook_model import HandBookModel
 
 __author__ = 'du_du'
 
@@ -14,11 +15,13 @@ def get_inventory_info(uid):
     mach_model = MachineModel(uid)
     doll_model = DollModel(uid)
     gacha_model = GachaModel(uid)
+    book_model = HandBookModel(uid)
     data = {
         'items': item_model.get_all(),
         'eggs': mach_model.get_model_info(),
         'gacha': gacha_model.get_model_info(),
         'dolls': doll_model.get_model_info(),
+        'book': book_model.get_model_info(),
     }
     return data
 
@@ -51,22 +54,25 @@ def use_item(uid, item_id):
     # 存在的话删除掉
 
     if del_res:
-        print del_res
+
         # 奖励
         awards = get_award(item_id)
+
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
                 user.add_gold(ct)
             # 如果是钻石添加钻石
-            if a_id == "diamond":
-                user.add_(ct)
+            elif a_id == "diamond":
+                user.add_diamond(ct)
             # 经验
-            if a_id == "exp":
+            elif a_id == "exp":
                 user.add_gold(ct)
             # 如果是道具添加道具
-            if int(a_id)/1000 == 2:
+            elif int(a_id)/10000 == 2:
                 item_model.add_item(a_id, ct)
+            else:
+                pass
             # 如果是娃娃
             # 如果是Gacha蛋
         return awards
