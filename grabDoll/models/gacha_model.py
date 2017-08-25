@@ -10,9 +10,7 @@ class GachaModel(ListModel):
 
     # 增加物品
     def add_model(self, item_id, num=1):
-        cur_models = self.length()
-        print '当前gacha蛋的数量', cur_models
-
+        # cur_models = self.length()
         # gacha蛋的数据结构
         data = {
             'id': item_id,
@@ -29,9 +27,24 @@ class GachaModel(ListModel):
         if index > self.length():
             return False
         gacha = self.index(index)
-        res = self.trim(index, 1)
+        res = self.remove(gacha)
         print res
         if res == 0 or res is not False:
             return True
+        return False
+
+    def add_exp(self, index, exp):
+        if index > self.length():
+            return False
+        gacha = self.index(index)
+        cur_time = time.time()
+        need_time = 300     # 需要的时间 先写死
+        yuji_time = float(gacha['t']) + float(gacha['ad']) + need_time
+        if cur_time < yuji_time:
+            gacha['ad'] = float(gacha['ad']) + int(exp)
+            res = self.set_i(index, gacha)
+            print res
+            if res == 0 or res is not False:
+                return True
         return False
 
