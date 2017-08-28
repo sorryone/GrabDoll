@@ -36,3 +36,19 @@ class ConfigModel(HashModel):
         data['item'][20012] = {'item_id': 20012, 'name': "鸡蛋", 'icon': "img_factory_0"}
         return data
 
+    def get_config_by_id(self, config_id):
+        type_value = int(int(config_id)/10000)
+        # 先判定抓到的娃娃蛋存不存在
+        values = {
+            1: "egg",
+            2: "item",
+            3: "gacha",
+            4: "doll",
+            5: "factory",
+            6: "book",
+        }
+        config_data_list = self.get_model_info()
+        configs = config_data_list.get(values.get(type_value))
+        return configs[config_id]
+
+
