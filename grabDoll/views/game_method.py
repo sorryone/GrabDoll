@@ -52,6 +52,8 @@ def speed_up(request):
             print(request.query_params)
             uid = int(request.query_params.get('uid'))
             item_id = request.query_params.get('item_id')
+            if item_id is None:
+                return 1, "未知的道具"
         except Exception as e:
             print(e)
             return 1, "参数错误"
