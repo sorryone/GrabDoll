@@ -6,6 +6,7 @@ from grabDoll.models.machine_model import MachineModel
 from grabDoll.models.doll_model import DollModel
 from grabDoll.models.gacha_model import GachaModel
 from grabDoll.models.handbook_model import HandBookModel
+from grabDoll.models.config_model import ConfigModel
 
 __author__ = 'du_du'
 
@@ -24,6 +25,11 @@ def get_inventory_info(uid):
         'book': book_model.get_model_info(),
     }
     return data
+
+
+def get_config_info():
+    config_model = ConfigModel()
+    return config_model.get_model_info()
 
 
 def add_item(uid, item_id):
