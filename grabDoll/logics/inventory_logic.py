@@ -143,7 +143,8 @@ def gacha_speed_up(uid, item_id):
     config_model = ConfigModel("config")
     config_info = config_model.get_config_by_id(config_id)
     if config_info and config_info.get('type', 0) == "speed":
-        print config_info.get('exp', 0)
+        exp = config_info.get('exp', 0)
+        return 0, exp
     else:
         return 1, "无效的道具"
 

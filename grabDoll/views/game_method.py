@@ -58,8 +58,7 @@ def speed_up(request):
             print(e)
             return 1, "参数错误"
     try:
-        data = inventory_logic.gacha_speed_up(uid, item_id)
-        return 0, data
+        return inventory_logic.gacha_speed_up(uid, item_id)
     except Exception as e:
         print(e)
         return 1, "数据错误"
