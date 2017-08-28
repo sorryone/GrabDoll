@@ -42,6 +42,8 @@ class ConfigModel(HashModel):
         types = ("null", "egg", "item", "gacha", "doll", "book")
         if len(types) >= type_value:
             config_data_list = self.get_model_info()
+            print type(config_data_list)
+            print type_value, types[type_value]
             configs = config_data_list.get(types[type_value], default=False)
             if configs:
                 return configs.get(config_id, default=False)
