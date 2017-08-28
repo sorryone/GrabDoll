@@ -22,8 +22,8 @@ class ConfigModel(HashModel):
         data['factory'][50006] = {'machine_id': 50006, 'lv': 6, 'icon': "img_factory_3", 'itemGroup': [20001, 20002, 20003, 20004]}
 
         data['item'] = {}
-        data['item'][20001] = {'item_id': 20001, 'name': "鸡蛋", 'icon': "img_factory_0"}
-        data['item'][20002] = {'item_id': 20002, 'name': "鸡蛋", 'icon': "img_factory_1"}
+        data['item'][20001] = {'item_id': 20001, 'c_type': 2, 'exp': 100, 'name': "加速器100", 'icon': "img_factory_0"}
+        data['item'][20002] = {'item_id': 20002, 'c_type': 2, 'exp': 200, 'name': "加速器200", 'icon': "img_factory_1"}
         data['item'][20003] = {'item_id': 20003, 'name': "鸡蛋", 'icon': "img_factory_2"}
         data['item'][20004] = {'item_id': 20004, 'name': "鸡蛋", 'icon': "img_factory_0"}
         data['item'][20005] = {'item_id': 20005, 'name': "鸡蛋", 'icon': "img_factory_0"}

@@ -135,4 +135,24 @@ def init_eggs(uid):
     return res
 
 
+def gacha_speed_up(uid, item_id):
+    if item_id is None:
+        print "item_id is None"
+        return False
+    config_id = int(item_id.split("_")[0])
+    item_type = config_id / 10000
+
+    if item_type is not 2 or reduce_item(uid, config_id) is not True:
+        return False
+
+    config_model = ConfigModel("config")
+    config_info = config_model.get_config_by_id(config_id)
+    if config_info and config_info.get('type', 0) == "speed":
+        print config_info.get('exp', 0)
+    else:
+        print "config is null", item_id
+  
+    pass
+
+
 
