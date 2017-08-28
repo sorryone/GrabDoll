@@ -44,9 +44,9 @@ class ConfigModel(HashModel):
             config_data_list = self.get_model_info()
             print type(config_data_list)
             print type_value, types[type_value]
-            configs = config_data_list.get(types[type_value], default=False)
+            configs = config_data_list.get(types[type_value], False)
             if configs:
-                return configs.get(config_id, default=False)
+                return configs.get(config_id, False)
         return False
 
 
