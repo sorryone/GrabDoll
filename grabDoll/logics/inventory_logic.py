@@ -151,8 +151,8 @@ def gacha_speed_up(uid, item_id):
         print config_info.get('exp', 0)
     else:
         print "config is null", item_id
-  
-    pass
+
+
 
 
 
