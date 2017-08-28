@@ -28,7 +28,7 @@ def get_inventory_info(uid):
 
 
 def get_config_info():
-    config_model = ConfigModel()
+    config_model = ConfigModel("config")
     return config_model.get_model_info()
 
 
