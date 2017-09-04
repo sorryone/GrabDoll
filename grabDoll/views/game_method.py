@@ -49,7 +49,6 @@ def create_user(request):
 def speed_up(request):
     if request.method == "GET":
         try:
-            print(request.query_params)
             uid = int(request.query_params.get('uid'))
             item_id = request.query_params.get('item_id')
             if item_id is None:
@@ -59,6 +58,22 @@ def speed_up(request):
             return 1, "参数错误"
     try:
         return inventory_logic.gacha_speed_up(uid, item_id)
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def get_debug(request):
+    if request.method == "GET":
+        try:
+            debug_info = int(request.query_params.get('debug'))
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        return debug_info
     except Exception as e:
         print(e)
         return 1, "数据错误"
