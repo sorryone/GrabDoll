@@ -73,7 +73,7 @@ def get_debug(request):
             print(e)
             return 1, "参数错误"
     try:
-        return debug_info
+        return 0, debug_info
     except Exception as e:
         print(e)
         return 1, "数据错误"
