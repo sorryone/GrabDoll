@@ -68,7 +68,7 @@ def speed_up(request):
 def get_debug(request):
     if request.method == "GET":
         try:
-            debug_info = int(request.query_params.get('debug'))
+            debug_info = str(request.query_params.get('debug'))
         except Exception as e:
             print(e)
             return 1, "参数错误"
