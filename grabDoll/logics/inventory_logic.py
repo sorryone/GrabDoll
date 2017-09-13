@@ -40,11 +40,11 @@ def add_item(uid, item_id):
 
 def use_item(uid, item_id):
     if item_id is None:
-        print "item_id is None"
+        print("item_id is None")
         return False
     config_id = int(item_id.split("_")[0])
     item_type = config_id/10000
-    print 'config_id', config_id, 'item_type', item_type
+    print('config_id', config_id, 'item_type', item_type)
 
     # 先判定抓到的娃娃蛋存不存在
     values = {
@@ -87,7 +87,7 @@ def use_item(uid, item_id):
             # 如果是娃娃
             # 如果是Gacha蛋
         return awards
-    print "item  is not exits"
+    print("item  is not exits")
     return False
 
 
@@ -147,8 +147,3 @@ def gacha_speed_up(uid, item_id):
         return 0, exp
     else:
         return 1, "无效的道具"
-
-
-
-
-

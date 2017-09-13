@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.logics import user as user_logic
 from grabDoll.logics import inventory_logic as inventory_logic
-import time
+# import time
 __author__ = 'du_du'
 
 
@@ -12,4 +12,3 @@ def get_game_info(uid):
         'config': inventory_logic.get_config_info(),
     }
     return data
-
