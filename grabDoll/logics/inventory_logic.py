@@ -19,11 +19,10 @@ def get_inventory_info(uid):
     doll_model = DollModel(uid)
     gacha_model = GachaModel(uid)
     book_model = HandBookModel(uid)
-
     cur_time = time.time()
     egg_refresh_time = note_model.get_egg_refresh_time()
     cd = 300
-    if cur_time > egg_refresh_time+cd:
+    if egg_refresh_time is None or cur_time > egg_refresh_time+cd:
         note_model.set_egg_refresh_time(cur_time)
         init_eggs()
 
