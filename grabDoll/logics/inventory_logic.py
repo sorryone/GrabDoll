@@ -8,6 +8,7 @@ from grabDoll.models.gacha_model import GachaModel
 from grabDoll.models.handbook_model import HandBookModel
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.models.note_model import NoteModel
+import random
 import time
 __author__ = 'du_du'
 
@@ -72,30 +73,34 @@ def use_item(uid, item_id):
         gacha_model = GachaModel(uid)
         book_model = HandBookModel(uid)
         user = User(uid)
+        res = dict()
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
                 user.add_gold(ct)
+                res[a_id] = ct
             # 如果是钻石添加钻石
             elif a_id == "diamond":
                 user.add_diamond(ct)
+                res[a_id] = ct
             # 经验
             elif a_id == "exp":
                 user.add_gold(ct)
+                res[a_id] = ct
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:
                 item_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 3:
                 gacha_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 4:
-                doll_model.add_model(a_id, ct)
+                res['doll'] = doll_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 5:
                 book_model.add_model(a_id, ct)
             else:
                 pass
             # 如果是娃娃
             # 如果是Gacha蛋
-        return awards
+        return res
     print("item  is not exits")
     return False
 
@@ -120,6 +125,9 @@ def get_award(item_id):
     ct = 1000
     data = dict()
     data['gold'] = ct
+    doll_id = random.randint(40001, 40008)
+    data[doll_id] = 1
+    print('get_award', data)
     return data
 
 
