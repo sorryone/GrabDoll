@@ -21,7 +21,7 @@ class User(HashModel):
         res = dict()
         key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'lv', 'machineLv', 'curMachineId', 'maxUnLockLv')
         for key in key_info:
-            if type(data) == dict and data.haskey(key):
+            if type(data) == dict and key in data:
                 res[key] = data[key]
             else:
                 res[key] = 0
