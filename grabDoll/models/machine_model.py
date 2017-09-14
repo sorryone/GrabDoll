@@ -6,7 +6,11 @@ __author__ = 'du_du'
 class MachineModel(HashModel):
     # 移除当前娃娃机里的娃娃蛋
     def get_model_info(self):
-        return eval(self.get_all())
+        data = self.get_all()
+        res = dict()
+        for key, value in data:
+            res[key] = eval(value)
+        return res
 
     # 移除当前娃娃机里的娃娃蛋
     def delete_egg(self, item_id):
