@@ -8,10 +8,10 @@ class ConfigModel(HashModel):
     def get_model_info(self):
         data = dict()
         data['egg'] = {}
-        data['egg'][10001] = {'item_id': 10001, 'name': "蓝鸡蛋", 'rad': 1.5, 'icon': "egg_blue"}
-        data['egg'][10002] = {'item_id': 10002, 'name': "绿鸡蛋", 'rad': 1, 'icon': "egg_yellow"}
-        data['egg'][10003] = {'item_id': 10003, 'name': "粉鸡蛋", 'rad': 0.7, 'icon': "egg_pink"}
-        data['egg'][10004] = {'item_id': 10004, 'name': "金币", 'rad': 0.5, 'icon': "egg_coin"}
+        data['egg'][10001] = {'item_id': 10001, 'name': "蓝鸡蛋", 'rad': 0.77, 'icon': "egg_0002", 'clip': "egg_blue"}
+        data['egg'][10002] = {'item_id': 10002, 'name': "绿鸡蛋", 'rad': 0.77, 'icon': "egg_0001", 'clip': "egg_yellow"}
+        data['egg'][10003] = {'item_id': 10003, 'name': "粉鸡蛋", 'rad': 0.77, 'icon': "egg_0003", 'clip': "egg_red"}
+        data['egg'][10004] = {'item_id': 10004, 'name': "金币", 'rad': 0.5, 'icon': "egg_coin", 'clip': "egg_red"}
 
         data['factory'] = {}
         data['factory'][50001] = {'machine_id': 50001, 'lv': 1, 'icon': "img_factory_0", 'itemGroup': [20001, 20002, 20003, 20004]}
@@ -34,6 +34,17 @@ class ConfigModel(HashModel):
         data['item'][20010] = {'item_id': 20010, 'name': "鸡蛋", 'icon': "img_factory_0"}
         data['item'][20011] = {'item_id': 20011, 'name': "鸡蛋", 'icon': "img_factory_0"}
         data['item'][20012] = {'item_id': 20012, 'name': "鸡蛋", 'icon': "img_factory_0"}
+
+        data['config']['doll'] = {}
+        data['config']['doll'][40001] = {'c_id': 40001, 'name': "胖娃娃", 'icon': "img_factory_0", 'clip': "pet_0001"}
+        data['config']['doll'][40002] = {'c_id': 40002, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0002"}
+        data['config']['doll'][40003] = {'c_id': 40003, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0003"}
+        data['config']['doll'][40004] = {'c_id': 40004, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0004"}
+        data['config']['doll'][40005] = {'c_id': 40005, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0005"}
+        data['config']['doll'][40006] = {'c_id': 40006, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0006"}
+        data['config']['doll'][40007] = {'c_id': 40007, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0007"}
+        data['config']['doll'][40008] = {'c_id': 40008, 'name': "白娃娃", 'icon': "img_factory_0", 'clip': "pet_0008"}
+
         return data
 
     def get_config_by_id(self, config_id):
