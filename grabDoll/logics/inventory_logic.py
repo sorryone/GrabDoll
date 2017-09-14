@@ -24,7 +24,7 @@ def get_inventory_info(uid):
     cd = 300
     if egg_refresh_time is None or cur_time > egg_refresh_time+cd:
         note_model.set_egg_refresh_time(cur_time)
-        init_eggs()
+        init_eggs(uid)
 
     data = {
         'items': item_model.get_all(),
