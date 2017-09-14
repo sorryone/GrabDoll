@@ -13,4 +13,8 @@ class NoteModel(HashModel):
     # 获取最近一次刷新娃娃蛋的时间
     def get_egg_refresh_time(self):
         res = self.get_value('egg_refresh')
+        if res is None:
+            res = 0
+        elif type(res) is str:
+            res = float(str)
         return res
