@@ -16,5 +16,5 @@ class NoteModel(HashModel):
         if res is None:
             res = 0
         elif type(res) is str:
-            res = float(str)
+            res = float(res)
         return res
