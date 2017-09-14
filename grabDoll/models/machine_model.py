@@ -8,7 +8,7 @@ class MachineModel(HashModel):
     def get_model_info(self):
         data = self.get_all()
         res = dict()
-        for key, value in data:
+        for key, value in data.items():
             res[key] = eval(value)
         return res
 
