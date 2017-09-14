@@ -7,16 +7,26 @@ from grabDoll.models.doll_model import DollModel
 from grabDoll.models.gacha_model import GachaModel
 from grabDoll.models.handbook_model import HandBookModel
 from grabDoll.models.config_model import ConfigModel
-
+from grabDoll.models.note_model import NoteModel
+import time
 __author__ = 'du_du'
 
 
 def get_inventory_info(uid):
+    note_model = NoteModel(uid)
     item_model = ItemModel(uid)
     mach_model = MachineModel(uid)
     doll_model = DollModel(uid)
     gacha_model = GachaModel(uid)
     book_model = HandBookModel(uid)
+
+    cur_time = time.time()
+    egg_refresh_time = note_model.get_egg_refresh_time()
+    cd = 300
+    if cur_time > egg_refresh_time+cd:
+        note_model.set_egg_refresh_time(cur_time)
+        init_eggs()
+
     data = {
         'items': item_model.get_all(),
         'eggs': mach_model.get_model_info(),
@@ -117,21 +127,26 @@ def get_award(item_id):
 # 初始化娃娃机里的娃娃蛋
 def init_eggs(uid):
     mach = MachineModel(uid)
-    eggs = dict()
-    eggs['10001_1'] = {'id': 10001, 'x': 2, 'y': 50, 'r': 30}
-    eggs['10001_2'] = {'id': 10001, 'x': 3, 'y': 50, 'r': 30}
-    eggs['10001_3'] = {'id': 10001, 'x': 4, 'y': 50, 'r': 30}
-    eggs['10001_4'] = {'id': 10001, 'x': 5, 'y': 50, 'r': 30}
-    eggs['10001_5'] = {'id': 10001, 'x': 6, 'y': 50, 'r': 30}
-
-    res = mach.add_egg_list(eggs)
-    '''
-    eggs = {
-        '10001_1': {'id': 10001, 'x': 2, 'y': 50, 'r': 30},
-    }
-    for egg_id, data in eggs.iteritems():
-        res = mach.add_egg(egg_id, data)
-    '''
+    data = dict()
+    data["10001_1"] = {'id': 10001, 'x': 5, 'y': 20, 'r': 30}
+    data["10001_2"] = {'id': 10001, 'x': 6, 'y': 20, 'r': 30}
+    data["10001_3"] = {'id': 10001, 'x': 5, 'y': 25, 'r': 30}
+    data["10001_4"] = {'id': 10001, 'x': 4, 'y': 20, 'r': 30}
+    data["10001_5"] = {'id': 10001, 'x': 5, 'y': 20, 'r': 30}
+    data["10001_6"] = {'id': 10001, 'x': 9, 'y': 25, 'r': 30}
+    data["10001_7"] = {'id': 10001, 'x': 5, 'y': 21, 'r': 30}
+    data["10001_8"] = {'id': 10001, 'x': 6, 'y': 22, 'r': 30}
+    data["10001_9"] = {'id': 10001, 'x': 6, 'y': 20, 'r': 30}
+    data["10001_10"] = {'id': 10001, 'x': 5, 'y': 25, 'r': 30}
+    data["10002_1"] = {'id': 10002, 'x': 4, 'y': 22, 'r': 0}
+    data["10002_2"] = {'id': 10002, 'x': 5, 'y': 30, 'r': 30}
+    data["10002_3"] = {'id': 10002, 'x': 5, 'y': 30, 'r': 30}
+    data["10002_4"] = {'id': 10002, 'x': 7, 'y': 20, 'r': 30}
+    data["10003_1"] = {'id': 10003, 'x': 5, 'y': 25, 'r': 0}
+    data["10003_2"] = {'id': 10003, 'x': 5, 'y': 25, 'r': 0}
+    data["10003_3"] = {'id': 10003, 'x': 7, 'y': 20, 'r': 0}
+    data["10003_4"] = {'id': 10003, 'x': 6, 'y': 30, 'r': 0}
+    res = mach.add_egg_list(data)
     return res
 
 

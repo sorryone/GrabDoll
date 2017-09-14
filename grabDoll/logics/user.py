@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.user import User
-__author__ = 'maxijie'
+from grabDoll.models.note_model import NoteModel
+__author__ = 'du_du'
 
 
 def set_userinfo(uid, data):
@@ -44,3 +45,8 @@ def get_user_info(uid):
 
     u = User(uid)
     return u.get_model_info()
+
+
+def get_egg_refresh_time(uid):
+    note = NoteModel(uid)
+    return note.get_egg_refresh_time()
