@@ -43,4 +43,4 @@ def get_user_info(uid):
         return False
 
     u = User(uid)
-    return u.get_all()
+    return u.get_model_info()
