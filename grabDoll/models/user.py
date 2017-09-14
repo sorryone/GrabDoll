@@ -19,13 +19,10 @@ class User(HashModel):
     def get_model_info(self):
         data = self.get_all()
         res = dict()
-        res['uid'] = data['uid']
-        res['name'] = data['name']
-        res['gold'] = data['gold']
-        res['diamond'] = data['diamond']
-        res['exp'] = data['exp']
-        res['lv'] = data['lv']
-        res['machineLv'] = data['machineLv']
-        res['curMachineId'] = data['curMachineId']
-        res['maxUnLockLv'] = data['maxUnLockLv']
+        key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'lv', 'machineLv', 'curMachineId', 'maxUnLockLv')
+        for key in key_info:
+            if type(data) == dict and data.haskey(key):
+                res[key] = data[key]
+            else:
+                res[key] = 0
         return res
