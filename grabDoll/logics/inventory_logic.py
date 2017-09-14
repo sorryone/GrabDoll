@@ -126,6 +126,7 @@ def get_award(item_id):
 # 初始化娃娃机里的娃娃蛋
 def init_eggs(uid):
     mach = MachineModel(uid)
+    mach.delete()
     data = dict()
     data["10001_1"] = {'id': 10001, 'x': 5, 'y': 20, 'r': 30}
     data["10001_2"] = {'id': 10001, 'x': 6, 'y': 20, 'r': 30}
