@@ -13,10 +13,15 @@ class DollModel(HashModel):
         doll = self.get_value(item_id)
         if doll is None:
             data = {'doll_id': item_id, 'exp': 0, 'lv': 1, 'state': 0}
+            res = self.set_value(item_id, data)
+            data['type'] = 'new'
         else:
             data = eval(doll)
-            data['exp'] += 100
-        res = self.set_value(item_id, data)
+            exp = 100;
+            data['exp'] += exp
+            res = self.set_value(item_id, data)
+            data['type'] = 'exp'
+            data['add_exp'] = exp
         print('add_model result', res)
         if res is not False:
             return data
