@@ -93,7 +93,7 @@ def use_item(uid, item_id):
             elif int(a_id)/10000 == 3:
                 gacha_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 4:
-                res['doll'] = doll_model.add_model(a_id, ct)
+                res['doll'] = doll_model.add_model(a_id)
             elif int(a_id)/10000 == 5:
                 book_model.add_model(a_id, ct)
             else:
