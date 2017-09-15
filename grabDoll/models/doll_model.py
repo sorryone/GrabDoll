@@ -17,7 +17,7 @@ class DollModel(HashModel):
             data['type'] = 'new'
         else:
             data = eval(doll)
-            exp = 100;
+            exp = 100
             data['exp'] += exp
             res = self.set_value(item_id, data)
             data['type'] = 'exp'
