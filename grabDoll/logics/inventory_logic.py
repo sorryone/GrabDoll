@@ -38,8 +38,11 @@ def get_inventory_info(uid):
 
 
 def get_config_info():
-    config_model = ConfigModel("config")
-    return config_model.get_model_info()
+    config_group = ('egg', 'item', 'gacha', 'doll', 'machine', 'book')
+    data = dict()
+    for config_name in config_group:
+        data[config_name] = ConfigModel(config_name).get_model_info()
+    return data
 
 
 def add_item(uid, item_id):
