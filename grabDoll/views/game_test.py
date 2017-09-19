@@ -11,7 +11,6 @@ from grabDoll.logics import platform_logic as platform_logic
 def get_info(request):
     if request.method == "GET":
         try:
-            print(request.query_params)
             openid = request.query_params.get('openid')
             openkey = request.query_params.get('openkey')
         except Exception as e:

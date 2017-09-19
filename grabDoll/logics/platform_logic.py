@@ -5,13 +5,12 @@ __author__ = 'du_du'
 
 appid = 1106423014
 appkey = 'PSqsIO5GwAu4wUL4'
-iplist = ('172.27.0.91',)
+iplist = ('openapi.sparta.html5.qq.com',)
 
 
 def get_info(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
-
     j_data = api.call('/v3/user/get_info', {
         'pf': pf,
         'openid': openid,
@@ -23,7 +22,6 @@ def get_info(openid, openkey):
 def is_setup(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
-
     j_data = api.call('/v3/user/is_setup', {
         'pf': pf,
         'openid': openid,
