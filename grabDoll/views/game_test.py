@@ -12,7 +12,7 @@ def get_info(request):
     if request.method == "GET":
         try:
             print(request.query_params)
-            openid = int(request.query_params.get('openid'))
+            openid = request.query_params.get('openid')
             openkey = request.query_params.get('openkey')
         except Exception as e:
             print(e)
