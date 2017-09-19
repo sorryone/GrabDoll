@@ -63,8 +63,7 @@ class OpenAPIV3(object):
         try:
             data = self._api.open(method, url_path, cp_params, protocol)
         except Exception, e:
-            msg = 'exception occur.msg[%s], traceback[%s]' %
-                  (str(e), __import__('traceback').format_exc())
+            msg = 'exception occur.msg[%s], traceback[%s]' % (str(e), __import__('traceback').format_exc())
             return {'ret':OPEN_HTTP_TRANSLATE_ERROR, 'msg':msg}
         else:
             return json.loads(data)
@@ -72,7 +71,6 @@ class OpenAPIV3(object):
         finally:
             if self._is_stat is True:
                 stat_jret = json.loads(data)
-
                 stat_params={}
                 stat_params['appid'] = cp_params['appid']
                 stat_params['pf'] = cp_params['pf']
