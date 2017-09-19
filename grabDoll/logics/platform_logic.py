@@ -9,6 +9,8 @@ iplist = ('openapi.sparta.html5.qq.com',)
 
 
 def get_info(openid, openkey):
+    print('openid', openid)
+    print('openkey', openkey)
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
     j_data = api.call('/v3/user/get_info', {
