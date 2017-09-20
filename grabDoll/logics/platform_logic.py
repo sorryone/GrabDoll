@@ -24,11 +24,17 @@ def get_user_info_by_platform(openid, openkey):
         print("a new user enter game")
         # 记录新用户的注册时间
         res['create_time'] = time.time()
-    res['data'] = user_info['data']
+    canshu_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
+    for canshu in canshu_group:
+        if canshu in user_info:
+            res[canshu] = user_info[canshu]
     res['login_time'] = time.time()
+    print("PlatformModel")
+    print(openid)
+    print(res)
     model = PlatformModel(openid)
     model.set_values(res)
-    print res
+    print('return value')
     return res
 
 
