@@ -13,6 +13,10 @@ iplist = ('openapi.sparta.html5.qq.com',)
 def get_user_info_by_platform(openid, openkey):
     set_up_info = is_setup(openid, openkey)
     user_info = get_info(openid, openkey)
+    print('type set_up', type(set_up_info))
+    print(set_up_info)
+    print('type user', type(user_info))
+    print(user_info)
     set_data = eval(set_up_info)
     user_data = eval(user_info)
     if set_data['ret'] != 0 or user_info['ret'] != 0:
