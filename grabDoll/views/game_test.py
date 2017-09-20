@@ -17,7 +17,7 @@ def get_info(request):
             print(e)
             return 1, "参数错误"
     try:
-        data = platform_logic.get_info(openid, openkey)
+        data = platform_logic.get_user_info_by_platform(openid, openkey)
         return 0, data
     except Exception as e:
         print(e)
