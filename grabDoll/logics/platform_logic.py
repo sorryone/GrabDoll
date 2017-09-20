@@ -13,21 +13,18 @@ iplist = ('openapi.sparta.html5.qq.com',)
 def get_user_info_by_platform(openid, openkey):
     set_up_info = is_setup(openid, openkey)
     user_info = get_info(openid, openkey)
-    print('type set_up', type(set_up_info))
-    print(set_up_info)
-    print('type user', type(user_info))
-    print(user_info)
-    set_data = eval(set_up_info)
-    user_data = eval(user_info)
-    if set_data['ret'] != 0 or user_info['ret'] != 0:
+    if type(set_up_info) is str or type(set_up_info) is object:
+        set_up_info = eval(set_up_info)
+    if type(user_info) is str or type(user_info) is object:
+        user_info = eval(user_info)
+    if set_up_info['ret'] != 0 or user_info['ret'] != 0:
         return False
-
     res = dict()
-    if set_data['setuped'] == 1:
+    if set_up_info['setuped'] == 1:
         print("a new user enter game")
         # 记录新用户的注册时间
         res['create_time'] = time.time()
-    res['data'] = user_data['data']
+    res['data'] = user_info['data']
     res['login_time'] = time.time()
     model = PlatformModel(openid)
     model.set_values(res)
