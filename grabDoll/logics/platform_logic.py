@@ -9,9 +9,6 @@ iplist = ('openapi.sparta.html5.qq.com',)
 
 
 def get_info(openid, openkey):
-
-    openid = '000000000000000000000000199B6A55'
-    openkey = '84BAEDACC5B512FE914C8192E5DC591A'
     print('openid', openid)
     print('openkey', openkey)
     api = OpenAPIV3(appid, appkey, iplist)
