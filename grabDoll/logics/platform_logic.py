@@ -28,8 +28,8 @@ def get_user_info_by_platform(openid, openkey):
     res['login_time'] = time.time()
     model = PlatformModel(openid)
     model.set_values(res)
-    print(res)
-    return True
+    print res
+    return res
 
 
 def get_info(openid, openkey):
