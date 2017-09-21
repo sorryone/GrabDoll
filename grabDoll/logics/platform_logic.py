@@ -19,6 +19,10 @@ def get_user_info_by_platform(openid, openkey):
         user_info = eval(user_info)
     if set_up_info['ret'] != 0 or user_info['ret'] != 0:
         return False
+
+    print("Start Dict")
+    print(set_up_info)
+    print(user_info)
     res = dict()
     if set_up_info['setuped'] == 1:
         print("a new user enter game")
@@ -29,8 +33,6 @@ def get_user_info_by_platform(openid, openkey):
         if canshu in user_info:
             res[canshu] = user_info[canshu]
     res['login_time'] = time.time()
-    print("PlatformModel")
-    print(openid)
     print(res)
     model = PlatformModel(openid)
     model.set_values(res)
