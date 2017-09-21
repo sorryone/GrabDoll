@@ -3,6 +3,7 @@ import json
 import time
 from lib.platform.tencent_sdk_302.openapi_v3 import OpenAPIV3
 from grabDoll.models.platform_model import PlatformModel
+from grabDoll.models.user import User
 __author__ = 'du_du'
 
 appid = 1106423014
@@ -28,6 +29,17 @@ def get_user_info_by_platform(openid, openkey):
         print("a new user enter game")
         # 记录新用户的注册时间
         res['create_time'] = time.time()
+        # 创建新用户
+        data = {
+            'gold': 1000,
+            'diamond': 100,
+            'uid': openid,
+            'exp': 0,
+            'lv': 1,
+        }
+        u = User(openid)
+        res = u.set_values(data)
+
     canshu_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
     for canshu in canshu_group:
         if canshu in user_info:
