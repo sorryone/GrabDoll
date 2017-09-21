@@ -35,12 +35,13 @@ def get_user(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
+            open_key = request.query_params.get('openkey')
         except Exception as e:
             print(e)
             return 1, "参数错误"
 
     try:
-        data = game_logic.get_game_info(uid)
+        data = game_logic.get_game_info(uid, open_key)
         return 0, data
     except Exception as e:
         print(e)

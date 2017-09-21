@@ -13,7 +13,7 @@ def grab_egg(request):
     if request.method == "GET":
         try:
             print(request.query_params)
-            uid = int(request.query_params.get('uid'))
+            uid = request.query_params.get('uid')
             item_id = request.query_params.get('item_id')
         except Exception as e:
             print(e)
@@ -32,7 +32,7 @@ def create_user(request):
     if request.method == "GET":
         try:
             print(request.query_params)
-            uid = int(request.query_params.get('uid'))
+            uid = request.query_params.get('uid')
         except Exception as e:
             print(e)
             return 1, "参数错误"
@@ -49,7 +49,7 @@ def create_user(request):
 def speed_up(request):
     if request.method == "GET":
         try:
-            uid = int(request.query_params.get('uid'))
+            uid = request.query_params.get('uid')
             item_id = request.query_params.get('item_id')
             if item_id is None:
                 return 1, "未知的道具"
