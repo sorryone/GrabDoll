@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-__author__ = 'maxijie'
 
 import json
 from lib.djhelper.api_view import api_render, api_view, api_result
 from grabDoll.logics import user as user_logic
 from grabDoll.logics import game_logic as game_logic
+__author__ = 'maxijie'
+
 
 @api_view(["GET"])
 @api_result
@@ -33,8 +34,7 @@ def set_user(request):
 def get_user(request):
     if request.method == "GET":
         try:
-            print(request.query_params)
-            uid = int(request.query_params.get('uid'))
+            uid = request.query_params.get('uid')
         except Exception as e:
             print(e)
             return 1, "参数错误"
