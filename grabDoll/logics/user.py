@@ -41,9 +41,18 @@ def add_awards(uid, data):
 
 def get_user_info(uid):
     if User.get(uid) is None:
-        return False
-
-    u = User(uid)
+        # 创建新用户
+        data = {
+            'gold': 1000,
+            'diamond': 100,
+            'uid': uid,
+            'exp': 0,
+            'lv': 1,
+        }
+        u = User(uid)
+        res = u.set_values(data)
+    else:
+        u = User(uid)
     return u.get_model_info()
 
 

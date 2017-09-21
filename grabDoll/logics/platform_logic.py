@@ -29,16 +29,6 @@ def get_user_info_by_platform(openid, openkey):
         print("a new user enter game")
         # 记录新用户的注册时间
         res['create_time'] = time.time()
-        # 创建新用户
-        data = {
-            'gold': 1000,
-            'diamond': 100,
-            'uid': openid,
-            'exp': 0,
-            'lv': 1,
-        }
-        u = User(openid)
-        res = u.set_values(data)
 
     canshu_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
     for canshu in canshu_group:
