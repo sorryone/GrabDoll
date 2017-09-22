@@ -6,8 +6,8 @@ from grabDoll.models.platform_model import PlatformModel
 from grabDoll.models.user import User
 __author__ = 'du_du'
 
-appid = 1106423014
-appkey = 'PSqsIO5GwAu4wUL4'
+appid = 1106233605
+appkey = 'STwl4MAK67bcemOd'
 iplist = ('openapi.sparta.html5.qq.com',)
 
 
