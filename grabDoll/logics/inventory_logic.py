@@ -19,21 +19,20 @@ def get_inventory_info(uid):
     gacha_model = GachaModel(uid)
     book_model = HandBookModel(uid)
 
-    data = {
+    return {
         'items': item_model.get_all(),
         'gacha': gacha_model.get_model_info(),
         'dolls': doll_model.get_model_info(),
         'book': book_model.get_model_info(),
     }
-    return data
 
 
 def get_config_info():
     config_group = ('egg', 'item', 'gacha', 'doll', 'machine', 'book')
-    data = dict()
+    config_data = dict()
     for config_name in config_group:
-        data[config_name] = ConfigModel(config_name).get_model_info()
-    return data
+        config_data[config_name] = ConfigModel(config_name).get_model_info()
+    return config_data
 
 
 def add_item(uid, item_id):
