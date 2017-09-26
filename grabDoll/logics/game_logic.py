@@ -12,7 +12,7 @@ def get_game_info(uid, open_key):
     platform_info = platform_logic.get_user_info_by_platform(uid, open_key)
     if platform_info is False:
         return False
-    data = {
+    res_data = {
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
         'inventory': inventory_logic.get_inventory_info(uid),
@@ -20,7 +20,7 @@ def get_game_info(uid, open_key):
         'machine': machine_logic.get_machine_info(uid),
         'note': machine_logic.get_note_info(uid),
     }
-    return data
+    return res_data
 
 
 

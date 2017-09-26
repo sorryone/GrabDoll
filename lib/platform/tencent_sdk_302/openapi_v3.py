@@ -64,14 +64,14 @@ class OpenAPIV3(object):
             data = self._api.open(method, url_path, cp_params, protocol)
         except Exception, e:
             msg = 'exception occur.msg[%s], traceback[%s]' % (str(e), __import__('traceback').format_exc())
-            return {'ret':OPEN_HTTP_TRANSLATE_ERROR, 'msg':msg}
+            return {'ret':OPEN_HTTP_TRANSLATE_ERROR, 'msg': msg}
         else:
             return json.loads(data)
 
         finally:
             if self._is_stat is True:
                 stat_jret = json.loads(data)
-                stat_params={}
+                stat_params = {}
                 stat_params['appid'] = cp_params['appid']
                 stat_params['pf'] = cp_params['pf']
                 stat_params['svr_name'] = self._api._iplist
@@ -86,39 +86,12 @@ class OpenAPIV3(object):
 
                 self._statapi.statReport(self._staturl, stat_startime, stat_params)
 
-
     def verify_pay_callback_sig(self, method, url_path, params):
         """
         验证回调发货的签名. True or False
         """
         return pay_helper.verify_pay_callback_sig(self._appkey, method, url_path, params)
 
-
     def set_is_stat(self, is_stat = True):
         self._is_stat = is_stat
 
-
-
-
-def main():
-    appid = 600
-    appkey = 'your appkey'
-    iplist = ('172.27.0.91',)
-
-    openid = '0000000000000000000000000039811C'
-    openkey = 'EC88754BBE1ADC64A93EB4432514B84B0CC019F3A2759C8C8'
-
-    pf = 'qzone'
-
-    api = OpenAPIV3(appid, appkey, iplist)
-
-    jdata = api.call('/v3/user/get_info', {
-        'pf': pf,
-        'openid': openid,
-        'openkey': openkey
-    })
-    print jdata
-
-
-if __name__ == '__main__':
-    main()
