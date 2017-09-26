@@ -17,8 +17,8 @@ def get_game_info(uid, open_key):
         'userInfo': user_logic.get_user_info(uid),
         'inventory': inventory_logic.get_inventory_info(uid),
         'config': inventory_logic.get_config_info(),
-        'machine': machine_logic.get_machine_info(),
-        'note': machine_logic.get_note_info()
+        'machine': machine_logic.get_machine_info(uid),
+        'note': machine_logic.get_note_info(uid),
     }
     return data
 

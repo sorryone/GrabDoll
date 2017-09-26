@@ -9,16 +9,13 @@ __author__ = 'du_du'
 
 
 def get_machine_info(uid):
-    note_model = NoteModel(uid)
     mach_model = MachineModel(uid)
-    data = mach_model.get_model_info()
-    return data
+    return mach_model.get_model_info()
 
 
 def get_note_info(uid):
     note_model = NoteModel(uid)
-    data = note_model.get_model_info()
-    return data
+    return note_model.get_model_info()
 
 
 def switch_machine(uid, machine_id):
