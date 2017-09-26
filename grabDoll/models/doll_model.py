@@ -7,6 +7,9 @@ class DollModel(HashModel):
     def get_model_info(self):
         return self.get_all()
 
+    def get_doll_keys(self):
+        return self.get_keys()
+
     # 增加娃娃
     def add_model(self, item_id):
         # 娃娃的数据格式{'doll_id':40001,'exp':100,'lv':1,'state':0}

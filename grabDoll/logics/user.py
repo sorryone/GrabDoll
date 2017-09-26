@@ -55,7 +55,3 @@ def get_user_info(uid):
         u = User(uid)
     return u.get_model_info()
 
-
-def get_egg_refresh_time(uid):
-    note = NoteModel(uid)
-    return note.get_egg_refresh_time()

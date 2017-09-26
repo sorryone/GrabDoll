@@ -5,7 +5,8 @@ import json
 from lib.djhelper.api_view import api_render, api_view, api_result
 from grabDoll.logics import user as user_logic
 from grabDoll.logics import inventory_logic as inventory_logic
-
+from grabDoll.logics import game_logic as game_logic
+from grabDoll.logics import machine_logic as machine_logic
 
 @api_view(["GET"])
 @api_result
@@ -28,16 +29,17 @@ def grab_egg(request):
 
 @api_view(["GET"])
 @api_result
-def create_user(request):
+def switch_machine(request):
     if request.method == "GET":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
+            machine = request.query_params.get('machine')
         except Exception as e:
             print(e)
             return 1, "参数错误"
     try:
-        data = user_logic.create_user(uid)
+        data = machine_logic.switch_machine(uid, machine)
         return 0, data
     except Exception as e:
         print(e)
