@@ -21,7 +21,7 @@ def get_note_info(uid):
 def switch_machine(uid, machine_id):
     note_model = NoteModel(uid)
     # 需要判定 machine_id 是否可以切换  防止信息诈骗
-    if book_logic.check_book_unlock(machine_id):
+    if book_logic.check_book_unlock(uid, machine_id):
         return note_model.set_cur_machine(machine_id)
     return False
 
@@ -51,3 +51,6 @@ def reset_machine_egg_info(uid, mach_id):
         data[str(mach_id) + '_' + str(index)] = {'id': random.choice(eggs), 'x': random.choice(rand_x), 'y': random.choice(rand_y), 'r': 30}
     res = mach.add_egg_list(data)
     return res
+
+
+# print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50002)
