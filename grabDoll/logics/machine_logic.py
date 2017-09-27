@@ -129,5 +129,5 @@ def reset_machine_egg_info(uid, mach_id):
 
 if __name__ == "__main__":
     # print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50002)
-    # print grab_egg('ED57884CAA078DF9E0E08750D98CA834', '50001_18')
-    print refresh_model_info('ED57884CAA078DF9E0E08750D98CA834')
+    print grab_egg('ED57884CAA078DF9E0E08750D98CA834', '50001_3')
+    # print refresh_model_info('ED57884CAA078DF9E0E08750D98CA834')

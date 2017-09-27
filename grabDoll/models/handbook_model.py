@@ -14,7 +14,7 @@ class HandBookModel(HashModel):
             cur_exp = res.get('exp', 0)
         else:
             res = dict()
-            cur_exp = 0;
+            cur_exp = 0
         res['exp'] = cur_exp + num
         return self.set_value(book_id, res)
 
@@ -30,14 +30,11 @@ class HandBookModel(HashModel):
         # 50001 不需要解锁
         if book_id == 50001:
             return True
-        res = self.get_book_info_by_id(book_id)
-        if res is not False:
-            return res.get('unlock', False)
-        return False
+        return self.has_key(book_id)
 
     # 解锁图鉴
     def unlock_book(self, book_id):
-        res = self.set_value(book_id, {'unlock': False})
+        res = self.set_value(book_id, {'exp': 0})
         return res
 
     # 获取当前图鉴的信息
