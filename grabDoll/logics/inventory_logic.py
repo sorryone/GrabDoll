@@ -55,7 +55,9 @@ def use_item(uid, item_id):
         2: reduce_item,
         3: reduce_gacha,
     }
-
+    # 如果不是应该有的类型直接返回错误
+    if item_type not in values:
+        return False
     del_res = values.get(item_type)(uid, item_id)
     # 存在的话删除掉
     if del_res:
@@ -136,3 +138,6 @@ def gacha_speed_up(uid, item_id):
         return 0, exp
     else:
         return 1, "无效的道具"
+
+
+use_item('ED57884CAA078DF9E0E08750D98CA834','50001_17')
