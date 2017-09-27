@@ -48,7 +48,7 @@ def reset_machine_egg_info(uid, mach_id):
     mach = MachineModel(uid)
     # mach.delete() 旧数据删除大可不必  只要数量相同就会被覆盖
     data = dict()
-    eggs = [10001, 10002, 10003, 10004, 10005, 10006, 10007, 10008]
+    eggs = [10001, 10002, 10003, 10004]
     rand_x = [5, 6, 7, 8, 9]
     rand_y = [20, 21, 22, 23, 24, 25]
     for index in range(20):
