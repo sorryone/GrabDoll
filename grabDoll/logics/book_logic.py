@@ -19,10 +19,7 @@ def refresh_lock(uid, machine_id):
         config_doll_group = config_doll_group.split(',')
         config_dolls = [str(i) for i in config_doll_group]
         doll_model = DollModel(uid)
-        doll_keys = doll_model.get_keys()
-        # doll_keys.extend([40009, 40012, 40003, 40004])
-        my_doll_keys = [str(i) for i in doll_keys]
-        my_doll_group = set(my_doll_keys)
+        my_doll_group = doll_model.get_doll_group()
         config_doll_group = set(config_dolls)
         # my_doll_group >= config_doll_group
         if my_doll_group.issuperset(config_doll_group) and cur_exp > config_exp:

@@ -103,7 +103,6 @@ def refresh_model_info(uid):
     if mach_id is None:
         mach_id = 50001
         note_model.set_cur_machine(mach_id)
-        print('set_cur_machine', mach_id)
     my_egg_group = mach_model.get_egg_group(mach_id)
     if my_egg_group.__len__() > 0:
         return

@@ -10,6 +10,11 @@ class DollModel(HashModel):
     def get_doll_keys(self):
         return self.get_keys()
 
+    def get_doll_group(self):
+        doll_keys = self.get_keys()
+        my_doll_keys = [str(i) for i in doll_keys]
+        return set(my_doll_keys)
+
     # 增加娃娃
     def add_model(self, item_id):
         # 娃娃的数据格式{'doll_id':40001,'exp':100,'lv':1,'state':0}
