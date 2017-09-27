@@ -83,7 +83,7 @@ def grab_egg(uid, key_id):
 
 # 查看奖励
 def get_award(item_id):
-    ct = 1000
+    ct = 2
     data = dict()
     data['gold'] = ct
     doll_id = random.randint(40001, 40008)
