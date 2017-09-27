@@ -124,4 +124,4 @@ def reset_machine_egg_info(uid, mach_id):
 
 
 # print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50002)
-print grab_egg('ED57884CAA078DF9E0E08750D98CA834', '50001_18')
+# print grab_egg('ED57884CAA078DF9E0E08750D98CA834', '50001_18')
