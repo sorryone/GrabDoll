@@ -9,6 +9,7 @@ __author__ = 'du_du'
 
 
 def get_machine_info(uid):
+    refresh_model_info(uid)
     mach_model = MachineModel(uid)
     return mach_model.get_model_info()
 
@@ -32,6 +33,9 @@ def refresh_model_info(uid):
     cur_time = time.time()
     # 获取当前的机器号
     mach_id = note_model.get_cur_machine()
+    # 如果没有记录 是个新手的话 设置默认的机器
+    if mach_id is None:
+        mach_id = 50001
     egg_refresh_time = note_model.get_machine_create_time(mach_id)
     cd = 300
     if egg_refresh_time is None or cur_time > egg_refresh_time + cd:
