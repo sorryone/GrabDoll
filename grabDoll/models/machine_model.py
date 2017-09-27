@@ -12,6 +12,13 @@ class MachineModel(HashModel):
             res[key] = eval(value)
         return res
 
+    def get_egg_group(self, mach_id):
+        mach_keys = self.get_keys()
+        mach_id = str(mach_id)
+        str_keys = [str(i) for i in mach_keys if i.split('_')[0] == str(mach_id)]
+        my_egg_group = set(str_keys)
+        return my_egg_group
+
     # 移除当前娃娃机里的娃娃蛋
     def delete_egg(self, item_id):
         res = self.pop(item_id)

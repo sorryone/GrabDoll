@@ -95,6 +95,7 @@ def get_award(item_id):
 # 根据时间自动刷新娃娃蛋
 def refresh_model_info(uid):
     note_model = NoteModel(uid)
+    mach_model = MachineModel(uid)
     cur_time = time.time()
     # 获取当前的机器号
     mach_id = note_model.get_cur_machine()
@@ -102,6 +103,10 @@ def refresh_model_info(uid):
     if mach_id is None:
         mach_id = 50001
         note_model.set_cur_machine(mach_id)
+        print('set_cur_machine', mach_id)
+    my_egg_group = mach_model.get_egg_group(mach_id)
+    if my_egg_group.__len__() > 0:
+        return
     egg_refresh_time = note_model.get_machine_create_time(mach_id)
     cd = 300
     if egg_refresh_time is None or cur_time > egg_refresh_time + cd:
@@ -122,6 +127,7 @@ def reset_machine_egg_info(uid, mach_id):
     res = mach.add_egg_list(data)
     return res
 
-
-# print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50002)
-# print grab_egg('ED57884CAA078DF9E0E08750D98CA834', '50001_18')
+if __name__ == "__main__":
+    # print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50002)
+    # print grab_egg('ED57884CAA078DF9E0E08750D98CA834', '50001_18')
+    print refresh_model_info('ED57884CAA078DF9E0E08750D98CA834')
