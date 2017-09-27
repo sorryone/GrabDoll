@@ -12,9 +12,11 @@ class HandBookModel(HashModel):
         res = self.get_book_info_by_id(book_id)
         if res is not False:
             cur_exp = res.get('exp', 0)
-            res['exp'] = cur_exp + num
-            self.set_value(res)
-        return False
+        else:
+            res = dict()
+            cur_exp = 0;
+        res['exp'] = cur_exp + num
+        return self.set_value(book_id, res)
 
     # 获得当前图鉴的经验
     def get_book_exp(self, book_id):

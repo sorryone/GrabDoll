@@ -20,7 +20,7 @@ def grab_egg(request):
             print(e)
             return 1, "参数错误"
     try:
-        data = inventory_logic.use_item(uid, item_id)
+        data = machine_logic.grab_egg(uid, item_id)
         return 0, data
     except Exception as e:
         print(e)

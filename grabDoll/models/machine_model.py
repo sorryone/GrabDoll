@@ -17,9 +17,12 @@ class MachineModel(HashModel):
         res = self.pop(item_id)
         return res
 
-    def add_egg(self, data):
-        res = self.set_values(data)
-        return res
+    def get_egg_info(self, item_id):
+        res = self.get_value(item_id)
+        try:
+            return eval(res)
+        except TypeError:
+            return False
 
     def add_egg_list(self, data):
         res = self.set_values(data)
