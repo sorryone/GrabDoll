@@ -23,6 +23,11 @@ def get_note_info(uid):
     return note_model.get_model_info()
 
 
+def get_book_info(uid):
+    model = HandBookModel(uid)
+    return model.get_model_info()
+
+
 def switch_machine(uid, machine_id):
     note_model = NoteModel(uid)
     # 需要判定 machine_id 是否可以切换  防止信息诈骗
