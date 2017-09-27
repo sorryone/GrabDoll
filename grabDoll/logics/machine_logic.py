@@ -76,6 +76,7 @@ def grab_egg(uid, key_id):
         # 图鉴加经验
         note_model = NoteModel(uid)
         res['book_exp'] = book_model.add_book_exp(note_model.get_cur_machine(), 1)
+        book_logic.refresh_lock(uid, note_model.get_cur_machine())
         return res
     print("item  is not exits")
     return False
