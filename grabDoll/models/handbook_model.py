@@ -35,6 +35,8 @@ class HandBookModel(HashModel):
     # 解锁图鉴
     def unlock_book(self, book_id):
         res = self.set_value(book_id, {'exp': 0})
+        if res == 0 or res is not False:
+            return True
         return res
 
     # 获取当前图鉴的信息

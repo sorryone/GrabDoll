@@ -81,7 +81,9 @@ def grab_egg(uid, key_id):
         # 图鉴加经验
         note_model = NoteModel(uid)
         res['book_exp'] = book_model.add_book_exp(note_model.get_cur_machine(), 1)
-        book_logic.refresh_lock(uid, note_model.get_cur_machine())
+        unlock_next_book = book_logic.refresh_lock(uid, note_model.get_cur_machine())
+        if unlock_next_book:
+            res['egg'] = reset_machine_egg_info(uid, unlock_next_book)
         return res
     print("item  is not exits")
     return False
@@ -116,7 +118,7 @@ def refresh_model_info(uid):
     cd = 300
     if egg_refresh_time is None or cur_time > egg_refresh_time + cd:
         note_model.set_machine_create_time(mach_id)
-        reset_machine_egg_info(uid, mach_id)
+        return reset_machine_egg_info(uid, mach_id)
 
 
 # 重置娃娃机里的娃娃蛋

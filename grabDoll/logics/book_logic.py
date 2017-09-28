@@ -26,7 +26,8 @@ def refresh_lock(uid, machine_id):
         config_doll_group = set(config_dolls)
         # my_doll_group >= config_doll_group
         if my_doll_group.issuperset(config_doll_group) and cur_exp > config_exp:
-            return book.unlock_book(next_book_id)
+            if book.unlock_book(next_book_id):
+                return next_book_id
     return False
 
 
