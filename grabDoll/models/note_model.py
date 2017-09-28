@@ -17,7 +17,9 @@ class NoteModel(HashModel):
 
     def set_cur_machine(self, machine_id):
         res = self.set_value('cur_machine', machine_id)
-        return res
+        if res == 0 or res is not False:
+            return True
+        return False
 
     def get_machine_create_time(self, machine_id):
         res = self.get_value('machine_refresh_' + str(machine_id))
