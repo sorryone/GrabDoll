@@ -7,19 +7,12 @@ __author__ = 'du_du'
 
 # 我的好友列表信息
 def get_my_friend_info(uid):
-    return {
-        'friend': get_my_friend_info2(uid)
-    }
-
-
-# 我的好友列表信息
-def get_my_friend_info2(uid):
     model = FriendModel(uid)
     data = model.get_model_info()
     for f_id in data:
         p_model = PlatformModel(f_id)
         u_model = UserModel(f_id)
-        data[f_id]['name'] = p_model.get_value('nickname')
+        # data[f_id]['name'] = p_model.get_value('nickname')
         data[f_id]['figureurl'] = p_model.get_value('figureurl')
         data[f_id]['lv'] = u_model.get_value('lv')
     return data
