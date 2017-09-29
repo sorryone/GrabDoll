@@ -8,7 +8,7 @@ __author__ = 'du_du'
 # 我的好友列表信息
 def get_my_friend_info(uid):
     return {
-        'friend': get_my_friend_info(uid)
+        'friend': get_my_friend_info2(uid)
     }
 
 
