@@ -17,15 +17,15 @@ urlpatterns = patterns("",
                        # 测试用户的平台信息
                        url(r'^get_info', 'grabDoll.views.game_test.get_info'),
                        # 获取好友信息
-                       url(r'^get_my_friend_info', 'grabDoll.views.game_method.get_my_friend_info'),
+                       url(r'^get_my_friend_info', 'grabDoll.views.friend_method.get_my_friend_info'),
                        # 进入好友家
-                       url(r'^enter_friend_home', 'grabDoll.views.game_method.enter_friend_home'),
+                       url(r'^enter_friend_home', 'grabDoll.views.friend_method.enter_friend_home'),
                        # 申请成为好友
-                       url(r'^add_friend', 'grabDoll.views.game_method.add_friend'),
+                       url(r'^add_friend', 'grabDoll.views.friend_method.add_friend'),
                        # 接受好友请求
-                       url(r'^accept_friend', 'grabDoll.views.game_method.accept_friend'),
+                       url(r'^accept_friend', 'grabDoll.views.friend_method.accept_friend'),
                        # 拒绝好友请求
-                       url(r'^refuse_friend', 'grabDoll.views.game_method.refuse_friend'),
+                       url(r'^refuse_friend', 'grabDoll.views.friend_method.refuse_friend'),
                        # 移除好友
-                       url(r'^remove_friend', 'grabDoll.views.game_method.remove_friend'),
+                       url(r'^remove_friend', 'grabDoll.views.friend_method.remove_friend'),
                        )
