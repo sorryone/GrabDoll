@@ -9,13 +9,18 @@ __author__ = 'du_du'
 def get_my_friend_info(uid):
     model = FriendModel(uid)
     data = model.get_model_info()
+    res = list()
     for f_id in data:
         p_model = PlatformModel(f_id)
         u_model = UserModel(f_id)
-        data[f_id]['name'] = p_model.get_value('nickname').decode('utf-8')
-        data[f_id]['figureurl'] = p_model.get_value('figureurl')
-        data[f_id]['lv'] = u_model.get_value('lv')
-    return data
+        item = {
+            'id': f_id,
+            'name': p_model.get_value('nickname').decode('utf-8'),
+            'figureurl': p_model.get_value('figureurl'),
+            'lv': u_model.get_value('lv')
+        }
+        res.append(item)
+    return res
 
 
 # 进入好友家
