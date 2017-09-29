@@ -3,6 +3,7 @@ from grabDoll.logics import user as user_logic
 from grabDoll.logics import inventory_logic as inventory_logic
 from grabDoll.logics import platform_logic as platform_logic
 from grabDoll.logics import machine_logic as machine_logic
+from grabDoll.logics import friend_logic as friend_logic
 # import time
 __author__ = 'du_du'
 
@@ -20,6 +21,7 @@ def get_game_info(uid, open_key):
         'machine': machine_logic.get_machine_info(uid),
         'note': machine_logic.get_note_info(uid),
         'book': machine_logic.get_book_info(uid),
+        'friend': friend_logic.get_my_friend_info(uid),
     }
 
 
