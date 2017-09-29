@@ -20,8 +20,8 @@ def get_game_info(uid, open_key):
         'config': inventory_logic.get_config_info(),
         'machine': machine_logic.get_machine_info(uid),
         'note': machine_logic.get_note_info(uid),
-        'book': machine_logic.get_book_info(uid)
-        # 'friend': friend_logic.get_my_friend_info(uid),
+        'book': machine_logic.get_book_info(uid),
+        'friend': friend_logic.get_my_friend_info(uid)
     }
 
 if __name__ == "__main__":
