@@ -2,6 +2,7 @@
 from grabDoll.models.user import User as UserModel
 from grabDoll.models.friend_model import FriendModel
 from grabDoll.models.platform_model import PlatformModel
+from grabDoll.models.doll_model import DollModel
 __author__ = 'du_du'
 
 
@@ -24,9 +25,11 @@ def get_my_friend_info(uid):
 
 
 # 进入好友家
-def enter_friend_home(uid):
-    model = FriendModel(uid)
-    return model.get_model_info()
+def enter_friend_home(uid, f_id):
+    # 需要记录谁进来了
+    print uid
+    doll_model = DollModel(f_id)
+    return doll_model.get_model_info()
 
 
 # 申请成为好友
@@ -56,6 +59,6 @@ def remove_friend(uid, friend_id):
 
 
 if __name__ == "__main__":
-    print get_my_friend_info('ED57884CAA078DF9E0E08750D98CA834')
+    print enter_friend_home('ED57884CAA078DF9E0E08750D98CA834', 'E69014D0D63D8C50384919583C98AAAA')
 
 
