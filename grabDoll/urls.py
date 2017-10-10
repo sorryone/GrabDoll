@@ -12,6 +12,8 @@ urlpatterns = patterns("",
                        url(r'^speed_up', 'grabDoll.views.game_method.speed_up'),
                        # 切换娃娃机
                        url(r'^switch_machine', 'grabDoll.views.game_method.switch_machine'),
+                       # 刷新重置娃娃机
+                       url(r'^reset_machine', 'grabDoll.views.game_method.reset_machine'),
                        # Debug定位游戏代码的位置
                        url(r'^get_debug', 'grabDoll.views.game_method.get_debug'),
                        # 测试用户的平台信息
@@ -28,4 +30,8 @@ urlpatterns = patterns("",
                        url(r'^refuse_friend', 'grabDoll.views.friend_method.refuse_friend'),
                        # 移除好友
                        url(r'^remove_friend', 'grabDoll.views.friend_method.remove_friend'),
+                       # 抢劫好友金币
+                       url(r'^rob_money', 'grabDoll.views.friend_method.rob_money'),
+                       # 抢劫好友娃娃
+                       url(r'^rob_doll', 'grabDoll.views.friend_method.rob_doll'),
                        )

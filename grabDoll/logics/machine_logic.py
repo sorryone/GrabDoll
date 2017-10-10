@@ -36,6 +36,16 @@ def switch_machine(uid, machine_id):
     return False
 
 
+def reset_machine(uid):
+    note_model = NoteModel(uid)
+    # 获取当前的机器号
+    mach_id = note_model.get_cur_machine()
+    # 需要先扣钱
+    if True:
+        return reset_machine_egg_info(uid, mach_id)
+    return False
+
+
 def grab_egg(uid, key_id):
     mach_model = MachineModel(uid)
     egg = mach_model.get_egg_info(key_id)

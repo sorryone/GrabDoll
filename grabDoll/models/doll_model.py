@@ -5,7 +5,11 @@ __author__ = 'du_du'
 
 class DollModel(HashModel):
     def get_model_info(self):
-        return self.get_all()
+        data = self.get_all()
+        res = dict()
+        for key, value in data.items():
+            res[key] = eval(value)
+        return res
 
     def get_doll_keys(self):
         return self.get_keys()
@@ -14,6 +18,13 @@ class DollModel(HashModel):
         doll_keys = self.get_keys()
         my_doll_keys = [str(i) for i in doll_keys]
         return set(my_doll_keys)
+
+    def get_doll_info_by_id(self, item_id):
+        data = self.get_value(item_id)
+        if data is None:
+            return []
+        else:
+            return eval(data)
 
     # 增加娃娃
     def add_model(self, item_id):
@@ -31,6 +42,21 @@ class DollModel(HashModel):
             data['type'] = 'exp'
             data['add_exp'] = exp
         print('add_model result', res)
+        if res is not False:
+            return data
+        return False
+
+    # 增加娃娃经验
+    def add_doll_exp(self, doll_id, exp):
+        doll = self.get_doll_info_by_id(doll_id)
+        if doll.has_key('exp'):
+            doll['exp'] += exp
+            return doll
+        return False
+
+    # 修改娃娃的数据
+    def update_doll_info(self, doll_id, data):
+        res = self.set_value(doll_id, data)
         if res is not False:
             return data
         return False

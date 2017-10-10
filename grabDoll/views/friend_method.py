@@ -117,3 +117,41 @@ def remove_friend(request):
         print(e)
         return 1, "数据错误"
 
+
+@api_view(["GET"])
+@api_result
+def rob_money(request):
+    if request.method == "GET":
+        try:
+            print(request.query_params)
+            uid = request.query_params.get('uid')
+            friend_id = request.query_params.get('friend_id')
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = friend_logic.rob_money(uid, friend_id)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def rob_doll(request):
+    if request.method == "GET":
+        try:
+            print(request.query_params)
+            uid = request.query_params.get('uid')
+            friend_id = request.query_params.get('friend_id')
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = friend_logic.rob_doll(uid, friend_id)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+

@@ -48,6 +48,24 @@ def switch_machine(request):
 
 @api_view(["GET"])
 @api_result
+def reset_machine(request):
+    if request.method == "GET":
+        try:
+            print(request.query_params)
+            uid = request.query_params.get('uid')
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = machine_logic.reset_machine(uid)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
 def speed_up(request):
     if request.method == "GET":
         try:
