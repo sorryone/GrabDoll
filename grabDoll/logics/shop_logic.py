@@ -8,13 +8,13 @@ __author__ = 'du_du'
 
 # 抓完娃娃后刷新当前的图鉴
 def buy(uid, shop_id):
+    print('buy', uid, shop_id)
     user_model = UserModel(uid)
     item_model = ItemModel(uid)
     shop_config_model = ConfigModel('shop')
     shop_info = shop_config_model.get_config_by_id(shop_id)
     item_config_model = ConfigModel('item')
     item_info = item_config_model.get_config_by_id(shop_info.get('item_id'))
-
     print(item_info)
     return False
 

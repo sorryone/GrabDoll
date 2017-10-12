@@ -78,7 +78,8 @@ def buy_shop(request):
             print(e)
             return 1, "参数错误"
     try:
-        return shop_logic.buy(uid, shop_id)
+        data = shop_logic.buy(uid, shop_id)
+        return 0, data
     except Exception as e:
         print(e)
         return 1, "数据错误"
@@ -97,7 +98,8 @@ def speed_up(request):
             print(e)
             return 1, "参数错误"
     try:
-        return inventory_logic.gacha_speed_up(uid, item_id)
+        data = inventory_logic.gacha_speed_up(uid, item_id)
+        return 0, data
     except Exception as e:
         print(e)
         return 1, "数据错误"
