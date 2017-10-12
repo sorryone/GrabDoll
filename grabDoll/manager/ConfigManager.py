@@ -5,7 +5,7 @@ from grabDoll.models.config_model import ConfigModel
 __author__ = 'du_du'
 
 config_path = r'../config/'
-file_name = 'machine.xlsx'
+file_name = 'shop.xlsx'
 
 
 def read_xls_file(path, name):
@@ -32,7 +32,7 @@ def add_redis(data, name):
 
 
 def test():
-    config_group = ('egg', 'item', 'gacha', 'doll', 'machine', 'book')
+    config_group = ('egg', 'item', 'gacha', 'doll', 'machine', 'shop')
     data = dict()
     for config_name in config_group:
         data[config_name] = ConfigModel(config_name).get_model_info()
