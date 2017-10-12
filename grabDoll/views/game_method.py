@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-__author__ = 'dudu'
-
 import json
 from lib.djhelper.api_view import api_render, api_view, api_result
 from grabDoll.logics import user as user_logic
 from grabDoll.logics import inventory_logic as inventory_logic
 from grabDoll.logics import game_logic as game_logic
 from grabDoll.logics import machine_logic as machine_logic
+from grabDoll.logics import shop_logic as shop_logic
+__author__ = 'du_du'
+
 
 @api_view(["GET"])
 @api_result
@@ -59,6 +60,25 @@ def reset_machine(request):
     try:
         data = machine_logic.reset_machine(uid)
         return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def buy_shop(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            shop_id = request.query_params.get('shop_id')
+            if shop_id is None:
+                return 1, "未知的道具"
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        return shop_logic.buy(uid, shop_id)
     except Exception as e:
         print(e)
         return 1, "数据错误"

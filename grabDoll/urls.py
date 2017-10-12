@@ -34,4 +34,5 @@ urlpatterns = patterns("",
                        url(r'^rob_money', 'grabDoll.views.friend_method.rob_money'),
                        # 抢劫好友娃娃
                        url(r'^rob_doll', 'grabDoll.views.friend_method.rob_doll'),
+                       url(r'^buy_shop', 'grabDoll.views.game_method.buy_shop'),
                        )
