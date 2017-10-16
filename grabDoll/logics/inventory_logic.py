@@ -45,20 +45,13 @@ def use_item(uid, item_id):
     if item_id is None:
         print("item_id is None")
         return False
-    config_id = int(item_id.split("_")[0])
-    item_type = config_id/10000
-    print('config_id', config_id, 'item_type', item_type)
+    item_type = item_id/10000
+    print('config_id', item_id, 'item_type', item_type)
 
-    # 先判定抓到的娃娃蛋存不存在
-    values = {
-        1: reduce_egg,
-        2: reduce_item,
-        3: reduce_gacha,
-    }
-    # 如果不是应该有的类型直接返回错误
-    if item_type not in values:
+    if item_type != 2:
         return False
-    del_res = values.get(item_type)(uid, item_id)
+    # 先判定抓到的娃娃蛋存不存在
+    del_res = reduce_item(uid, item_id)
     # 存在的话删除掉
     if del_res:
         # 奖励
@@ -121,7 +114,7 @@ def get_award(item_id):
     data = dict()
     data['gold'] = ct
     doll_id = random.randint(40001, 40008)
-    data[doll_id] = 1
+    # data[doll_id] = 1
     print('get_award', data)
     return data
 
@@ -140,4 +133,5 @@ def gacha_speed_up(uid, item_id):
         return 1, "无效的道具"
 
 
-use_item('ED57884CAA078DF9E0E08750D98CA834','50001_17')
+if __name__ == "__main__":
+    print use_item('ED57884CAA078DF9E0E08750D98CA834', 20006)

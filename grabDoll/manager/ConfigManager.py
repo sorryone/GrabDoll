@@ -5,7 +5,7 @@ from grabDoll.models.config_model import ConfigModel
 __author__ = 'du_du'
 
 config_path = r'../config/'
-file_name = 'shop.xlsx'
+file_name = 'item.xlsx'
 
 
 def read_xls_file(path, name):
