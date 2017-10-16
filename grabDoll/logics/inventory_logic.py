@@ -42,7 +42,10 @@ def add_item(uid, item_id):
 
 
 def use_item(uid, item_id):
-    config_id = item_id.encode("utf-8")
+    if type(item_id) == 'unicode':
+        config_id = item_id.encode("utf-8")
+    else:
+        config_id = item_id
     config_id = int(config_id)
     print type(config_id)
     item_type = config_id/10000
@@ -109,11 +112,35 @@ def reduce_gacha(uid, item_id):
 
 # 查看奖励
 def get_award(item_id):
-    ct = 1000
+
+    config_model = ConfigModel('item')
+    config_info = config_model.get_config_by_id(item_id)
+    award = config_info.get('award', dict())
+    if type(award) is not dict:
+        award = award.encode('utf-8')
+        award = eval(award)
+    award_type = config_info.get('xType', 0)    # 0表示随机  1 表示必出
     data = dict()
-    data['gold'] = ct
-    doll_id = random.randint(40001, 40008)
-    # data[doll_id] = 1
+    if award_type == 0:
+        keys = award.keys()
+        select_key = random.choice(keys)
+        select_value = award[select_key]
+        if type(select_value) is list:
+            if select_key == 'gold' or select_key == 'diamond':
+                data[select_key] = random.randint(select_value[0], select_value[1])
+            else:
+                data[select_key] = random.choice(select_value)
+        else:
+            data[select_key] = select_value
+    else:
+        for key, value in award.items():
+            if type(value) is list:
+                if key == 'gold' or key == 'diamond':
+                    data[key] = random.randint(value[0], value[1])
+                else:
+                    data[key] = random.choice(value)
+            else:
+                data[key] = value
     print('get_award', data)
     return data
 
@@ -134,3 +161,4 @@ def gacha_speed_up(uid, item_id):
 
 if __name__ == "__main__":
     print use_item('ED57884CAA078DF9E0E08750D98CA834', 20006)
+    # print get_award(20006)
