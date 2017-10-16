@@ -42,11 +42,11 @@ def add_item(uid, item_id):
 
 
 def use_item(uid, item_id):
-
-    print type(item_id)
-    item_type = item_id/10000
+    config_id = item_id.encode("utf-8")
+    config_id = int(config_id)
+    print type(config_id)
+    item_type = config_id/10000
     print('config_id', item_id, 'item_type', item_type)
-
     if item_type != 2:
         return False
     # 先判定抓到的娃娃蛋存不存在
