@@ -79,7 +79,8 @@ def use_item(uid, item_id):
                 res[a_id] = ct
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:
-                item_model.add_model(a_id, ct)
+                if item_model.add_model(a_id, ct):
+                    res[a_id] = ct
             elif int(a_id)/10000 == 3:
                 gacha_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 4:
