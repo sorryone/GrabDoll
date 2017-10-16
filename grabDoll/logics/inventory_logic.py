@@ -42,9 +42,8 @@ def add_item(uid, item_id):
 
 
 def use_item(uid, item_id):
-    if item_id is None:
-        print("item_id is None")
-        return False
+
+    print type(item_id)
     item_type = item_id/10000
     print('config_id', item_id, 'item_type', item_type)
 
