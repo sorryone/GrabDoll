@@ -6,14 +6,15 @@ import json
 from openapi_v3 import OpenAPIV3
 
 # 正式的
-# appid = 1106233605
-# appkey = 'STwl4MAK67bcemOd'
+appid = 1106233605
+appkey = 'STwl4MAK67bcemOd'
 # 我自己的测试服务器
-appid = 1106423014
-appkey = 'PSqsIO5GwAu4wUL4'
+# appid = 1106423014
+# appkey = 'PSqsIO5GwAu4wUL4'
 
 
-iplist = ('172.27.0.91',)
+iplist = ('api.urlshare.cn',)
+# iplist = ('172.27.0.91',)
 # iplist = ('10.6.207.119:9191',)
 # iplist = ('10.166.146.171',)
 # iplist = ('10.166.146.174',)
@@ -21,10 +22,11 @@ iplist = ('172.27.0.91',)
 # iplist = ('proxy.qq.com',)
 
 
+# openid = '000000000000000000000000199B6A55'
+# openkey = '84BAEDACC5B512FED2FA653695624491'
+
 openid = '000000000000000000000000199B6A55'
 openkey = '84BAEDACC5B512FED2FA653695624491'
-
-
 api = OpenAPIV3(appid, appkey, iplist)
 
 
