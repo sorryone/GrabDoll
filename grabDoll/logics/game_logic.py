@@ -25,6 +25,6 @@ def get_game_info(uid, open_key):
     }
 
 if __name__ == "__main__":
-    print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
-
+    # print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
+    print get_game_info('VIP', 'VIP')
 
