@@ -4,6 +4,7 @@ __author__ = 'du_du'
 
 
 class DollModel(HashModel):
+
     def get_model_info(self):
         data = self.get_all()
         res = dict()
