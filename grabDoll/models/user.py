@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-__author__ = 'maxijie'
 from lib.redis_model import StringModel, HashModel
 from rest_framework import serializers
 from django.db import models
 from grabDoll.common.serializerutils import UnixEpochDateField
+__author__ = 'maxijie'
+
 
 class User(HashModel):
     def add_gold(self, ct):
@@ -32,20 +33,27 @@ class User(HashModel):
 
 class UserTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    password = models.CharField(max_length=128, null=True)
-    username = models.CharField(max_length=32, null=True)
-    nickname = models.CharField(max_length=32, null=True)
-    first_name = models.CharField(max_length=32, null=True)
-    last_name = models.CharField(max_length=32, null=True)
-    email = models.CharField(max_length=254, null=True)
+    gold = models.IntegerField(max_length=16, null=True)
+    diamond = models.IntegerField(max_length=16, null=True)
+    exp = models.IntegerField(max_length=16, null=True)
+    lv = models.IntegerField(max_length=4, null=True)
+    machineLv = models.IntegerField(max_length=4, null=True)
+    curMachineId = models.IntegerField(max_length=16, null=True)
+    maxUnLockLv = models.IntegerField(max_length=16, null=True)
+    # password = models.CharField(max_length=128, null=True)
+    # username = models.CharField(max_length=32, null=True)
+    # nickname = models.CharField(max_length=32, null=True)
+    # first_name = models.CharField(max_length=32, null=True)
+    # last_name = models.CharField(max_length=32, null=True)
+    # email = models.CharField(max_length=254, null=True)
     # checkmail = models.NullBooleanField(null=True)
-    mobile = models.CharField(max_length=16, null=True)
-    avatar_file = models.CharField(max_length=1024, null=True)
-    sex = models.IntegerField(null=True)
-    birthday = models.IntegerField(null=True)
-    create_at = models.DateTimeField(auto_now_add = True)
-    login_at = models.DateTimeField(auto_now_add = True)
-    modify_at = models.DateTimeField(auto_now = True)
+    # mobile = models.CharField(max_length=16, null=True)
+    # avatar_file = models.CharField(max_length=1024, null=True)
+    # sex = models.IntegerField(null=True)
+    # birthday = models.IntegerField(null=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+    login_at = models.DateTimeField(auto_now_add=True)
+    modify_at = models.DateTimeField(auto_now=True)
     """
     ALTER TABLE `UserTable`
     ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)

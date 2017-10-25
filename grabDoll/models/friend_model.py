@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from lib.redis_model import StringModel, HashModel
+from rest_framework import serializers
+from django.db import models
+from grabDoll.common.serializerutils import UnixEpochDateField
 __author__ = 'du_du'
 
 
@@ -11,4 +14,24 @@ class FriendModel(HashModel):
         for key, value in data.items():
             res[key] = eval(value)
         return res
+
+
+class FriendTable(models.Model):
+    u_id = models.CharField(max_length=32, unique=True)
+    friend_id = models.CharField(max_length=32, unique=True)
+    value = models.CharField(max_length=2048, null=True)
+    """
+    ALTER TABLE `ItemTable`
+    ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)
+    """
+
+
+class FriendTableSerializer(serializers.ModelSerializer):
+    login_at = UnixEpochDateField(required=False, allow_null=True)
+    create_at = UnixEpochDateField(required=False, allow_null=True)
+    modify_at = UnixEpochDateField(required=False, allow_null=True)
+
+    class Meta:
+        model = FriendTable
+        fields = '__all__'
 

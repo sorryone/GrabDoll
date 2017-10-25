@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 from lib.redis_model import StringModel, HashModel
+from rest_framework import serializers
+from django.db import models
+from grabDoll.common.serializerutils import UnixEpochDateField
 __author__ = 'du_du'
 
 
@@ -71,4 +74,24 @@ class DollModel(HashModel):
         if res == 0 or res is not False:
             return True
         return False
+
+
+class DollTable(models.Model):
+    u_id = models.CharField(max_length=32, unique=True)
+    doll_id = models.CharField(max_length=32, unique=True)
+    value = models.CharField(max_length=2048, null=True)
+    """
+    ALTER TABLE `ItemTable`
+    ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)
+    """
+
+
+class DollTableSerializer(serializers.ModelSerializer):
+    login_at = UnixEpochDateField(required=False, allow_null=True)
+    create_at = UnixEpochDateField(required=False, allow_null=True)
+    modify_at = UnixEpochDateField(required=False, allow_null=True)
+
+    class Meta:
+        model = DollTable
+        fields = '__all__'
 
