@@ -14,8 +14,10 @@ iplist = ('openapi.sparta.html5.qq.com',)
 def get_user_info_by_platform(openid, openkey):
 
     if openid == 'VIP' and openkey == 'VIP':
+        print("IS VIP")
         model = PlatformModel(openid)
         return model.get_model_info()
+    print("NOT VIP")
     set_up_info = is_setup(openid, openkey)
     user_info = get_info(openid, openkey)
     if type(set_up_info) is str or type(set_up_info) is object:
