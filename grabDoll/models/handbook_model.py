@@ -53,15 +53,12 @@ class HandBookModel(HashModel):
 class HandBookTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
     book_id = models.CharField(max_length=32, unique=True)
-    value = models.CharField(max_length=2048, null=True)
-    """
-    ALTER TABLE `ItemTable`
-    ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)
-    """
+    value = models.CharField(max_length=2048, null=False)
+    create_at = models.DateTimeField(auto_now_add=True)
+    modify_at = models.DateTimeField(auto_now=True)
 
 
 class HandBookTableSerializer(serializers.ModelSerializer):
-    login_at = UnixEpochDateField(required=False, allow_null=True)
     create_at = UnixEpochDateField(required=False, allow_null=True)
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 

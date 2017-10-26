@@ -20,14 +20,11 @@ class FriendTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
     friend_id = models.CharField(max_length=32, unique=True)
     value = models.CharField(max_length=2048, null=True)
-    """
-    ALTER TABLE `ItemTable`
-    ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)
-    """
+    create_at = models.DateTimeField(auto_now_add=True)
+    modify_at = models.DateTimeField(auto_now=True)
 
 
 class FriendTableSerializer(serializers.ModelSerializer):
-    login_at = UnixEpochDateField(required=False, allow_null=True)
     create_at = UnixEpochDateField(required=False, allow_null=True)
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 

@@ -22,19 +22,14 @@ class PlatformTable(models.Model):
     login_time = models.CharField(max_length=32, null=True)
     nickname = models.CharField(max_length=32, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
-    login_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
-    """
-    ALTER TABLE `UserTable`
-    ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)
-    """
 
 
 class PlatformTableSerializer(serializers.ModelSerializer):
-    login_at = UnixEpochDateField(required=False, allow_null=True)
     create_at = UnixEpochDateField(required=False, allow_null=True)
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 
     class Meta:
         model = PlatformTable
         fields = '__all__'
+

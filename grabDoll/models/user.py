@@ -54,10 +54,6 @@ class UserTable(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     login_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
-    """
-    ALTER TABLE `UserTable`
-    ADD CONSTRAINT `p_id`   UNIQUE (`u_id`)
-    """
 
 
 class UserTableSerializer(serializers.ModelSerializer):
