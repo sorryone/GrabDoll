@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.user import User
-from grabDoll.models.doll_model import DollModel
-from grabDoll.models.friend_model import FriendModel
-from grabDoll.models.handbook_model import HandBookModel
-from grabDoll.models.item_model import ItemModel
-from grabDoll.models.platform_model import PlatformModel
+from grabDoll.models.user import UserTable
+from grabDoll.models.doll_model import DollTable
+from grabDoll.models.friend_model import FriendTable
+from grabDoll.models.handbook_model import HandBookTable
+from grabDoll.models.item_model import ItemTable
+from grabDoll.models.platform_model import PlatformTable
