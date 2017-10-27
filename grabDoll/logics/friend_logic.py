@@ -125,6 +125,6 @@ def rob_doll(uid, friend_id):
 
 if __name__ == "__main__":
     # print enter_friend_home('ED57884CAA078DF9E0E08750D98CA834', 'E69014D0D63D8C50384919583C98AAAA')
-    print rob_doll('ED57884CAA078DF9E0E08750D98CA834', 'E69014D0D63D8C50384919583C98AAAA')
+    print get_my_friend_info('VIP')
 
 
