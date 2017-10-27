@@ -18,7 +18,7 @@ class FriendModel(HashModel):
 
 class FriendTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    friend_id = models.CharField(max_length=32, unique=True)
+    key_id = models.CharField(max_length=32, unique=True)
     value = models.CharField(max_length=2048, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)

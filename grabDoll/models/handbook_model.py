@@ -52,7 +52,7 @@ class HandBookModel(HashModel):
 
 class HandBookTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    book_id = models.CharField(max_length=32, unique=True)
+    key_id = models.CharField(max_length=32, unique=True)
     value = models.CharField(max_length=2048, null=False)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
