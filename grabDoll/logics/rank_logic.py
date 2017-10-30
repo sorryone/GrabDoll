@@ -10,7 +10,7 @@ def get_rank_info(uid):
     return {
         'my_rank': 10111,
         'friend': get_my_friend_info(uid),
-        'ran_all': get_top_100_info(),
+        'all': get_top_100_info(),
     }
 
 
