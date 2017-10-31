@@ -3,7 +3,7 @@ from lib.redis_model import StringModel, HashModel
 from rest_framework import serializers
 from django.db import models
 from grabDoll.common.serializerutils import UnixEpochDateField
-__author__ = 'maxijie'
+__author__ = 'du_du'
 
 
 class User(HashModel):
@@ -19,10 +19,15 @@ class User(HashModel):
         self.incr("exp", ct)
         return True
 
+    # 体力
+    def add_vit(self, ct):
+        self.incr("vit", ct)
+        return True
+
     def get_model_info(self):
         data = self.get_all()
         res = dict()
-        key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'lv', 'machineLv', 'curMachineId', 'maxUnLockLv')
+        key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv', 'machineLv', 'curMachineId', 'maxUnLockLv')
         for key in key_info:
             if type(data) == dict and key in data:
                 res[key] = data[key]
@@ -36,6 +41,7 @@ class UserTable(models.Model):
     gold = models.IntegerField(default=0)
     diamond = models.IntegerField(default=0)
     exp = models.IntegerField(default=0)
+    vit = models.IntegerField(default=0)
     lv = models.IntegerField(default=0)
     machineLv = models.IntegerField(default=0)
     curMachineId = models.IntegerField(default=0)

@@ -77,8 +77,8 @@ class DollModel(HashModel):
 
 
 class DollTable(models.Model):
-    u_id = models.CharField(max_length=32, unique=True)
-    key_id = models.CharField(max_length=32, unique=True)
+    u_id = models.CharField(max_length=32)
+    key_id = models.CharField(max_length=32)
     value = models.CharField(max_length=2048, null=False)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
@@ -90,5 +90,6 @@ class DollTableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DollTable
+        unique_together = (("u_id", "key_id"),)
         fields = '__all__'
 

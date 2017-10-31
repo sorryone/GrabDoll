@@ -17,8 +17,8 @@ class FriendModel(HashModel):
 
 
 class FriendTable(models.Model):
-    u_id = models.CharField(max_length=32, unique=True)
-    key_id = models.CharField(max_length=32, unique=True)
+    u_id = models.CharField(max_length=32)
+    key_id = models.CharField(max_length=32)
     value = models.CharField(max_length=2048, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
@@ -30,5 +30,6 @@ class FriendTableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FriendTable
+        unique_together = (("u_id", "key_id"),)
         fields = '__all__'
 

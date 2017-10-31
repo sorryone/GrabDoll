@@ -125,7 +125,7 @@ def refresh_model_info(uid):
     if my_egg_group.__len__() > 0:
         return
     egg_refresh_time = note_model.get_machine_create_time(mach_id)
-    cd = 300
+    cd = 600
     if egg_refresh_time is None or cur_time > egg_refresh_time + cd:
         note_model.set_machine_create_time(mach_id)
         return reset_machine_egg_info(uid, mach_id)
