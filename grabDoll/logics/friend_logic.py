@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.user import UserAction
 from grabDoll.models.friend_model import FriendModel
-from grabDoll.models.platform_model import PlatformModel
+from grabDoll.models.platform_model import PlatformAction
 from grabDoll.models.doll_model import DollModel
 from grabDoll.models.base_model import BaseModel
 import random
@@ -14,7 +14,7 @@ def get_my_friend_info(uid):
     data = model.hash_model.get_model_info()
     res = list()
     for f_id in data:
-        p_model = PlatformModel(f_id)
+        p_model = PlatformAction(f_id)
         u_model = UserAction(f_id)
         item = {
             'id': f_id,

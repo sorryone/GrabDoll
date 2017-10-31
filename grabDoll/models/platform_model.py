@@ -3,10 +3,21 @@ from lib.redis_model import StringModel, HashModel
 from rest_framework import serializers
 from django.db import models
 from grabDoll.common.serializerutils import UnixEpochDateField
+from grabDoll.models.base_model import BaseModel
 __author__ = 'du_du'
 
 
 class PlatformModel(HashModel):
+    pass
+
+
+class PlatformAction(BaseModel):
+
+    def __init__(self, u_id):
+        self.u_id = u_id
+        super(PlatformAction, self).__init__(
+                    u_id, PlatformModel, PlatformTable, PlatformTableSerializer, True)
+
     def get_model_info(self):
         data = self.get_all()
         return data
