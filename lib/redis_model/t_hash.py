@@ -37,7 +37,8 @@ class _HashModel(RedisBase):
         #_value = self.get_client().hget(self.storage_key, key)
         #return self.loads_field(key, _value)
 
-    def get_values(self, key_list):
+
+    # def get_values(self, key_list):
         """
         返回指定列表中所有key对应的值。如果key不存在，返回列表中对应的值为None。
         @args:
@@ -45,9 +46,10 @@ class _HashModel(RedisBase):
         @return:
             list
         """
-        if not key_list:
-            return []
-        return self.get_client().hmget(self.storage_key, key_list)
+        # if not key_list:
+        #    return []
+        # return self.get_client().hmget(self.storage_key, key_list)
+
         #_value_list = self.get_client().hmget(self.storage_key, key_list)
         #_loads_value_list = []
         #for i in range(len(key_list)):

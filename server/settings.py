@@ -102,9 +102,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'GrabDoll',
         'USER': 'root',
-        'PASSWORD': 'bellcat',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'PASSWORD': 'Bellcat2017',
+        'HOST': 'bj-cdb-qgy7vin9.sql.tencentcdb.com',
+        'PORT': '63891',
     }
 }
 
