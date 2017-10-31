@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from lib.redis_model import StringModel, HashModel
-from grabDoll.models.base_model import BaseModel
 from rest_framework import serializers
 from django.db import models
 from grabDoll.common.serializerutils import UnixEpochDateField
@@ -9,6 +8,7 @@ __author__ = 'du_du'
 
 class UserAction(object):
     def __init__(self, u_id):
+        from grabDoll.models.base_model import BaseModel
         self.u_id = u_id
         self.base_model = BaseModel(u_id, User)
 
