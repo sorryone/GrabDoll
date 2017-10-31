@@ -67,7 +67,7 @@ class BaseModel(object):
         if self.is_DBTable:
             return key in [f.name for f in self.model._meta.fields]
 
-        if self.is_KVTable:
+        elif self.is_KVTable:
             has_data = self.hash_model.has_key(key)
             if has_data:
                 return has_data
@@ -81,7 +81,7 @@ class BaseModel(object):
         if self.is_DBTable:
             return [f.name for f in self.model._meta.fields]
 
-        if self.is_KVTable:
+        elif self.is_KVTable:
             keys = self.hash_model.get_keys()
             if keys:
                 return keys
@@ -105,7 +105,7 @@ class BaseModel(object):
         if self.is_DBTable:
             return self._get_value_fromDB(key)
 
-        if self.is_KVTable:
+        elif self.is_KVTable:
             redis_data = self.hash_model.get_value(key)
             if redis_data:
                 return redis_data
@@ -166,7 +166,7 @@ class BaseModel(object):
             data = self.modelSerializer(model_data).data
             return data
 
-        if self.is_KVTable:
+        elif self.is_KVTable:
             is_create = self.hash_model.set_value(key, value)
             try:
                 model_data = self.model.objects.get_or_create(
@@ -197,7 +197,7 @@ class BaseModel(object):
             model_data.save()
             return True
 
-        if self.is_KVTable:
+        elif self.is_KVTable:
             is_ok = self.hash_model.set_values(mapping)
             if not is_ok:
                 print("redis insert ERROR data is ", mapping)
