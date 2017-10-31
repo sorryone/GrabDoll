@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from lib.redis_model import StringModel, HashModel
-from  grabDoll.models.base_model import BaseModel
+from grabDoll.models.base_model import BaseModel
 from rest_framework import serializers
 from django.db import models
 from grabDoll.common.serializerutils import UnixEpochDateField
@@ -44,7 +44,7 @@ class UserAction(object):
         res = {}
         key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
         for key in key_info:
-            if type(data) == dict and key in data:
+            if key in data:
                 res[key] = data[key]
             else:
                 res[key] = 0
