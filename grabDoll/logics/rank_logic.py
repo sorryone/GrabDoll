@@ -24,7 +24,7 @@ def get_top_100_info():
 # 我的好友列表信息
 def get_my_friend_info(uid):
     model = BaseModel(uid, FriendModel)
-    data = model.get_model_info()
+    data = model.hash_model.get_model_info()
     res = list()
     for f_id in data:
         p_model = BaseModel(f_id, PlatformModel)

@@ -7,7 +7,6 @@ from grabDoll.models.doll_model import DollModel
 from grabDoll.models.gacha_model import GachaModel
 from grabDoll.models.handbook_model import HandBookModel
 from grabDoll.models.config_model import ConfigModel
-from grabDoll.models.note_model import NoteModel
 from grabDoll.models.base_model import BaseModel
 import random
 import time
@@ -23,8 +22,8 @@ def get_inventory_info(uid):
     return {
         'items': item_model.get_all(),
         'gacha': gacha_model.get_model_info(),
-        'dolls': doll_model.get_model_info(),
-        'book': book_model.get_model_info(),
+        'dolls': doll_model.hash_model.get_model_info(),
+        'book': book_model.hash_model.get_model_info(),
     }
 
 
@@ -38,7 +37,7 @@ def get_config_info():
 
 def add_item(uid, item_id):
     item_model = BaseModel(uid, ItemModel)
-    res = item_model.add_item(item_id, 1)
+    res = item_model.hash_model.add_item(item_id, 1)
     return res
 
 
@@ -68,26 +67,26 @@ def use_item(uid, item_id):
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
-                user.add_gold(ct)
+                user.hash_model.add_gold(ct)
                 res[a_id] = ct
             # 如果是钻石添加钻石
             elif a_id == "diamond":
-                user.add_diamond(ct)
+                user.hash_model.add_diamond(ct)
                 res[a_id] = ct
             # 经验
             elif a_id == "exp":
-                user.add_gold(ct)
+                user.hash_model.add_gold(ct)
                 res[a_id] = ct
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:
-                if item_model.add_model(a_id, ct):
+                if item_model.hash_model.add_model(a_id, ct):
                     res[a_id] = ct
             elif int(a_id)/10000 == 3:
                 gacha_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 4:
-                res['doll'] = doll_model.add_model(a_id)
+                res['doll'] = doll_model.hash_model.add_model(a_id)
             elif int(a_id)/10000 == 5:
-                book_model.add_model(a_id, ct)
+                book_model.hash_model.add_model(a_id, ct)
             else:
                 pass
             # 如果是娃娃
@@ -99,7 +98,7 @@ def use_item(uid, item_id):
 
 def reduce_item(uid, item_id):
     item_model = BaseModel(uid, ItemModel)
-    return item_model.remove_model(item_id, 1)
+    return item_model.hash_model.remove_model(item_id, 1)
 
 
 def reduce_egg(uid, item_id):
