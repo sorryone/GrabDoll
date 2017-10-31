@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.user import User as UserModel
+from grabDoll.models.user import UserAction
 from grabDoll.models.friend_model import FriendModel
 from grabDoll.models.platform_model import PlatformModel
 from grabDoll.models.doll_model import DollModel
@@ -15,12 +15,12 @@ def get_my_friend_info(uid):
     res = list()
     for f_id in data:
         p_model = PlatformModel(f_id)
-        u_model = UserModel(f_id)
+        u_model = UserAction(f_id)
         item = {
             'id': f_id,
             'name': p_model.get_value('nickname').decode('utf-8'),
             'figureurl': p_model.get_value('figureurl'),
-            'lv': u_model.get_value('lv')
+            'lv': u_model.base_model.get_value('lv')
         }
         res.append(item)
     return res
@@ -62,7 +62,7 @@ def remove_friend(uid, friend_id):
 
 # 抢劫好友金币
 def rob_money(uid, friend_id):
-    u_model = BaseModel(uid, UserModel)
+    u_model = UserAction(uid)
     f_doll_model = BaseModel(friend_id, DollModel)
     # 好友的娃娃列表
     doll_keys = f_doll_model.hash_model.get_doll_keys()
@@ -73,8 +73,7 @@ def rob_money(uid, friend_id):
     # 需要打劫的娃娃列表
     doll_part = random.sample(doll_keys, rob_ct)
     gold_award = 0
-
-    res_doll = dict()
+    res_doll = {}
     for doll_id in doll_part:
         doll = f_doll_model.hash_model.get_doll_info_by_id(doll_id)
         doll_gold = doll.get('gold', 0)
@@ -84,7 +83,7 @@ def rob_money(uid, friend_id):
         res_doll[doll_id] = doll
     print res_doll
     print type(doll_keys)
-    u_model.hash_model.add_gold(gold_award)
+    u_model.add_gold(gold_award)
 
     res = {
         'gold': gold_award,

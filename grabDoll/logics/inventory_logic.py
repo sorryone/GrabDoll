@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from grabDoll.models.item_model import ItemModel
-from grabDoll.models.user import User
+from grabDoll.models.user import UserAction
 from grabDoll.models.machine_model import MachineModel
 from grabDoll.models.doll_model import DollModel
 from grabDoll.models.gacha_model import GachaModel
@@ -62,20 +62,20 @@ def use_item(uid, item_id):
         doll_model = BaseModel(uid, DollModel)
         gacha_model = GachaModel(uid)
         book_model = BaseModel(uid, HandBookModel)
-        user = BaseModel(uid, User)
+        user = UserAction(uid)
         res = dict()
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
-                user.hash_model.add_gold(ct)
+                user.add_gold(ct)
                 res[a_id] = ct
             # 如果是钻石添加钻石
             elif a_id == "diamond":
-                user.hash_model.add_diamond(ct)
+                user.add_diamond(ct)
                 res[a_id] = ct
             # 经验
             elif a_id == "exp":
-                user.hash_model.add_gold(ct)
+                user.add_gold(ct)
                 res[a_id] = ct
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:

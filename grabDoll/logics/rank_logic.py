@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from grabDoll.models.user import User as UserModel
+from grabDoll.models.user import UserAction
 from grabDoll.models.friend_model import FriendModel
 from grabDoll.models.platform_model import PlatformModel
 from grabDoll.models.base_model import BaseModel
@@ -28,12 +28,12 @@ def get_my_friend_info(uid):
     res = list()
     for f_id in data:
         p_model = BaseModel(f_id, PlatformModel)
-        u_model = BaseModel(f_id, UserModel)
+        u_model = UserAction(f_id)
         item = {
             'id': f_id,
             'name': p_model.get_value('nickname').decode('utf-8'),
             'figureurl': p_model.get_value('figureurl'),
-            'lv': u_model.get_value('lv')
+            'lv': u_model.base_model.get_value('lv')
         }
         res.append(item)
     return res
