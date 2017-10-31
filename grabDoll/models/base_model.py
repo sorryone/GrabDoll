@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-from grabDoll import models
+# from grabDoll import models
 __author__ = 'maxijie'
 
+"""
 # KV 结构表
 KV_MODEL_LIST = {
     "DollModel": models.doll_model.DollTable,
@@ -25,17 +26,29 @@ SERIALIZER_LIST = {
     "PlatformModelSerializer": models.platform_model.PlatformTableSerializer,
     "UserSerializer": models.user.UserTableSerializer,
 }
+"""
 
 
 class BaseModel(object):
-
-    def __init__(self, u_id, hash_model):
+    def __init__(self, u_id, hash_model, model, modelSerializer, is_dbmodel):
         self.u_id = u_id
         self.hash_model = hash_model(self.u_id)
         self.class_key = self.hash_model.__class__.__name__
+        # self.modelserializer_key = self.class_key + "Serializer"
+        if is_dbmodel:
+            self.is_DBTable = True
+            self.is_KVTable = False
+        else:
+            self.is_DBTable = False
+            self.is_KVTable = True
+
+        self.model = model
+
+        """
         self.modelserializer_key = self.class_key + "Serializer"
         self.is_DBTable = False
         self.is_KVTable = False
+
         if self.class_key in DB_MODEL_LIST:
             self.is_DBTable = True
             self.model = DB_MODEL_LIST[self.class_key]
@@ -46,6 +59,8 @@ class BaseModel(object):
             raise NotImplementedError
 
         self.modelSerializer = SERIALIZER_LIST[self.modelserializer_key]
+        """
+        self.modelSerializer = modelSerializer
 
     # 查看key是否存在
     def has_key(self, key):
