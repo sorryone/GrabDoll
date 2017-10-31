@@ -2,6 +2,7 @@
 from grabDoll.models.doll_model import DollModel
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.models.handbook_model import HandBookModel
+from grabDoll.models.base_model import BaseModel
 
 __author__ = 'du_du'
 
@@ -10,7 +11,7 @@ __author__ = 'du_du'
 def refresh_lock(uid, machine_id):
     config_model = ConfigModel('machine')
     next_book_id = machine_id + 1
-    book = HandBookModel(uid)
+    book = BaseModel(uid, HandBookModel)
     if book.has_key(next_book_id):
         return False
     # 判定当前关卡是否完成
@@ -33,6 +34,6 @@ def refresh_lock(uid, machine_id):
 
 # 判定机器是否已经解锁
 def check_book_unlock(uid, machine_id):
-    book = HandBookModel(uid)
+    book = BaseModel(uid, HandBookModel)
     return book.get_book_lock(machine_id)
 

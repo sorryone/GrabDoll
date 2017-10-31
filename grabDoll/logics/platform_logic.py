@@ -3,7 +3,7 @@ import json
 import time
 from lib.platform.tencent_sdk_302.openapi_v3 import OpenAPIV3
 from grabDoll.models.platform_model import PlatformModel
-from grabDoll.models.user import User
+from grabDoll.models.base_model import BaseModel
 __author__ = 'du_du'
 
 appid = 1106233605
@@ -15,7 +15,7 @@ def get_user_info_by_platform(openid, openkey):
 
     if openid == 'VIP' and openkey == 'VIP':
         print("IS VIP")
-        model = PlatformModel(openid)
+        model = BaseModel(openid, PlatformModel)
         return model.get_model_info()
     print("NOT VIP")
     set_up_info = is_setup(openid, openkey)
@@ -42,7 +42,7 @@ def get_user_info_by_platform(openid, openkey):
             res[canshu] = user_info[canshu]
     res['login_time'] = time.time()
     print(res)
-    model = PlatformModel(openid)
+    model = BaseModel(openid, PlatformModel)
     model.set_values(res)
     print('return value')
     return res

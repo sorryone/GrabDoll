@@ -3,6 +3,7 @@
 from grabDoll.models.user import User as UserModel
 from grabDoll.models.friend_model import FriendModel
 from grabDoll.models.platform_model import PlatformModel
+from grabDoll.models.base_model import BaseModel
 __author__ = 'du_du'
 
 
@@ -22,12 +23,12 @@ def get_top_100_info():
 
 # 我的好友列表信息
 def get_my_friend_info(uid):
-    model = FriendModel(uid)
+    model = BaseModel(uid, FriendModel)
     data = model.get_model_info()
     res = list()
     for f_id in data:
-        p_model = PlatformModel(f_id)
-        u_model = UserModel(f_id)
+        p_model = BaseModel(f_id, PlatformModel)
+        u_model = BaseModel(f_id, UserModel)
         item = {
             'id': f_id,
             'name': p_model.get_value('nickname').decode('utf-8'),

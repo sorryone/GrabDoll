@@ -2,15 +2,15 @@
 from grabDoll.models.user import User as UserModel
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.models.item_model import ItemModel
-
+from grabDoll.models.base_model import BaseModel
 __author__ = 'du_du'
 
 
 # 抓完娃娃后刷新当前的图鉴
 def buy(uid, shop_id):
     print('buy', uid, shop_id)
-    user_model = UserModel(uid)
-    item_model = ItemModel(uid)
+    user_model = BaseModel(uid, UserModel)
+    item_model = BaseModel(uid, ItemModel)
     shop_config_model = ConfigModel('shop')
     shop_info = shop_config_model.get_config_by_id(shop_id)
     item_config_model = ConfigModel('item')

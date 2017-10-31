@@ -8,16 +8,17 @@ from grabDoll.models.gacha_model import GachaModel
 from grabDoll.models.handbook_model import HandBookModel
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.models.note_model import NoteModel
+from grabDoll.models.base_model import BaseModel
 import random
 import time
 __author__ = 'du_du'
 
 
 def get_inventory_info(uid):
-    item_model = ItemModel(uid)
-    doll_model = DollModel(uid)
+    item_model = BaseModel(uid, ItemModel)
+    doll_model = BaseModel(uid, DollModel)
     gacha_model = GachaModel(uid)
-    book_model = HandBookModel(uid)
+    book_model = BaseModel(uid, HandBookModel)
 
     return {
         'items': item_model.get_all(),
@@ -36,7 +37,7 @@ def get_config_info():
 
 
 def add_item(uid, item_id):
-    item_model = ItemModel(uid)
+    item_model = BaseModel(uid, ItemModel)
     res = item_model.add_item(item_id, 1)
     return res
 
@@ -58,11 +59,11 @@ def use_item(uid, item_id):
     if del_res:
         # 奖励
         awards = get_award(item_id)
-        item_model = ItemModel(uid)
-        doll_model = DollModel(uid)
+        item_model = BaseModel(uid, ItemModel)
+        doll_model = BaseModel(uid, DollModel)
         gacha_model = GachaModel(uid)
-        book_model = HandBookModel(uid)
-        user = User(uid)
+        book_model = BaseModel(uid, HandBookModel)
+        user = BaseModel(uid, User)
         res = dict()
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
@@ -97,7 +98,7 @@ def use_item(uid, item_id):
 
 
 def reduce_item(uid, item_id):
-    item_model = ItemModel(uid)
+    item_model = BaseModel(uid, ItemModel)
     return item_model.remove_model(item_id, 1)
 
 

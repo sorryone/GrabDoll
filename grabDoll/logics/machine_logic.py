@@ -6,6 +6,7 @@ from grabDoll.models.doll_model import DollModel
 from grabDoll.models.item_model import ItemModel
 from grabDoll.models.gacha_model import GachaModel
 from grabDoll.models.handbook_model import HandBookModel
+from grabDoll.models.base_model import BaseModel
 import grabDoll.logics.book_logic as book_logic
 import time
 import random
@@ -24,7 +25,7 @@ def get_note_info(uid):
 
 
 def get_book_info(uid):
-    model = HandBookModel(uid)
+    model = BaseModel(uid, HandBookModel)
     return model.get_model_info()
 
 
@@ -60,11 +61,11 @@ def grab_egg(uid, key_id):
     if del_res:
         # 奖励
         awards = get_award(item_id)
-        item_model = ItemModel(uid)
-        doll_model = DollModel(uid)
+        item_model = BaseModel(uid, ItemModel)
+        doll_model = BaseModel(uid, DollModel)
         gacha_model = GachaModel(uid)
-        book_model = HandBookModel(uid)
-        user = UserModel(uid)
+        book_model = BaseModel(uid, HandBookModel)
+        user = BaseModel(uid, UserModel)
         res = dict()
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
