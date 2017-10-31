@@ -13,27 +13,25 @@ class UserAction(BaseModel):
         super(UserAction, self).__init__(
                     u_id, User, UserTable, UserTableSerializer, True)
 
-        # self.base_model = BaseModel(u_id, User, UserTable, UserTableSerializer)
-
     def add_gold(self, ct):
-        self.base_model.incr("gold", ct)
+        self.incr("gold", ct)
         return True
 
     def add_diamond(self, ct):
-        self.base_model.incr("diamond", ct)
+        self.incr("diamond", ct)
         return True
 
     def add_exp(self, ct):
-        self.base_model.incr("exp", ct)
+        self.incr("exp", ct)
         return True
 
     # 体力
     def add_vit(self, ct):
-        self.base_model.incr("vit", ct)
+        self.incr("vit", ct)
         return True
 
     def get_model_info(self):
-        data = self.base_model.get_all()
+        data = self.get_all()
         if not data:
             # 创建新用户
             data = {
@@ -43,7 +41,7 @@ class UserAction(BaseModel):
                 'exp': 0,
                 'lv': 1,
             }
-            return self.base_model.set_values(data)
+            return self.set_values(data)
         res = {}
         key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
         for key in key_info:

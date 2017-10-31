@@ -20,7 +20,7 @@ def get_my_friend_info(uid):
             'id': f_id,
             'name': p_model.get_value('nickname').decode('utf-8'),
             'figureurl': p_model.get_value('figureurl'),
-            'lv': u_model.base_model.get_value('lv')
+            'lv': u_model.get_value('lv')
         }
         res.append(item)
     return res
