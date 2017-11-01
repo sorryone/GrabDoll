@@ -128,3 +128,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + '/static/'
+CONFIG_DIR = BASE_DIR + '/grabDoll/config/'

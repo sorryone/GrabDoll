@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from pyexcel_xls import get_data
 from grabDoll.models.config_model import ConfigModel
+from django.conf import settings
 
 __author__ = 'du_du'
 
@@ -40,20 +41,15 @@ def test():
 
 
 def read_files():
-    print(config_path)
-    read_xls_file(config_path, 'egg.xlsx')
-    read_xls_file(config_path, 'item.xlsx')
-    read_xls_file(config_path, 'doll.xlsx')
-    read_xls_file(config_path, 'shop.xlsx')
-    read_xls_file(config_path, 'machine.xlsx')
+    config_dir = settings.CONFIG_DIR
+    read_xls_file(config_dir, 'egg.xlsx')
+    read_xls_file(config_dir, 'item.xlsx')
+    read_xls_file(config_dir, 'doll.xlsx')
+    read_xls_file(config_dir, 'shop.xlsx')
+    read_xls_file(config_dir, 'machine.xlsx')
     print test()
 
 
 if __name__ == '__main__':
-    read_xls_file(config_path, 'egg.xlsx')
-    read_xls_file(config_path, 'item.xlsx')
-    read_xls_file(config_path, 'doll.xlsx')
-    read_xls_file(config_path, 'shop.xlsx')
-    read_xls_file(config_path, 'machine.xlsx')
     print test()
 
