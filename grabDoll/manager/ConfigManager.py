@@ -40,6 +40,10 @@ def test():
 
 
 if __name__ == '__main__':
-    read_xls_file(config_path, file_name)
+    read_xls_file(config_path, 'egg.xlsx')
+    read_xls_file(config_path, 'item.xlsx')
+    read_xls_file(config_path, 'doll.xlsx')
+    read_xls_file(config_path, 'shop.xlsx')
+    read_xls_file(config_path, 'machine.xlsx')
     print test()
 
