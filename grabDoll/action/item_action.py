@@ -7,7 +7,7 @@ class ItemAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         super(ItemAction, self).__init__(
-                    u_id, ItemModel, ItemTable, ItemTableSerializer, True)
+                    u_id, ItemModel, ItemTable, ItemTableSerializer, False)
 
     def get_model_info(self):
         return self.get_all()

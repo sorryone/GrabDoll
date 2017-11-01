@@ -14,6 +14,9 @@ class UserAction(BaseModel):
         self.incr("gold", ct)
         return True
 
+    def reduce_gold(self, ct):
+        return self.incr(-ct)
+
     def add_diamond(self, ct):
         self.incr("diamond", ct)
         return True

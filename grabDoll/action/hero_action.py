@@ -9,7 +9,7 @@ class HeroAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         super(HeroAction, self).__init__(
-                    u_id, DollModel, DollTable, DollTableSerializer, True)
+                    u_id, DollModel, DollTable, DollTableSerializer, False)
 
     def get_model_info(self):
         data = self.get_all()

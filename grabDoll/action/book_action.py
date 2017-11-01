@@ -9,7 +9,7 @@ class HandBookAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         super(HandBookAction, self).__init__(
-                    u_id, HandBookModel, HandBookTable, HandBookTableSerializer, True)
+                    u_id, HandBookModel, HandBookTable, HandBookTableSerializer, False)
 
     def get_model_info(self):
         return self.get_all()

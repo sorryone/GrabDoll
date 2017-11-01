@@ -9,7 +9,7 @@ class FriendAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         super(FriendAction, self).__init__(
-                    u_id, FriendModel, FriendTable, FriendTableSerializer, True)
+                    u_id, FriendModel, FriendTable, FriendTableSerializer, False)
 
     # 移除当前娃娃机里的娃娃蛋
     def get_model_info(self):
