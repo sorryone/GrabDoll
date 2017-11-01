@@ -90,30 +90,28 @@ class BaseModel(object):
                     u_id=self.u_id).values_list("key_id", flat=True)
             return model_keys
 
-    # 从数据库获取一条记录
-    def _get_value_fromDB(self, key):
-        try:
-            model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
-        except self.model.DoesNotExist:
-            return None
-
-        data = self.modelSerializer(model_data).data
-        return data
-
     # 获取当前key的数据
     def get_value(self, key, default=None):
         if self.is_DBTable:
-            return self._get_value_fromDB(key)
+            try:
+                model_data = self.model.objects.get(u_id=self.u_id)
+            except self.model.DoesNotExist:
+                return {}
+
+            return getattr(model_data, key)
 
         elif self.is_KVTable:
             redis_data = self.hash_model.get_value(key)
             if redis_data:
                 return redis_data
 
-            model_data = self._get_value_fromDB(key)
-            # 反写入redis
-            # self.hash_model.set_value(key, model_data)
-            return model_data
+            try:
+                model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
+            except self.model.DoesNotExist:
+                print(self.model.__class__, "Not Data Error")
+                return {}
+
+            return model_data.value
 
     """
     # 获取多条key_list的数据
@@ -148,7 +146,9 @@ class BaseModel(object):
                 return redis_data
 
             model_datas = self.model.objects.filter(u_id=self.u_id)
-            data = self.modelSerializer(model_datas, many=True).data
+            data = {}
+            for i in model_datas.values("key_id", "value"):
+                data[i['keys_id']] = i['value']
             return data
 
     def set_value(self, key, value):
