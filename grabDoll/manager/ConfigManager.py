@@ -39,6 +39,16 @@ def test():
     print(data)
 
 
+def read_files():
+    print(config_path)
+    read_xls_file(config_path, 'egg.xlsx')
+    read_xls_file(config_path, 'item.xlsx')
+    read_xls_file(config_path, 'doll.xlsx')
+    read_xls_file(config_path, 'shop.xlsx')
+    read_xls_file(config_path, 'machine.xlsx')
+    print test()
+
+
 if __name__ == '__main__':
     read_xls_file(config_path, 'egg.xlsx')
     read_xls_file(config_path, 'item.xlsx')
