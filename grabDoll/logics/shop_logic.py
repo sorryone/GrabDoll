@@ -8,7 +8,7 @@ __author__ = 'du_du'
 # 抓完娃娃后刷新当前的图鉴
 def buy(uid, shop_id):
     print('buy', uid, shop_id)
-    user_model = UserAction(uid)
+    user_action = UserAction(uid)
     item_action = ItemAction(uid)
     shop_config_model = ConfigModel('shop')
     shop_info = shop_config_model.get_config_by_id(shop_id)
@@ -16,14 +16,14 @@ def buy(uid, shop_id):
     item_info = item_config_model.get_config_by_id(shop_info.get('item_id'))
     print shop_info
     price = shop_info.get('price', 10000)
-    if shop_info.get('method', 'gold') == 'gold' and price >= user_model.get_value('gold', 0):
+    if shop_info.get('method', 'gold') == 'gold' and price >= user_action.get_value('gold', 0):
         return False
     else:
-        user_model.add_gold(-price)
-    if shop_info.get('method') == 'diamond' and price >= user_model.get_value('diamond', 0):
+        user_action.add_gold(-price)
+    if shop_info.get('method') == 'diamond' and price >= user_action.get_value('diamond', 0):
         return False
     else:
-        user_model.add_diamond(-price)
+        user_action.add_diamond(-price)
     print(item_info)
     item_action.add_model(item_info.get('config_id'), 1)
     return True

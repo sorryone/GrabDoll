@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from lib.redis_model import StringModel, HashModel
+from lib.redis_model import HashModel
 import time
 __author__ = 'du_du'
 

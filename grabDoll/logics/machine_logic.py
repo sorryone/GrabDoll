@@ -24,8 +24,8 @@ def get_note_info(uid):
 
 
 def get_book_info(uid):
-    model = HandBookAction(uid)
-    return model.get_model_info()
+    action = HandBookAction(uid)
+    return action.get_model_info()
 
 
 def switch_machine(uid, machine_id):
@@ -60,37 +60,37 @@ def grab_egg(uid, key_id):
     if del_res:
         # 奖励
         awards = get_award(item_id)
-        item_model = ItemAction(uid)
-        doll_model = HeroAction(uid)
+        item_action = ItemAction(uid)
+        hero_action = HeroAction(uid)
         gacha_model = GachaModel(uid)
-        book_model = HandBookAction(uid)
-        user = UserAction(uid)
+        book_action = HandBookAction(uid)
+        user_action = UserAction(uid)
         res = dict()
         for a_id, ct in awards.iteritems():
             # 如果是金币添加金币
             if a_id == "gold":
-                user.add_gold(ct)
+                user_action.add_gold(ct)
                 res[a_id] = ct
             # 如果是钻石添加钻石
             elif a_id == "diamond":
-                user.add_diamond(ct)
+                user_action.add_diamond(ct)
                 res[a_id] = ct
             # 经验
             elif a_id == "exp":
-                user.add_gold(ct)
+                user_action.add_gold(ct)
                 res[a_id] = ct
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:
-                item_model.add_model(a_id, ct)
+                item_action.add_model(a_id, ct)
             elif int(a_id)/10000 == 3:
                 gacha_model.add_model(a_id, ct)
             elif int(a_id)/10000 == 4:
-                res['doll'] = doll_model.add_model(a_id)
+                res['doll'] = hero_action.add_model(a_id)
             else:
                 pass
         # 图鉴加经验
         note_model = NoteModel(uid)
-        res['book_exp'] = book_model.add_book_exp(note_model.get_cur_machine(), 1)
+        res['book_exp'] = book_action.add_book_exp(note_model.get_cur_machine(), 1)
         unlock_next_book = book_logic.refresh_lock(uid, note_model.get_cur_machine())
         if unlock_next_book:
             res['egg'] = reset_machine_egg_info(uid, unlock_next_book)

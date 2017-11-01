@@ -28,15 +28,14 @@ def get_my_friend_info(uid):
 # 进入好友家
 def enter_friend_home(uid, f_id):
     # 需要记录谁进来了
-    print uid
-    doll_model = HeroAction(f_id)
-    return doll_model.get_model_info()
+    hero_action = HeroAction(f_id)
+    return hero_action.get_model_info()
 
 
 # 申请成为好友
 def add_friend(uid, friend_id):
-    model = FriendAction(uid)
-    model.set_value(friend_id, {})
+    friend_action = FriendAction(uid)
+    friend_action.set_value(friend_id, {})
     return True
 
 

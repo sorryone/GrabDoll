@@ -14,8 +14,8 @@ def get_user_info_by_platform(openid, openkey):
 
     if openid == 'VIP' and openkey == 'VIP':
         print("IS VIP")
-        model = PlatformAction(openid)
-        return model.hash_model.get_model_info()
+        action = PlatformAction(openid)
+        return action.get_model_info()
     print("NOT VIP")
     set_up_info = is_setup(openid, openkey)
     user_info = get_info(openid, openkey)
@@ -41,8 +41,8 @@ def get_user_info_by_platform(openid, openkey):
             res[canshu] = user_info[canshu]
     res['login_time'] = time.time()
     print(res)
-    model = PlatformAction(openid)
-    model.set_values(res)
+    action = PlatformAction(openid)
+    action.set_values(res)
     print('return value')
     return res
 

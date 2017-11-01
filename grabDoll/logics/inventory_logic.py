@@ -7,23 +7,22 @@ from grabDoll.action.hero_action import HeroAction
 from grabDoll.models.gacha_model import GachaModel
 from grabDoll.action.book_action import HandBookAction
 from grabDoll.models.config_model import ConfigModel
-from grabDoll.models.base_model import BaseModel
 import random
 import time
 __author__ = 'du_du'
 
 
 def get_inventory_info(uid):
-    item_model = ItemAction(uid)
-    doll_model = HeroAction(uid)
+    item_action = ItemAction(uid)
+    hero_action = HeroAction(uid)
     gacha_model = GachaModel(uid)
-    book_model = HandBookAction(uid)
+    book_action = HandBookAction(uid)
 
     return {
-        'items': item_model.get_all(),
+        'items': item_action.get_all(),
         'gacha': gacha_model.get_model_info(),
-        'dolls': doll_model.get_model_info(),
-        'book': book_model.get_model_info(),
+        'dolls': hero_action.get_model_info(),
+        'book': book_action.get_model_info(),
     }
 
 

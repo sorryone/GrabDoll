@@ -21,7 +21,6 @@ class UserAction(BaseModel):
         self.incr("exp", ct)
         return True
 
-    # 体力
     def add_vit(self, ct):
         self.incr("vit", ct)
         return True
@@ -29,7 +28,6 @@ class UserAction(BaseModel):
     def get_model_info(self):
         data = self.get_all()
         if not data:
-            # 创建新用户
             data = {
                 'gold': 1000,
                 'diamond': 100,

@@ -22,8 +22,8 @@ def get_top_100_info():
 
 # 我的好友列表信息
 def get_my_friend_info(uid):
-    model = FriendAction(uid)
-    data = model.get_model_info()
+    action = FriendAction(uid)
+    data = action.get_model_info()
     res = list()
     for f_id in data:
         p_model = PlatformAction(f_id)
