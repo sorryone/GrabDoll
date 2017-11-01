@@ -2,7 +2,7 @@
 import json
 import time
 from lib.platform.tencent_sdk_302.openapi_v3 import OpenAPIV3
-from grabDoll.models.platform_model import PlatformAction
+from grabDoll.action.platform_action import PlatformAction
 __author__ = 'du_du'
 
 appid = 1106233605

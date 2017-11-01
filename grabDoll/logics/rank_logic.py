@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from grabDoll.models.user import UserAction
-from grabDoll.models.friend_model import FriendModel
-from grabDoll.models.platform_model import PlatformAction
-from grabDoll.models.base_model import BaseModel
+from grabDoll.action.user_action import UserAction
+from grabDoll.action.friend_action import FriendAction
+from grabDoll.action.platform_action import PlatformAction
 __author__ = 'du_du'
 
 
@@ -23,11 +22,11 @@ def get_top_100_info():
 
 # 我的好友列表信息
 def get_my_friend_info(uid):
-    model = BaseModel(uid, FriendModel)
-    data = model.hash_model.get_model_info()
+    model = FriendAction(uid)
+    data = model.get_model_info()
     res = list()
     for f_id in data:
-        p_model = BaseModel(f_id, PlatformAction)
+        p_model = PlatformAction(f_id)
         u_model = UserAction(f_id)
         item = {
             'id': f_id,

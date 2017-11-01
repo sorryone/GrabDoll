@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.user import UserAction
+from grabDoll.action.user_action import UserAction
 from grabDoll.models.config_model import ConfigModel
-from grabDoll.models.item_model import ItemModel
-from grabDoll.models.base_model import BaseModel
+from grabDoll.action.item_action import ItemAction
 __author__ = 'du_du'
 
 
@@ -10,7 +9,7 @@ __author__ = 'du_du'
 def buy(uid, shop_id):
     print('buy', uid, shop_id)
     user_model = UserAction(uid)
-    item_model = BaseModel(uid, ItemModel)
+    item_action = ItemAction(uid)
     shop_config_model = ConfigModel('shop')
     shop_info = shop_config_model.get_config_by_id(shop_id)
     item_config_model = ConfigModel('item')
@@ -26,7 +25,7 @@ def buy(uid, shop_id):
     else:
         user_model.add_diamond(-price)
     print(item_info)
-    item_model.hash_model.add_model(item_info.get('config_id'), 1)
+    item_action.add_model(item_info.get('config_id'), 1)
     return True
 
 

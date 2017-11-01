@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.user import UserAction
-from grabDoll.models.friend_model import FriendModel
-from grabDoll.models.platform_model import PlatformAction
-from grabDoll.models.doll_model import DollModel
-from grabDoll.models.base_model import BaseModel
+from grabDoll.action.user_action import UserAction
+from grabDoll.action.friend_action import FriendAction
+from grabDoll.action.platform_action import PlatformAction
+from grabDoll.action.hero_action import HeroAction
 import random
 __author__ = 'du_du'
 
 
 # 我的好友列表信息
 def get_my_friend_info(uid):
-    model = BaseModel(uid, FriendModel)
-    data = model.hash_model.get_model_info()
+    model = FriendAction(uid)
+    data = model.get_model_info()
     res = list()
     for f_id in data:
         p_model = PlatformAction(f_id)
@@ -30,20 +29,20 @@ def get_my_friend_info(uid):
 def enter_friend_home(uid, f_id):
     # 需要记录谁进来了
     print uid
-    doll_model = BaseModel(f_id, DollModel)
-    return doll_model.hash_model.get_model_info()
+    doll_model = HeroAction(f_id)
+    return doll_model.get_model_info()
 
 
 # 申请成为好友
 def add_friend(uid, friend_id):
-    model = BaseModel(uid, FriendModel)
+    model = FriendAction(uid)
     model.set_value(friend_id, {})
     return True
 
 
 # 接受好友请求
 def accept_friend(uid, friend_id):
-    model = BaseModel(uid, FriendModel)
+    model = FriendAction(uid)
     model.set_value(friend_id, {})
     return True
 
@@ -55,17 +54,17 @@ def refuse_friend(uid, friend_id):
 
 # 移除好友
 def remove_friend(uid, friend_id):
-    model = BaseModel(uid, FriendModel)
-    model.hash_model.delete(friend_id)
+    model = FriendAction(uid)
+    model.delete(friend_id)
     return True
 
 
 # 抢劫好友金币
 def rob_money(uid, friend_id):
     u_model = UserAction(uid)
-    f_doll_model = BaseModel(friend_id, DollModel)
+    f_doll_model = HeroAction(friend_id)
     # 好友的娃娃列表
-    doll_keys = f_doll_model.hash_model.get_doll_keys()
+    doll_keys = f_doll_model.get_doll_keys()
     # 默认的打劫数量
     default_rob_ct = 3
     # 需要打劫的数量
@@ -75,11 +74,11 @@ def rob_money(uid, friend_id):
     gold_award = 0
     res_doll = {}
     for doll_id in doll_part:
-        doll = f_doll_model.hash_model.get_doll_info_by_id(doll_id)
+        doll = f_doll_model.get_doll_info_by_id(doll_id)
         doll_gold = doll.get('gold', 0)
         gold_award += doll_gold/5
         doll['gold'] = int(doll_gold * (1 - 1.0/5))
-        f_doll_model.hash_model.update_doll_info(doll_id, doll)
+        f_doll_model.update_doll_info(doll_id, doll)
         res_doll[doll_id] = doll
     print res_doll
     print type(doll_keys)
@@ -94,10 +93,10 @@ def rob_money(uid, friend_id):
 
 # 抢劫好友娃娃
 def rob_doll(uid, friend_id):
-    u_doll_model = BaseModel(uid, DollModel)
-    f_doll_model = BaseModel(friend_id, DollModel)
+    u_doll_model = HeroAction(uid)
+    f_doll_model = HeroAction(friend_id)
     # 好友的娃娃列表
-    doll_keys = f_doll_model.hash_model.get_doll_keys()
+    doll_keys = f_doll_model.get_doll_keys()
     # 默认的打劫数量
     default_rob_ct = 1
     # 需要打劫的数量
@@ -107,14 +106,14 @@ def rob_doll(uid, friend_id):
     doll_award = dict()
     res_doll = dict()
     for doll_id in doll_part:
-        doll = f_doll_model.hash_model.get_doll_info_by_id(doll_id)
-        f_doll_model.hash_model.reduce_model(doll_id)
+        doll = f_doll_model.get_doll_info_by_id(doll_id)
+        f_doll_model.reduce_model(doll_id)
         # 如果我有这个娃娃 增加经验
         if u_doll_model.has_key(doll_id):
-            doll_award[doll_id] = u_doll_model.hash_model.add_doll_exp(doll_id, doll['exp'])
+            doll_award[doll_id] = u_doll_model.add_doll_exp(doll_id, doll['exp'])
         # 如果我没有这个娃娃 增加一个
         else:
-            doll_award[doll_id] = u_doll_model.hash_model.add_model(doll_id)
+            doll_award[doll_id] = u_doll_model.add_model(doll_id)
         res_doll[doll_id] = doll
     res = {
         'dolls': res_doll,

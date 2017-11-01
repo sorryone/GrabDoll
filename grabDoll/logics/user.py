@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.user import UserAction
+from grabDoll.action.user_action import UserAction
 from grabDoll.models.note_model import NoteModel
 __author__ = 'du_du'
 

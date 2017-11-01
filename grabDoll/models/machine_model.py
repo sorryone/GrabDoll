@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 from lib.redis_model import StringModel, HashModel
-from rest_framework import serializers
-from django.db import models
-from grabDoll.common.serializerutils import UnixEpochDateField
 __author__ = 'du_du'
 
 
