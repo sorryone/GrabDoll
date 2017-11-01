@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.doll_model import DollModel, DollTable, DollTableSerializer
 __author__ = 'du_du'
