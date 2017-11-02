@@ -28,8 +28,8 @@ class HeroAction(BaseModel):
 
     def get_doll_info_by_id(self, item_id):
         data = self.get_value(item_id)
-        if data is None:
-            return []
+        if data is {}:
+            return {}
         else:
             return eval(data)
 

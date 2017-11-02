@@ -46,8 +46,10 @@ def reset_machine(uid):
     # 剩余时间
     remain_time = cur_time - egg_refresh_time - cd
     cost_gold = 100
-
     user_action = UserAction(uid)
+    cur_gold = user_action.get_gold()
+    if cur_gold < cost_gold:
+        return False
     check_cost = user_action.reduce_gold(cost_gold)
     # 需要先扣钱
     if check_cost:

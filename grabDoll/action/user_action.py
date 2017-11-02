@@ -10,6 +10,12 @@ class UserAction(BaseModel):
         super(UserAction, self).__init__(
                     u_id, User, UserTable, UserTableSerializer, True)
 
+    def get_gold(self):
+        return self.get_value("gold")
+
+    def get_diamond(self):
+        return self.get_value("diamond")
+
     def add_gold(self, ct):
         self.incr("gold", ct)
         return True
@@ -21,12 +27,20 @@ class UserAction(BaseModel):
         self.incr("diamond", ct)
         return True
 
+    def reduce_diamond(self, ct):
+        self.incr("diamond", -ct)
+        return True
+
     def add_exp(self, ct):
         self.incr("exp", ct)
         return True
 
     def add_vit(self, ct):
         self.incr("vit", ct)
+        return True
+
+    def reduce_vit(self, ct):
+        self.incr("vit", -ct)
         return True
 
     def get_model_info(self):

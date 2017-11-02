@@ -13,7 +13,7 @@ class ItemModel(HashModel):
 class ItemTable(models.Model):
     u_id = models.CharField(max_length=32)
     key_id = models.CharField(max_length=32)
-    value = models.CharField(max_length=2048, null=False)
+    value = models.IntegerField(default=0)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 

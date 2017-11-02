@@ -27,3 +27,10 @@ class ItemAction(BaseModel):
         res = self.incr(item_id, -num)
         if res == 0 or res is not False:
             return True
+
+    # 物品的数量
+    def get_item_ct(self, item_id):
+        res = self.get_all(item_id)
+        if not isinstance(res, int):
+            return 0
+        return res
