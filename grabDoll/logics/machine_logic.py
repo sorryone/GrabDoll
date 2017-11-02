@@ -155,7 +155,9 @@ def reset_machine_egg_info(uid, mach_id):
     for index in range(20):
         data[str(mach_id) + '_' + str(index)] = {'id': random.choice(eggs), 'x': random.choice(rand_x), 'y': random.choice(rand_y), 'r': 30}
     res = mach.add_egg_list(data)
-    return res
+    if res:
+        return data
+    return False
 
 if __name__ == "__main__":
     print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50001)
