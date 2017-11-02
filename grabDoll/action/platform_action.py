@@ -13,5 +13,4 @@ class PlatformAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
-        print(data)
         return data

@@ -59,11 +59,13 @@ def grab_egg(uid, key_id):
     mach_model = MachineModel(uid)
     egg = mach_model.get_egg_info(key_id)
     if egg is False:
+        print("egg  is not exits")
         return False
     item_id = egg.get('id', False)
     if item_id is not False:
         del_res = mach_model.delete_egg(key_id)
     else:
+        print("delete  error")
         return False
     # 存在的话删除掉
     if del_res:
