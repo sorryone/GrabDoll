@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.db.models.fields import IntegerField
 # from grabDoll import models
 __author__ = 'maxijie'
 
@@ -83,12 +84,10 @@ class BaseModel(object):
 
         elif self.is_KVTable:
             keys = self.hash_model.get_keys()
-            if keys:
-                return keys
-
             model_keys = self.model.objects.filter(
-                    u_id=self.u_id).values_list("key_id", flat=True)
-            return model_keys
+                    u_id=self.u_id).values_list(
+                    "key_id", flat=True).exclude(key_id__in=keys)
+            return list(set(keys + list(model_keys)))
 
     # 获取当前key的数据
     def get_value(self, key, default=None):
@@ -96,7 +95,7 @@ class BaseModel(object):
             try:
                 model_data = self.model.objects.get(u_id=self.u_id)
             except self.model.DoesNotExist:
-                return {}
+                return None
 
             return getattr(model_data, key)
 
@@ -109,8 +108,10 @@ class BaseModel(object):
                 model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "Not Data Error")
-                return {}
+                return None
 
+            # 反写redis
+            self.hash_model.set_value(key, model_data.value)
             return model_data.value
 
     """
@@ -137,19 +138,27 @@ class BaseModel(object):
     # 获取当前用户当前表的所有数据
     def get_all(self):
         if self.is_DBTable:
-            model_datas = self.model.objects.filter(u_id=self.u_id)
-            data = self.modelSerializer(model_datas, many=True).data
+            try:
+                model_datas = self.model.objects.get(u_id=self.u_id)
+            except self.class_keymodel.DoesNotExist:
+                print(self.class_keymodel.__class__, "get_all ERROR")
+                return None
+
+            data = self.modelSerializer(model_datas).data
             return data
         elif self.is_KVTable:
             redis_data = self.hash_model.get_all()
-            if redis_data:
-                return redis_data
-
-            model_datas = self.model.objects.filter(u_id=self.u_id)
+            model_datas = self.model.objects.filter(
+                    u_id=self.u_id).exclude(key_id__in=redis_data.keys())
             data = {}
             for i in model_datas.values("key_id", "value"):
-                data[i['keys_id']] = i['value']
-            return data
+                data[i['key_id']] = i['value']
+
+            # 反写redis 中没有 db已有的数据
+            if data:
+                self.hash_model.set_values(data)
+                redis_data.update(data)
+            return redis_data
 
     def set_value(self, key, value):
         if self.is_DBTable:
@@ -163,13 +172,11 @@ class BaseModel(object):
             model_data.key_id = key
             model_data.value = value
             model_data.save()
-            data = self.modelSerializer(model_data).data
-            return data
+            return True
 
         elif self.is_KVTable:
-            is_create = self.hash_model.set_value(key, value)
             try:
-                model_data = self.model.objects.get_or_create(
+                model_data, is_create = self.model.objects.get_or_create(
                                 u_id=self.u_id, key_id=key)
             except self.model.DoesNotExist:
                 print(self.model.__class__,  "insert ERROR")
@@ -177,8 +184,8 @@ class BaseModel(object):
 
             model_data.value = value
             model_data.save()
-            data = self.modelSerializer(model_data).data
-            return data
+            self.hash_model.set_value(key, value)
+            return True
 
     # 当前表写入批量数据
     def set_values(self, mapping):
@@ -188,20 +195,16 @@ class BaseModel(object):
                                             u_id=self.u_id)
             except self.model.DoesNotExist:
                 print(self.model.__class__,  "insert ERROR")
-                return False
+                return None
 
             for k, v in mapping.iteritems():
-                if hasattr(model_data, k):
-                    setattr(model_data, k, v)
+                if hasattr(model_data, str(k)):
+                    setattr(model_data, str(k), v)
 
             model_data.save()
             return True
 
         elif self.is_KVTable:
-            is_ok = self.hash_model.set_values(mapping)
-            if not is_ok:
-                print("redis insert ERROR data is ", mapping)
-                return False
             model_data = self.model.objects.filter(u_id=self.u_id,
                                                    key_id__in=mapping.keys())
             if len(model_data) != len(mapping.keys()):
@@ -210,48 +213,56 @@ class BaseModel(object):
                                             set(keys_list)))
                 for k_id in create_list:
                     try:
-                        temp_data = self.model.create(
+                        temp_data = self.model.objects.create(
                                         u_id=self.u_id, key_id=k_id)
                     except self.model.DoesNotExist:
                         print(self.model.__class__, "insert ERROR")
                         continue
-                    model_data.append(temp_data)
+                    temp_data.value = mapping[k_id]
+                    temp_data.save()
 
-            for index in model_data:
+            for d in model_data:
                 for k, v in mapping.iteritems():
-                    if hasattr(model_data[index], k):
-                        setattr(model_data[index], k, v)
+                    if d.key_id == k:
+                        d.value = str(v)
+                        d.save()
 
-                model_data[index].save()
+            self.hash_model.set_values(mapping)
             return True
 
     def incr(self, key, amount=1):
         if self.is_DBTable:
+            value = self.model._meta.get_field(key)
+            if not isinstance(value, IntegerField):
+                print("This Value is not IntegerField")
+                return None
             try:
-                model_data = self.model.objects.get(u_id=self.u_id)
+                model_data, is_create = self.model.objects.get_or_create(
+                            u_id=self.u_id)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "incr ERROR")
                 return None
 
-            if hasattr(model_data, key) and type(getattr(
-                                    model_data, key)) in [int, long]:
+            if hasattr(model_data, str(key)):
                 setattr(model_data, key, getattr(model_data, key) + amount)
                 model_data.save()
                 return getattr(model_data, key)
 
         elif self.is_KVTable:
-            self.hash_model.incr(key, amount)
+            value = self.model._meta.get_field("value")
+            if not isinstance(value, IntegerField):
+                print("This Value is not IntegerField")
+                return None
             try:
-                model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
+                model_data, is_create = self.model.objects.get_or_create(
+                                u_id=self.u_id, key_id=key)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "incr ERROR")
                 return None
 
-            if type(model_data.value) not in [int, long]:
-                return None
-
             model_data.value += amount
             model_data.save()
+            self.hash_model.incr(key, amount)
             return model_data.value
 
     def remove(self, key):
@@ -259,9 +270,6 @@ class BaseModel(object):
             return None
 
         elif self.is_KVTable:
-            is_ok = self.hash_model.pop(key)
-            if not is_ok:
-                return None
             try:
                 model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
             except self.model.DoesNotExist:
@@ -269,4 +277,5 @@ class BaseModel(object):
                 return None
 
             model_data.delete()
+            self.hash_model.pop(key)
             return True
