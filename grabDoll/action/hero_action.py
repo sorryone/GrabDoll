@@ -37,7 +37,7 @@ class HeroAction(BaseModel):
     def add_model(self, item_id):
         # 娃娃的数据格式{'doll_id':40001,'exp':100,'lv':1,'state':0}
         doll = self.get_value(item_id)
-        if doll is None:
+        if doll is None or doll == {}:
             data = {'doll_id': item_id, 'exp': 0, 'lv': 1, 'state': 0}
             res = self.set_value(item_id, data)
             data['type'] = 'new'
