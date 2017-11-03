@@ -5,10 +5,10 @@ from grabDoll.logics import friend_logic as friend_logic
 __author__ = 'du_du'
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def get_my_friend_info(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -23,10 +23,10 @@ def get_my_friend_info(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def enter_friend_home(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -42,10 +42,10 @@ def enter_friend_home(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def add_friend(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -61,10 +61,10 @@ def add_friend(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def accept_friend(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -80,10 +80,10 @@ def accept_friend(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def refuse_friend(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -99,10 +99,10 @@ def refuse_friend(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def remove_friend(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -118,10 +118,10 @@ def remove_friend(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def rob_money(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -137,10 +137,10 @@ def rob_money(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def rob_doll(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')

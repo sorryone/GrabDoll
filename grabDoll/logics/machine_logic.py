@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.machine_model import MachineModel
+from grabDoll.action.machine_action import MachineAction
 from grabDoll.models.note_model import NoteModel
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.hero_action import HeroAction
@@ -14,7 +14,7 @@ __author__ = 'du_du'
 
 def get_machine_info(uid):
     refresh_model_info(uid)
-    mach_model = MachineModel(uid)
+    mach_model = MachineAction(uid)
     return mach_model.get_model_info()
 
 
@@ -58,7 +58,7 @@ def reset_machine(uid):
 
 
 def grab_egg(uid, key_id):
-    mach_model = MachineModel(uid)
+    mach_model = MachineAction(uid)
     egg = mach_model.get_egg_info(key_id)
     if egg is False:
         print("egg  is not exits")
@@ -126,7 +126,7 @@ def get_award(item_id):
 # 根据时间自动刷新娃娃蛋
 def refresh_model_info(uid):
     note_model = NoteModel(uid)
-    mach_model = MachineModel(uid)
+    mach_model = MachineAction(uid)
     cur_time = time.time()
     # 获取当前的机器号
     mach_id = note_model.get_cur_machine()
@@ -146,7 +146,7 @@ def refresh_model_info(uid):
 
 # 重置娃娃机里的娃娃蛋
 def reset_machine_egg_info(uid, mach_id):
-    mach = MachineModel(uid)
+    mach = MachineAction(uid)
     # mach.delete() 旧数据删除大可不必  只要数量相同就会被覆盖
     data = dict()
     eggs = [10001, 10002, 10003, 10004]
@@ -158,6 +158,7 @@ def reset_machine_egg_info(uid, mach_id):
     if res:
         return data
     return False
+
 
 if __name__ == "__main__":
     print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50001)

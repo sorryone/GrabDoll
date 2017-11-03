@@ -9,10 +9,10 @@ from grabDoll.logics import shop_logic as shop_logic
 __author__ = 'du_du'
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def grab_egg(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -28,10 +28,10 @@ def grab_egg(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def switch_machine(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -47,10 +47,10 @@ def switch_machine(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def reset_machine(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
@@ -65,10 +65,10 @@ def reset_machine(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def buy_shop(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             uid = request.query_params.get('uid')
             shop_id = request.query_params.get('shop_id')
@@ -85,10 +85,10 @@ def buy_shop(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def use_item(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             uid = request.query_params.get('uid')
             item_id = request.query_params.get('item_id')
@@ -105,10 +105,10 @@ def use_item(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def speed_up(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             uid = request.query_params.get('uid')
             item_id = request.query_params.get('item_id')
@@ -125,10 +125,10 @@ def speed_up(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def get_debug(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             debug_info = str(request.query_params.get('debug'))
         except Exception as e:

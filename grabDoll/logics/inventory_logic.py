@@ -2,7 +2,7 @@
 
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.user_action import UserAction
-from grabDoll.models.machine_model import MachineModel
+from grabDoll.action.machine_action import MachineAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.models.gacha_model import GachaModel
 from grabDoll.action.book_action import HandBookAction
@@ -101,8 +101,8 @@ def reduce_item(uid, item_id):
 
 
 def reduce_egg(uid, item_id):
-    mach_model = MachineModel(uid)
-    return mach_model.delete_egg(item_id)
+    action = MachineAction(uid)
+    return action.delete_egg(item_id)
 
 
 def reduce_gacha(uid, item_id):

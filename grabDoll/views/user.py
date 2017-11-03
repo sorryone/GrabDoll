@@ -7,10 +7,10 @@ from grabDoll.logics import game_logic as game_logic
 __author__ = 'maxijie'
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def set_user(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             gold = int(request.query_params.get("gold"))
             uid = int(request.query_params.get('uid'))
@@ -29,10 +29,10 @@ def set_user(request):
         return 1, "数据错误"
 
 
-@api_view(["GET"])
+@api_view(["POST"])
 @api_result
 def get_user(request):
-    if request.method == "GET":
+    if request.method == "POST":
         try:
             uid = request.query_params.get('uid')
             open_key = request.query_params.get('openkey')
