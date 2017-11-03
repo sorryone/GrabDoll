@@ -17,11 +17,12 @@ def grab_egg(request):
             print(request.data)
             uid = request.data['uid']
             item_id = request.data['item_id']
+            eggs = request.data['eggs']
         except Exception as e:
             print(e)
             return 1, "参数错误"
     try:
-        data = machine_logic.grab_egg(uid, item_id)
+        data = machine_logic.grab_egg(uid, item_id, eggs)
         return 0, data
     except Exception as e:
         print(e)

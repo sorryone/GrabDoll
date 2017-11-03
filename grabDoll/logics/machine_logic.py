@@ -57,9 +57,12 @@ def reset_machine(uid):
     return False
 
 
-def grab_egg(uid, key_id):
+def grab_egg(uid, key_id, eggs):
     mach_model = MachineAction(uid)
     egg = mach_model.get_egg_info(key_id)
+    eggs = eggs.encode('utf-8')
+    eggs = eval(eggs)
+    print(eggs)
     if egg is False:
         print("egg  is not exits")
         return False
