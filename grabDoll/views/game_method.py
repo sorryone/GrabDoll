@@ -14,7 +14,6 @@ __author__ = 'du_du'
 def grab_egg(request):
     if request.method == "POST":
         try:
-            print(request.data)
             uid = request.data['uid']
             item_id = request.data['item_id']
             eggs = request.data['eggs']
