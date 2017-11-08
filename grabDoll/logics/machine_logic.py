@@ -62,6 +62,7 @@ def grab_egg(uid, key_id, eggs):
     egg = mach_action.get_egg_info(key_id)
     eggs = eggs.encode('utf-8')
     eggs = eval(eggs)
+    print('key_id', key_id)
     print('len eggs', len(eggs))
     if egg is False:
         print("egg  is not exits")
@@ -78,7 +79,8 @@ def grab_egg(uid, key_id, eggs):
     cur_eggs_keys = mach_action.get_egg_group(mach_id)
     values = {k: v for k, v in eggs.items() if k in cur_eggs_keys}
     print values
-    print('len values', len(eggs))
+    print('len values', len(values))
+    
     # 存在的话删除掉
     if del_res:
         # 奖励
