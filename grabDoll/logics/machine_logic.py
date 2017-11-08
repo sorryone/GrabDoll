@@ -58,20 +58,27 @@ def reset_machine(uid):
 
 
 def grab_egg(uid, key_id, eggs):
-    mach_model = MachineAction(uid)
-    egg = mach_model.get_egg_info(key_id)
+    mach_action = MachineAction(uid)
+    egg = mach_action.get_egg_info(key_id)
     eggs = eggs.encode('utf-8')
     eggs = eval(eggs)
-    print(eggs)
+    print('len eggs', len(eggs))
     if egg is False:
         print("egg  is not exits")
         return False
     item_id = egg.get('id', False)
     if item_id is not False:
-        del_res = mach_model.delete_egg(key_id)
+        del_res = mach_action.delete_egg(key_id)
     else:
         print("delete  error")
         return False
+    # 更新保存蛋的位置
+    note_model = NoteModel(uid)
+    mach_id = note_model.get_cur_machine()
+    cur_eggs_keys = mach_action.get_egg_group(mach_id)
+    values = {k: v for k, v in eggs.items() if k in cur_eggs_keys}
+    print values
+    print('len values', len(eggs))
     # 存在的话删除掉
     if del_res:
         # 奖励
