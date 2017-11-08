@@ -80,7 +80,7 @@ def grab_egg(uid, key_id, eggs):
     values = {k: v for k, v in eggs.items() if k in cur_eggs_keys}
     print values
     print('len values', len(values))
-    
+    mach_action.add_egg_list(values)
     # 存在的话删除掉
     if del_res:
         # 奖励
