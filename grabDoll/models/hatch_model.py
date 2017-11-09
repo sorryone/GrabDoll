@@ -10,11 +10,12 @@ class HatchModel(HashModel):
     pass
 
 
-class HatchModelTable(models.Model):
+class HatchTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    left = models.CharField(max_length=512, null=True)
-    center = models.CharField(max_length=512, null=True)
-    right = models.CharField(max_length=512, null=True)
+    pos = models.IntegerField(max_length=4, null=True)
+    key_id = models.CharField(max_length=32)
+    ad = models.IntegerField(max_length=8, null=True)
+    mark_at = models.IntegerField(max_length=20, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 
@@ -24,5 +25,6 @@ class HatchTableSerializer(serializers.ModelSerializer):
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 
     class Meta:
-        model = HatchModelTable
+        model = HatchTable
+        unique_together = (("u_id", "pos"),)
         fields = '__all__'
