@@ -14,8 +14,8 @@ class HatchTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
     pos = models.IntegerField(max_length=4, null=True)
     key_id = models.CharField(max_length=32)
-    ad = models.IntegerField(max_length=8, null=True)
-    mark_at = models.IntegerField(max_length=20, null=True)
+    ad = models.IntegerField(default=0)
+    mark_at = models.IntegerField(default=0)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 
