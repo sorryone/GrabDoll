@@ -14,12 +14,10 @@ __author__ = 'du_du'
 def get_inventory_info(uid):
     item_action = ItemAction(uid)
     hero_action = HeroAction(uid)
-    hatch_action = HatchAction(uid)
     book_action = HandBookAction(uid)
 
     return {
         'items': item_action.get_all(),
-        'hatch': hatch_action.get_model_info(),
         'dolls': hero_action.get_model_info(),
         'book': book_action.get_model_info(),
     }

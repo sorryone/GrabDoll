@@ -58,7 +58,7 @@ class HatchAction(BaseModel):
         print('存的时间', float(dict_data['t']))
         if cur_time < finish_time:
             dict_data['ad'] = float(dict_data['ad']) + int(exp)
-            res = self.set_i(index, dict_data)
+            res = self.set_value(index, dict_data)
             print(res)
             if res == 0 or res is not False:
                 return True
