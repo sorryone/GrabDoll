@@ -4,7 +4,7 @@ from grabDoll.models.note_model import NoteModel
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.item_action import ItemAction
-from grabDoll.models.hatch_model import HatchModel
+from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
 import grabDoll.logics.book_logic as book_logic
 import time
@@ -87,7 +87,7 @@ def grab_egg(uid, key_id, eggs):
         awards = get_award(item_id)
         item_action = ItemAction(uid)
         hero_action = HeroAction(uid)
-        gacha_model = HatchModel(uid)
+        hatch_action = HatchAction(uid)
         book_action = HandBookAction(uid)
         user_action = UserAction(uid)
         res = dict()
@@ -108,7 +108,7 @@ def grab_egg(uid, key_id, eggs):
             elif int(a_id)/10000 == 2:
                 item_action.add_model(a_id, ct)
             elif int(a_id)/10000 == 3:
-                gacha_model.add_model(a_id, ct)
+                hatch_action.add_model(a_id)
             elif int(a_id)/10000 == 4:
                 res['doll'] = hero_action.add_model(a_id)
             else:

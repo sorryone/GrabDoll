@@ -26,7 +26,7 @@ def get_inventory_info(uid):
 
 
 def get_config_info():
-    config_group = ('egg', 'item', 'gacha', 'doll', 'machine', 'book', 'shop')
+    config_group = ('egg', 'item', 'doll', 'machine', 'book', 'shop')
     config_data = dict()
     for config_name in config_group:
         config_data[config_name] = ConfigModel(config_name).get_model_info()
@@ -59,7 +59,6 @@ def use_item(uid, item_id):
         item_model = ItemAction(uid)
         doll_model = HeroAction(uid)
         hatch_action = HatchAction(uid)
-        book_model = HandBookAction(uid)
         user = UserAction(uid)
         res = dict()
         for a_id, ct in awards.iteritems():
@@ -80,15 +79,11 @@ def use_item(uid, item_id):
                 if item_model.add_model(a_id, ct):
                     res[a_id] = ct
             elif int(a_id)/10000 == 3:
-                hatch_action.add_model(a_id, ct)
+                hatch_action.add_model(a_id)
             elif int(a_id)/10000 == 4:
                 res['doll'] = doll_model.add_model(a_id)
-            elif int(a_id)/10000 == 5:
-                book_model.add_model(a_id, ct)
             else:
                 pass
-            # 如果是娃娃
-            # 如果是Gacha蛋
         return res
     print("item  is not exits")
     return False
