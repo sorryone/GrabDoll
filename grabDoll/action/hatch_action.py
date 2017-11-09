@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.base_model import BaseModel
-from grabDoll.models.handbook_model import HandBookModel, HandBookTable, HandBookTableSerializer
+from grabDoll.models.hatch_model import HatchModel, HatchModelTable, HatchTableSerializer
 import time
 __author__ = 'du_du'
 
@@ -11,7 +11,7 @@ class HatchAction(BaseModel):
         self.u_id = u_id
         self.hatch_list = ('left', 'center', 'right')
         super(HatchAction, self).__init__(
-                    u_id, HandBookModel, HandBookTable, HandBookTableSerializer, True)
+                    u_id, HatchModel, HatchModelTable, HatchTableSerializer, True)
 
     def get_model_info(self):
         data = self.get_all()
