@@ -4,23 +4,22 @@ from grabDoll.action.item_action import ItemAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.machine_action import MachineAction
 from grabDoll.action.hero_action import HeroAction
-from grabDoll.models.gacha_model import GachaModel
+from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
 from grabDoll.models.config_model import ConfigModel
 import random
-import time
 __author__ = 'du_du'
 
 
 def get_inventory_info(uid):
     item_action = ItemAction(uid)
     hero_action = HeroAction(uid)
-    gacha_model = GachaModel(uid)
+    hatch_action = HatchAction(uid)
     book_action = HandBookAction(uid)
 
     return {
         'items': item_action.get_all(),
-        'gacha': gacha_model.get_model_info(),
+        'hatch': hatch_action.get_model_info(),
         'dolls': hero_action.get_model_info(),
         'book': book_action.get_model_info(),
     }
@@ -59,7 +58,7 @@ def use_item(uid, item_id):
         awards = get_award(item_id)
         item_model = ItemAction(uid)
         doll_model = HeroAction(uid)
-        gacha_model = GachaModel(uid)
+        hatch_action = HatchAction(uid)
         book_model = HandBookAction(uid)
         user = UserAction(uid)
         res = dict()
@@ -81,7 +80,7 @@ def use_item(uid, item_id):
                 if item_model.add_model(a_id, ct):
                     res[a_id] = ct
             elif int(a_id)/10000 == 3:
-                gacha_model.add_model(a_id, ct)
+                hatch_action.add_model(a_id, ct)
             elif int(a_id)/10000 == 4:
                 res['doll'] = doll_model.add_model(a_id)
             elif int(a_id)/10000 == 5:
@@ -105,9 +104,9 @@ def reduce_egg(uid, item_id):
     return action.delete_egg(item_id)
 
 
-def reduce_gacha(uid, item_id):
-    gach_model = GachaModel(uid)
-    return gach_model.remove_model(item_id)
+def reduce_hatch(uid, item_id):
+    hatch_action = HatchAction(uid)
+    return hatch_action.remove_model(item_id)
 
 
 # 查看奖励
