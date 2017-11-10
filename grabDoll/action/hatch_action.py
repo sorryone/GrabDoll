@@ -40,7 +40,7 @@ class HatchAction(BaseModel):
         data = {
             "pos": 0,
         }
-        return self.set_values(data)
+        return self.set_values(data, {"pos": 0})
 
     def hatch_unlock(self, index):
         if index == 0 or index not in self.hatch_pos:
@@ -48,7 +48,8 @@ class HatchAction(BaseModel):
         data = {
             "pos": index,
         }
-        self.set_values(data)
+        res = self.set_values(data, {"pos": index})
+        print res
         return True
 
     # 增加物品
