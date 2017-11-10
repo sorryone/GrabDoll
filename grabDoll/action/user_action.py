@@ -45,15 +45,6 @@ class UserAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
-        if not data:
-            data = {
-                'gold': 1000,
-                'diamond': 100,
-                'uid': self.u_id,
-                'exp': 0,
-                'lv': 1,
-            }
-            return self.set_values(data)
         res = {}
         key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
         for key in key_info:
@@ -62,3 +53,14 @@ class UserAction(BaseModel):
             else:
                 res[key] = 0
         return res
+
+    # 创建新用户
+    def create_model(self):
+        data = {
+            'gold': 1000,
+            'diamond': 100,
+            'uid': self.u_id,
+            'exp': 0,
+            'lv': 1,
+        }
+        return self.set_values(data)

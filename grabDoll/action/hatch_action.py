@@ -21,12 +21,28 @@ class HatchAction(BaseModel):
                 res[key] = eval(value)
         return res
 
+    # 只有首次创建新用户初始化的时候调用
+    def create_model(self):
+        data = {
+            "pos": 0,
+        }
+        return self.set_values(data)
+
+    def hatch_unlock(self, index):
+        if index == 0 or index not in self.hatch_pos:
+            return False
+        data = {
+            "pos": index,
+        }
+        self.set_values(data)
+        return True
+
     # 增加物品
-    def add_model(self, e_id):
+    def add_model(self, key_id):
         # 蛋的数据结构
         data = {
-            "id": e_id,
-            "t": time.time(),
+            "key_id": key_id,
+            "mark_at": time.time(),
             "ad": 0,
         }
         empty_hatch = [str(i) for i in self.hatch_pos if self.get_value(i) != {}]
@@ -52,10 +68,10 @@ class HatchAction(BaseModel):
             pass
         cur_time = time.time()
         need_time = 300     # 需要的时间 先写死
-        finish_time = float(dict_data['t']) + float(dict_data['ad']) + need_time
+        finish_time = float(dict_data['mark_at']) + float(dict_data['ad']) + need_time
         print('当前时间戳', cur_time)
         print('预计时间', finish_time)
-        print('存的时间', float(dict_data['t']))
+        print('存的时间', float(dict_data['mark_at']))
         if cur_time < finish_time:
             dict_data['ad'] = float(dict_data['ad']) + int(exp)
             res = self.set_value(index, dict_data)
