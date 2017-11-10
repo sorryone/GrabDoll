@@ -10,17 +10,20 @@ class HatchAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         self.hatch_pos = (0, 1, 2)
+        self.key_info = ('u_id', 'pos', 'key_id', 'ad', 'mark_at')
         super(HatchAction, self).__init__(
                     u_id, HatchModel, HatchTable, HatchTableSerializer, True)
 
     def get_model_info(self):
         data_list = self.get_all()
+
         res = []
         for index, data in enumerate(data_list):
             if data is not None:
                 res_item = dict()
-                for key, value in data.items():
-                    res_item[key] = eval(value)
+                for key in self.key_info:
+                    if key in data:
+                        res_item[key] = data[key]
                 res.append(res_item)
         return res
 
