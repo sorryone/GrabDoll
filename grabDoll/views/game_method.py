@@ -112,7 +112,7 @@ def hatch_unlock(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
-            index = request.query_params.get('index')
+            index = int(request.query_params.get('index'))
             if index is None:
                 return 1, "错误索引"
         except Exception as e:

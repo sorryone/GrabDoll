@@ -16,11 +16,17 @@ class UserAction(BaseModel):
     def get_diamond(self):
         return self.get_value("diamond")
 
+    def get_vit(self):
+        return self.get_value("vit")
+
     def add_gold(self, ct):
         self.incr("gold", ct)
         return True
 
     def reduce_gold(self, ct):
+        cur_value = self.get_gold()
+        if cur_value < ct:
+            return False
         return self.incr("gold", -ct)
 
     def add_diamond(self, ct):
@@ -28,6 +34,9 @@ class UserAction(BaseModel):
         return True
 
     def reduce_diamond(self, ct):
+        cur_value = self.get_diamond()
+        if cur_value < ct:
+            return False
         self.incr("diamond", -ct)
         return True
 
@@ -40,6 +49,9 @@ class UserAction(BaseModel):
         return True
 
     def reduce_vit(self, ct):
+        cur_value = self.get_vit()
+        if cur_value < ct:
+            return False
         self.incr("vit", -ct)
         return True
 
