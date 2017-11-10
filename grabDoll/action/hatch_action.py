@@ -48,9 +48,10 @@ class HatchAction(BaseModel):
         data = {
             "pos": index,
         }
-        res = self.set_values(data, {"pos": index})
-        print res
-        return True
+        if self.set_values(data, {"pos": index}):
+            data_list = self.get_all({"pos": index})
+            return self.filter_data(data_list)
+        return False
 
     # 增加物品
     def add_model(self, key_id):
