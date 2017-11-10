@@ -8,6 +8,8 @@ urlpatterns = patterns("",
                        url(r'^get_user', 'grabDoll.views.user.get_user'),
                        url(r'^set_user', 'grabDoll.views.user.set_user'),
                        url(r'^grab_egg', 'grabDoll.views.game_method.grab_egg'),
+                       # 解锁
+                       url(r'^speed_up', 'grabDoll.views.game_method.hatch_unlock'),
                        # 加速孵化
                        url(r'^speed_up', 'grabDoll.views.game_method.speed_up'),
                        # 切换娃娃机

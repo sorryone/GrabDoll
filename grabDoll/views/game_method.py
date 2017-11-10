@@ -6,6 +6,7 @@ from grabDoll.logics import inventory_logic as inventory_logic
 from grabDoll.logics import game_logic as game_logic
 from grabDoll.logics import machine_logic as machine_logic
 from grabDoll.logics import shop_logic as shop_logic
+from grabDoll.logics import hatch_logic as hatch_logic
 __author__ = 'du_du'
 
 
@@ -107,18 +108,38 @@ def use_item(request):
 
 @api_view(["GET"])
 @api_result
-def speed_up(request):
+def hatch_unlock(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
-            item_id = request.query_params.get('item_id')
-            if item_id is None:
-                return 1, "未知的道具"
+            index = request.query_params.get('index')
+            if index is None:
+                return 1, "错误索引"
         except Exception as e:
             print(e)
             return 1, "参数错误"
     try:
-        data = inventory_logic.gacha_speed_up(uid, item_id)
+        data = hatch_logic.hatch_unlock(uid, index)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def speed_up(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            index = request.query_params.get('index')
+            if index is None:
+                return 1, "错误索引"
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = hatch_logic.hatch_speed(uid, index)
         return 0, data
     except Exception as e:
         print(e)
