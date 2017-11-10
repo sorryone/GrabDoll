@@ -9,7 +9,7 @@ class HatchAction(BaseModel):
 
     def __init__(self, u_id):
         self.u_id = u_id
-        self.hatch_pos = ('0', '1', '2')
+        self.hatch_pos = (0, 1, 2)
         super(HatchAction, self).__init__(
                     u_id, HatchModel, HatchTable, HatchTableSerializer, True)
 
