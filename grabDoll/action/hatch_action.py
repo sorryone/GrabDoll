@@ -14,11 +14,14 @@ class HatchAction(BaseModel):
                     u_id, HatchModel, HatchTable, HatchTableSerializer, True)
 
     def get_model_info(self):
-        data = self.get_all()
-        res = dict()
-        if data is not None:
-            for key, value in data.items():
-                res[key] = eval(value)
+        data_list = self.get_all()
+        res = []
+        for index, data in enumerate(data_list):
+            if data is not None:
+                res_item = dict()
+                for key, value in data.items():
+                    res_item[key] = eval(value)
+                res.append(res_item)
         return res
 
     # 只有首次创建新用户初始化的时候调用
