@@ -10,9 +10,10 @@ def get_hatch_info(uid):
 
 def hatch_unlock(uid, index):
     user_action = UserAction(uid)
-    if user_action.reduce_gold(100):
+    if user_action.reduce_diamond(100):
         action = HatchAction(uid)
         return action.hatch_unlock(index)
+    print 'not diamond'
     return False
 
 

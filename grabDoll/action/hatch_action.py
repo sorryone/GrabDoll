@@ -44,6 +44,7 @@ class HatchAction(BaseModel):
 
     def hatch_unlock(self, index):
         if index == 0 or index not in self.hatch_pos:
+            print 'index error'
             return False
         data = {
             "pos": index,
@@ -51,6 +52,7 @@ class HatchAction(BaseModel):
         if self.set_values(data, {"pos": index}):
             data_list = self.get_all({"pos": index})
             return self.filter_data(data_list)
+        print 'db error'
         return False
 
     # 增加物品
