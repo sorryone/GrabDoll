@@ -47,12 +47,11 @@ class UserAction(BaseModel):
         data = self.get_all()
         res = {}
         key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
-        if len(data) > 0:
-            for key in key_info:
-                if key in data[0]:
-                    res[key] = data[0][key]
-                else:
-                    res[key] = 0
+        for key in key_info:
+            if key in data:
+                res[key] = data[key]
+            else:
+                res[key] = 0
         return res
 
     # 创建新用户

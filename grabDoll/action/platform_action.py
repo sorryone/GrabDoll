@@ -13,6 +13,4 @@ class PlatformAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
-        if len(data) > 0:
-            return data[0]
-        return {}
+        return data
