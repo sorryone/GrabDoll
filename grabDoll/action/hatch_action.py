@@ -45,6 +45,7 @@ class HatchAction(BaseModel):
     def hatch_unlock(self, index):
         if index == 0 or index not in self.hatch_pos:
             print 'index error'
+            print type(index)
             return False
         data = {
             "pos": index,
