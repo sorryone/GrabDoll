@@ -2,6 +2,7 @@
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.hatch_model import HatchModel, HatchTable, HatchTableSerializer
 import time
+import collections
 __author__ = 'du_du'
 
 
@@ -16,16 +17,23 @@ class HatchAction(BaseModel):
 
     def get_model_info(self):
         data_list = self.get_all()
-
         res = []
-        for index, data in enumerate(data_list):
-            if data is not None:
-                res_item = dict()
-                for key in self.key_info:
-                    if key in data:
-                        res_item[key] = data[key]
+        if isinstance(data_list, (dict, collections.OrderedDict)):
+            res_item = self.filter_data(data_list)
+            res.append(res_item)
+        else:
+            # 如果是数组
+            for index, data in enumerate(data_list):
+                res_item = self.filter_data(data)
                 res.append(res_item)
         return res
+
+    def filter_data(self, data):
+        res_item = dict()
+        for key in self.key_info:
+            if key in data:
+                res_item[key] = data[key]
+        return res_item
 
     # 只有首次创建新用户初始化的时候调用
     def create_model(self):
