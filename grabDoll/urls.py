@@ -9,9 +9,9 @@ urlpatterns = patterns("",
                        url(r'^set_user', 'grabDoll.views.user.set_user'),
                        url(r'^grab_egg', 'grabDoll.views.game_method.grab_egg'),
                        # 解锁
-                       url(r'^speed_up', 'grabDoll.views.game_method.hatch_unlock'),
+                       url(r'^hatch_unlock', 'grabDoll.views.game_method.hatch_unlock'),
                        # 加速孵化
-                       url(r'^speed_up', 'grabDoll.views.game_method.speed_up'),
+                       url(r'^hatch_speed', 'grabDoll.views.game_method.hatch_speed'),
                        # 切换娃娃机
                        url(r'^switch_machine', 'grabDoll.views.game_method.switch_machine'),
                        # 刷新重置娃娃机

@@ -128,7 +128,7 @@ def hatch_unlock(request):
 
 @api_view(["GET"])
 @api_result
-def speed_up(request):
+def hatch_speed(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
