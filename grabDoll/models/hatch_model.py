@@ -12,7 +12,7 @@ class HatchModel(HashModel):
 
 class HatchTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    pos = models.IntegerField(default=0)
+    pos = models.IntegerField(default=0, unique=True)
     key_id = models.CharField(max_length=32)
     ad = models.IntegerField(default=0)
     mark_at = models.IntegerField(default=0)
