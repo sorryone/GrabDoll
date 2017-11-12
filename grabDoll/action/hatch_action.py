@@ -78,7 +78,7 @@ class HatchAction(BaseModel):
         }
         hatch_info = self.get_hatch_available()
         if hatch_info is not None and hatch_info is not {}:
-            res = self.set_value(data, {'pos': hatch_info['pos']})
+            res = self.set_values(data, {'pos': hatch_info['pos']})
             if res is not False:
                 data['pos'] = hatch_info['pos']
                 return data
