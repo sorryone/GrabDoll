@@ -63,8 +63,6 @@ def grab_egg(uid, key_id, eggs):
     egg = mach_action.get_egg_info(key_id)
     eggs = eggs.encode('utf-8')
     eggs = eval(eggs)
-    print('key_id', key_id)
-    print('len eggs', len(eggs))
     if egg is False:
         print("egg  is not exits")
         return False
@@ -79,58 +77,67 @@ def grab_egg(uid, key_id, eggs):
     mach_id = note_model.get_cur_machine()
     cur_eggs_keys = mach_action.get_egg_group(mach_id)
     values = {k: v for k, v in eggs.items() if k in cur_eggs_keys}
-    print values
-    print('len values', len(values))
     mach_action.add_egg_list(values)
     # 存在的话删除掉
     if del_res:
-        # 奖励
-        awards = get_award(item_id)
-        item_action = ItemAction(uid)
-        hero_action = HeroAction(uid)
-        hatch_action = HatchAction(uid)
-        book_action = HandBookAction(uid)
-        user_action = UserAction(uid)
-        res = dict()
-        for a_id, ct in awards.iteritems():
-            # 如果是金币添加金币
-            if a_id == "gold":
-                user_action.add_gold(ct)
-                res[a_id] = ct
-            # 如果是钻石添加钻石
-            elif a_id == "diamond":
-                user_action.add_diamond(ct)
-                res[a_id] = ct
-            # 经验
-            elif a_id == "exp":
-                user_action.add_gold(ct)
-                res[a_id] = ct
-            # 如果是道具添加道具
-            elif int(a_id)/10000 == 2:
-                item_action.add_model(a_id, ct)
-            elif int(a_id)/10000 == 4:
-                if hero_action.get_doll_exist(a_id) is False:
-                    config = ConfigModel('doll').get_config_by_id(a_id)
-                    if config['rare'] <= 2:
-                        res['doll'] = hero_action.add_model(a_id)
-                    else:
-                        res['hatch'] = hatch_action.add_model(a_id)
-                else:
-                    # 如果已经有这个英雄了 就发金币吧
-                    user_action.add_gold(10)
-                    res['gold'] = 10
-                    res['hero_exist'] = a_id
-            else:
-                pass
-        # 图鉴加经验
-        note_model = NoteModel(uid)
-        res['book_exp'] = book_action.add_book_exp(note_model.get_cur_machine(), 1)
-        unlock_next_book = book_logic.refresh_lock(uid, note_model.get_cur_machine())
-        if unlock_next_book:
-            res['egg'] = reset_machine_egg_info(uid, unlock_next_book)
-        return res
+        config = ConfigModel('egg').get_config_by_id(item_id)
+        if config['lv'] <= 2:
+            return open_egg(uid, item_id)
+        else:
+            hatch_action = HatchAction(uid)
+            return {
+                'hatch': hatch_action.add_model(item_id)
+            }
     print("item  is not exits")
     return False
+
+
+def save_eggs_pos_info():
+    pass
+
+
+def open_egg(uid, egg_id):
+    # 奖励
+    awards = get_award(egg_id)
+    item_action = ItemAction(uid)
+    hero_action = HeroAction(uid)
+    book_action = HandBookAction(uid)
+    user_action = UserAction(uid)
+    res = dict()
+    for a_id, ct in awards.iteritems():
+        # 如果是金币添加金币
+        if a_id == "gold":
+            user_action.add_gold(ct)
+            res[a_id] = ct
+        # 如果是钻石添加钻石
+        elif a_id == "diamond":
+            user_action.add_diamond(ct)
+            res[a_id] = ct
+        # 经验
+        elif a_id == "exp":
+            user_action.add_gold(ct)
+            res[a_id] = ct
+        # 如果是道具添加道具
+        elif int(a_id) / 10000 == 2:
+            item_action.add_model(a_id, ct)
+        elif int(a_id) / 10000 == 4:
+            if hero_action.get_doll_exist(a_id) is False:
+                res['doll'] = hero_action.add_model(a_id)
+            else:
+                # 如果已经有这个英雄了 就发金币吧
+                user_action.add_gold(10)
+                res['gold'] = 10
+                res['hero_exist'] = a_id
+        else:
+            pass
+    # 图鉴加经验
+    note_model = NoteModel(uid)
+    res['book_exp'] = book_action.add_book_exp(note_model.get_cur_machine(), 1)
+    unlock_next_book = book_logic.refresh_lock(uid, note_model.get_cur_machine())
+    if unlock_next_book:
+        res['egg'] = reset_machine_egg_info(uid, unlock_next_book)
+    return res
+    pass
 
 
 # 查看奖励
