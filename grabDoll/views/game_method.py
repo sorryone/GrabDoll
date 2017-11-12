@@ -132,7 +132,27 @@ def hatch_speed(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
-            index = request.query_params.get('index')
+            index = int(request.query_params.get('index'))
+            if index is None:
+                return 1, "错误索引"
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = hatch_logic.hatch_speed(uid, index)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def hatch_open(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            index = int(request.query_params.get('index'))
             if index is None:
                 return 1, "错误索引"
         except Exception as e:
