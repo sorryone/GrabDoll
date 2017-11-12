@@ -3,6 +3,7 @@ from grabDoll.models.base_model import BaseModel
 from grabDoll.models.hatch_model import HatchModel, HatchTable, HatchTableSerializer
 import time
 import collections
+from operator import attrgetter
 __author__ = 'du_du'
 
 
@@ -26,7 +27,19 @@ class HatchAction(BaseModel):
             for index, data in enumerate(data_list):
                 res_item = self.filter_data(data)
                 res.append(res_item)
+        sorted(res, key=attrgetter('pos'), reverse=True)
         return res
+
+    def get_model_info_by_index(self, index):
+        data = self.get_all({"pos": index})
+        return data
+
+    def get_hatch_available(self):
+        data = self.get_model_info()
+        item_list = [item for item in data if item['key_id'] == '']
+        if len(item_list) > 0:
+            return item_list[0]
+        return None
 
     def filter_data(self, data):
         res_item = dict()
@@ -64,11 +77,12 @@ class HatchAction(BaseModel):
             "mark_at": time.time(),
             "ad": 0,
         }
-        empty_hatch = [str(i) for i in self.hatch_pos if self.get_value(i) != {}]
-        print empty_hatch
-        res = self.set_value(empty_hatch[0], data)
-        if res is not False:
-            return True
+        hatch_info = self.get_hatch_available()
+        if hatch_info is not None and hatch_info is not {}:
+            res = self.set_value(data, {'pos': hatch_info['pos']})
+            if res is not False:
+                data['pos'] = hatch_info['pos']
+                return data
         return False
 
     # 移除物品
