@@ -6,6 +6,7 @@ from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
+from grabDoll.models.config_model import ConfigModel
 import grabDoll.logics.book_logic as book_logic
 import time
 import random
@@ -107,10 +108,18 @@ def grab_egg(uid, key_id, eggs):
             # 如果是道具添加道具
             elif int(a_id)/10000 == 2:
                 item_action.add_model(a_id, ct)
-            elif int(a_id)/10000 == 3:
-                hatch_action.add_model(a_id)
             elif int(a_id)/10000 == 4:
-                res['doll'] = hero_action.add_model(a_id)
+                if hero_action.get_doll_exist(a_id) is False:
+                    config = ConfigModel('doll').get_config_by_id(a_id)
+                    if config['rare'] <= 2:
+                        res['doll'] = hero_action.add_model(a_id)
+                    else:
+                        res['hatch'] = hatch_action.add_model(a_id)
+                else:
+                    # 如果已经有这个英雄了 就发金币吧
+                    user_action.add_gold(10)
+                    res['gold'] = 10
+                    res['hero_exist'] = a_id
             else:
                 pass
         # 图鉴加经验
@@ -129,7 +138,7 @@ def get_award(item_id):
     ct = 2
     data = dict()
     data['gold'] = ct
-    doll_id = random.randint(40001, 40008)
+    doll_id = random.randint(40001, 40150)
     data[doll_id] = 1
     print('get_award', data)
     return data

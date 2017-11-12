@@ -21,6 +21,11 @@ class HeroAction(BaseModel):
     def get_doll_keys(self):
         return self.get_keys()
 
+    def get_doll_exist(self, hero_id):
+        if self.has_key(hero_id):
+            return True
+        return False
+
     def get_doll_group(self):
         doll_keys = self.get_keys()
         my_doll_keys = [str(i) for i in doll_keys]
