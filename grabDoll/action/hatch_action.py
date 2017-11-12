@@ -86,7 +86,12 @@ class HatchAction(BaseModel):
 
     # 移除物品
     def remove_model(self, index):
-        res = self.set_value(self.hatch_pos[index], '')
+        data = {
+            "key_id": '',
+            "mark_at": 0,
+            "ad": 0,
+        }
+        res = self.set_values(data, {"pos": index})
         if res == 0 or res is not False:
             return True
         return False
