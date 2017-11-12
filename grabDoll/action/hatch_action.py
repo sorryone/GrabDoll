@@ -27,8 +27,7 @@ class HatchAction(BaseModel):
             for index, data in enumerate(data_list):
                 res_item = self.filter_data(data)
                 res.append(res_item)
-        sorted(res, key=attrgetter('pos'), reverse=True)
-        return res
+        return sorted(res, key=lambda x: x['pos'], reverse=True)
 
     def get_model_info_by_index(self, index):
         data = self.get_all({"pos": index})
