@@ -20,8 +20,13 @@ def hatch_unlock(uid, index):
 
 
 def hatch_speed(uid, index):
-    action = HatchAction(uid)
-    return action.add_exp(index, 100)
+    user_action = UserAction(uid)
+    cost = 100
+    if user_action.reduce_gold(cost):
+        action = HatchAction(uid)
+        return action.add_exp(index, 100)
+    print 'not gold'
+    return False
 
 
 def hatch_open(uid, index):
