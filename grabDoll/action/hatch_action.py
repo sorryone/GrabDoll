@@ -3,7 +3,6 @@ from grabDoll.models.base_model import BaseModel
 from grabDoll.models.hatch_model import HatchModel, HatchTable, HatchTableSerializer
 import time
 import collections
-from operator import attrgetter
 __author__ = 'du_du'
 
 
@@ -97,21 +96,21 @@ class HatchAction(BaseModel):
         return False
 
     def add_exp(self, index, exp):
-        hatch_info = self.get_value(self.hatch_pos[index])
+        hatch_info = self.get_model_info_by_index(self.hatch_pos[index])
         try:
             dict_data = eval(hatch_info)
         except Exception as e:
             print e
             pass
         cur_time = time.time()
-        need_time = 300     # 需要的时间 先写死
+        need_time = 3000     # 需要的时间 先写死
         finish_time = float(dict_data['mark_at']) + float(dict_data['ad']) + need_time
         print('当前时间戳', cur_time)
         print('预计时间', finish_time)
         print('存的时间', float(dict_data['mark_at']))
         if cur_time < finish_time:
             dict_data['ad'] = float(dict_data['ad']) + int(exp)
-            res = self.set_value(index, dict_data)
+            res = self.set_values(dict_data, {'pos': dict_data['pos']})
             print(res)
             if res == 0 or res is not False:
                 return True
