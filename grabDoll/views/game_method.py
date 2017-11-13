@@ -159,7 +159,7 @@ def hatch_open(request):
             print(e)
             return 1, "参数错误"
     try:
-        data = hatch_logic.hatch_speed(uid, index)
+        data = hatch_logic.hatch_open(uid, index)
         return 0, data
     except Exception as e:
         print(e)
