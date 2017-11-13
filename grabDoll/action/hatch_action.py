@@ -97,21 +97,22 @@ class HatchAction(BaseModel):
 
     def add_exp(self, index, exp):
         hatch_info = self.get_model_info_by_index(self.hatch_pos[index])
-        try:
-            dict_data = eval(hatch_info)
-        except Exception as e:
-            print e
-            pass
+        if hatch_info is None:
+            print('not find hatch')
+            return False
+        if len(hatch_info) == 0:
+            print('error hatch')
+            return False
         cur_time = time.time()
         need_time = 3000     # 需要的时间 先写死
-        finish_time = float(dict_data['mark_at']) + float(dict_data['ad']) + need_time
+        finish_time = int(hatch_info['mark_at']) + int(hatch_info['ad']) + need_time
         print('当前时间戳', cur_time)
         print('预计时间', finish_time)
-        print('存的时间', float(dict_data['mark_at']))
+        print('存的时间', int(hatch_info['mark_at']))
         if cur_time < finish_time:
-            dict_data['ad'] = float(dict_data['ad']) + int(exp)
-            res = self.set_values(dict_data, {'pos': dict_data['pos']})
+            hatch_info['ad'] = int(hatch_info['ad']) + int(exp)
+            res = self.set_values(hatch_info, {'pos': hatch_info['pos']})
             print(res)
             if res == 0 or res is not False:
-                return True
+                return hatch_info
         return False
