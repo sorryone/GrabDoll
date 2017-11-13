@@ -38,3 +38,12 @@ def hatch_open(uid, index):
     else:
         return False
 
+
+def hatch_discard(uid, index):
+    action = HatchAction(uid)
+    data = action.get_model_info_by_index(index)
+    egg_id = data['key_id']
+    if egg_id != '':
+        return action.remove_model(index)
+    return False
+
