@@ -106,14 +106,14 @@ class HatchAction(BaseModel):
         cur_time = time.time()
         need_time = 3000     # 需要的时间 先写死
         finish_time = int(hatch_info['mark_at']) + int(hatch_info['ad']) + need_time
-        print('cur_time', cur_time)
-        print('finish_time', finish_time)
-        print('mark_at', int(hatch_info['mark_at']))
+
         if cur_time < finish_time:
-            hatch_info['ad'] = int(hatch_info['ad']) + int(exp)
-            print(hatch_info)
-            res = self.set_values(hatch_info, {'pos': hatch_info['pos']})
+            data = {
+                "ad": int(hatch_info['ad']) + int(exp),
+            }
+            res = self.set_values(data, {'pos': hatch_info['pos']})
             print(res)
             if res == 0 or res is not False:
-                return hatch_info
+                hatch_info['ad'] = data['ad']
+                return self.filter_data(hatch_info)
         return False
