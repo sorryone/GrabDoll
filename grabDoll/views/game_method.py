@@ -55,11 +55,12 @@ def reset_machine(request):
         try:
             print(request.query_params)
             uid = request.query_params.get('uid')
+            machine = request.query_params.get('machine')
         except Exception as e:
             print(e)
             return 1, "参数错误"
     try:
-        data = machine_logic.reset_machine(uid)
+        data = machine_logic.reset_machine(uid, machine)
         return 0, data
     except Exception as e:
         print(e)

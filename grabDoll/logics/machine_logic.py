@@ -37,10 +37,8 @@ def switch_machine(uid, machine_id):
     return False
 
 
-def reset_machine(uid):
+def reset_machine(uid, mach_id):
     note_model = NoteModel(uid)
-    # 获取当前的机器号
-    mach_id = note_model.get_cur_machine()
     cur_time = time.time()
     egg_refresh_time = note_model.get_machine_create_time(mach_id)
     cd = 600
@@ -54,7 +52,15 @@ def reset_machine(uid):
     check_cost = user_action.reduce_gold(cost_gold)
     # 需要先扣钱
     if check_cost:
-        return reset_machine_egg_info(uid, mach_id)
+        note_model.set_machine_create_time(mach_id)
+        res = {
+            'eggs': reset_machine_egg_info(uid, mach_id),
+            'costType': 'gold',
+            'costValue': cost_gold,
+            'mach_id': mach_id,
+            'cur_time': cur_time,
+        }
+        return res
     return False
 
 
