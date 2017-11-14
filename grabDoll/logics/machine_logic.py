@@ -178,14 +178,20 @@ def refresh_model_info(uid):
 
 # 重置娃娃机里的娃娃蛋
 def reset_machine_egg_info(uid, mach_id):
+    config_model = ConfigModel('machine')
+    mach_config = config_model.get_config_by_id(mach_id)
+    egg_group = mach_config['eggGroup']
+    egg_list = eval(egg_group)
+    random_list = []
+    for key, value in egg_list.items():
+        random_list.extend([key] * value)
+    slice_list = random.sample(random_list, 20)
     mach = MachineAction(uid)
-    # mach.delete() 旧数据删除大可不必  只要数量相同就会被覆盖
     data = dict()
-    eggs = [10001, 10002, 10003, 10004]
     rand_x = [5, 6, 7, 8, 9]
     rand_y = [20, 21, 22, 23, 24, 25]
-    for index in range(20):
-        data[str(mach_id) + '_' + str(index)] = {'id': random.choice(eggs), 'x': random.choice(rand_x), 'y': random.choice(rand_y), 'r': 30}
+    for index in range(len(slice_list)):
+        data[str(mach_id) + '_' + str(index)] = {'id': slice_list[index], 'x': random.choice(rand_x), 'y': random.choice(rand_y), 'r': 30}
     res = mach.add_egg_list(data)
     if res:
         return data
