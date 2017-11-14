@@ -73,29 +73,27 @@ def grab_egg(uid, key_id, eggs):
         print("egg  is not exits")
         return False
     item_id = egg.get('id', False)
-    if item_id is not False:
-        del_res = mach_action.delete_egg(key_id)
-    else:
-        print("delete  error")
+    if item_id is False:
         return False
+    config = ConfigModel('egg').get_config_by_id(item_id)
+    if config['lv'] <= 2:
+        res = open_egg(uid, item_id)
+    else:
+        hatch_action = HatchAction(uid)
+        available_hatch = hatch_action.get_hatch_available()
+        if available_hatch is None:
+            return False
+        elif mach_action.delete_egg(key_id):
+            res = {'hatch': hatch_action.add_model_index(item_id, available_hatch['pos'])}
+        else:
+            return False
     # 更新保存蛋的位置
     note_model = NoteModel(uid)
     mach_id = note_model.get_cur_machine()
     cur_eggs_keys = mach_action.get_egg_group(mach_id)
-    values = {k: v for k, v in eggs.items() if k in cur_eggs_keys}
+    values = {k: v for k, v in eggs.items() if k in cur_eggs_keys and k != key_id}
     mach_action.add_egg_list(values)
-    # 存在的话删除掉
-    if del_res:
-        config = ConfigModel('egg').get_config_by_id(item_id)
-        if config['lv'] <= 2:
-            return open_egg(uid, item_id)
-        else:
-            hatch_action = HatchAction(uid)
-            return {
-                'hatch': hatch_action.add_model(item_id)
-            }
-    print("item  is not exits")
-    return False
+    return res
 
 
 def save_eggs_pos_info():

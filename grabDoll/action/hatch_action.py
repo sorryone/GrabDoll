@@ -83,6 +83,19 @@ class HatchAction(BaseModel):
                 return data
         return False
 
+    def add_model_index(self, key_id, index):
+        # 蛋的数据结构
+        data = {
+            "key_id": key_id,
+            "mark_at": time.time(),
+            "ad": 0,
+        }
+        res = self.set_values(data, {'pos': index})
+        if res is not False:
+            data['pos'] = index
+            return data
+        return False
+
     # 移除物品
     def remove_model(self, index):
         data = {
