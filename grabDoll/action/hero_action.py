@@ -8,6 +8,8 @@ class HeroAction(BaseModel):
 
     def __init__(self, u_id):
         self.u_id = u_id
+        # 娃娃的四种状态
+        self.state = ('normal', 'work', 'sleep', 'fight', 'hurt')
         super(HeroAction, self).__init__(
                     u_id, DollModel, DollTable, DollTableSerializer, False)
 
