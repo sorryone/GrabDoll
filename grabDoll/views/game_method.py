@@ -12,6 +12,24 @@ __author__ = 'du_du'
 
 @api_view(["POST"])
 @api_result
+def start_grab(request):
+    if request.method == "POST":
+        try:
+            uid = request.data['uid']
+            item_id = request.data['item_id']
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = machine_logic.start_grab(uid, item_id)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["POST"])
+@api_result
 def grab_egg(request):
     if request.method == "POST":
         try:

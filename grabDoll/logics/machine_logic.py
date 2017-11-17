@@ -64,6 +64,22 @@ def reset_machine(uid, mach_id):
     return False
 
 
+def start_grab(uid, key_id):
+    user_action = UserAction(uid)
+    vit = user_action.get_vit()
+    vit_cost = 1
+    if vit < vit_cost or user_action.reduce_vit(vit_cost) is False:
+        return False
+    config = ConfigModel('egg').get_config_by_id(key_id)
+    probability = int(config['lv']) / 100
+    rand = random.random()
+    res = dict()
+    res['res'] = True if rand <= probability else False
+    note_model = NoteModel(uid)
+    note_model.set_value(key_id, res['res'])
+    return res
+
+
 def grab_egg(uid, key_id, eggs):
     mach_action = MachineAction(uid)
     egg = mach_action.get_egg_info(key_id)
