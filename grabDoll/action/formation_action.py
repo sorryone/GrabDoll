@@ -21,7 +21,7 @@ class FormationAction(BaseModel):
     def get_fight_model_info(self):
         data = self.get_value('fight_formation', None)
         res = []
-        if data is str:
+        if isinstance(data, (str,)):
             res = data.split(self.split_str)
         fill_ct = self.fight_length - len(res)
         if fill_ct > 0:
@@ -31,7 +31,7 @@ class FormationAction(BaseModel):
     def get_explore_model_info(self):
         data = self.get_value('explore_formation', None)
         res = []
-        if data is str:
+        if isinstance(data, (str,)):
             res = data.split(self.split_str)
         fill_ct = self.explore_length - len(res)
         if fill_ct > 0:
