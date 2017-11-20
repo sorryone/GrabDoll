@@ -14,6 +14,8 @@ def get_formation_info(uid):
 
 
 def set_fight(uid, heroes):
+    print (heroes)
+    print type(heroes)
     action = FormationAction(uid)
     myHeroes = HeroAction(uid).get_keys()
     return action.set_fight_model_info(heroes)

@@ -43,6 +43,7 @@ class FormationAction(BaseModel):
             data = self.split_str.join(str(i) for i in heroes)
             res = self.set_value('fight_formation', data)
             return res
+        print ('is error')
         return False
 
     def set_explore_model_info(self, heroes):
