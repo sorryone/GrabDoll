@@ -22,8 +22,8 @@ class FormationAction(BaseModel):
         data = self.get_value('fight_formation', None)
         res = []
         if isinstance(data, (unicode,)):
-            print('start uft-8')
-            data = data.encode('uft-8')
+            print('start utf-8')
+            data = data.encode('utf-8')
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
         fill_ct = self.fight_length - len(res)
@@ -35,8 +35,8 @@ class FormationAction(BaseModel):
         data = self.get_value('explore_formation', None)
         res = []
         if isinstance(data, (unicode,)):
-            print('start uft-8')
-            data = data.encode('uft-8')
+            print('start utf-8')
+            data = data.encode('utf-8')
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
             print(res)
