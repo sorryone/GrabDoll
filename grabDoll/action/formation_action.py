@@ -34,14 +34,14 @@ class FormationAction(BaseModel):
 
     def set_fight_model_info(self, heroes):
         if heroes is list and len(heroes) == self.fight_length:
-            data = self.split_str.join(heroes)
+            data = self.split_str.join(str(i) for i in heroes)
             res = self.set_value('fight_formation', data)
             return res
         return False
 
     def set_explore_model_info(self, heroes):
         if heroes is list and len(heroes) == self.fight_length:
-            data = self.split_str.join(heroes)
+            data = self.split_str.join(str(i) for i in heroes)
             res = self.set_value('explore_formation', data)
             return res
         return False
