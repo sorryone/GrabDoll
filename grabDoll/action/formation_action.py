@@ -23,6 +23,9 @@ class FormationAction(BaseModel):
         res = []
         if data is str:
             res = data.split(self.split_str)
+        fill_ct = self.fight_length - len(res)
+        if fill_ct > 0:
+            res.extend([''] * fill_ct)
         return res
 
     def get_explore_model_info(self):
@@ -30,6 +33,9 @@ class FormationAction(BaseModel):
         res = []
         if data is str:
             res = data.split(self.split_str)
+        fill_ct = self.explore_length - len(res)
+        if fill_ct > 0:
+            res.extend([''] * fill_ct)
         return res
 
     def set_fight_model_info(self, heroes):
