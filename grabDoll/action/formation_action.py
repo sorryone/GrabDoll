@@ -8,6 +8,8 @@ class FormationAction(BaseModel):
 
     def __init__(self, u_id):
         self.u_id = u_id
+        self.fight_length = 5
+        self.explore_length = 5
         super(FormationAction, self).__init__(
                     u_id, FormationModel, FormationTable, FormationTableSerializer, True)
 

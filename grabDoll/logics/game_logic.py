@@ -6,6 +6,7 @@ from grabDoll.logics import machine_logic as machine_logic
 from grabDoll.logics import friend_logic as friend_logic
 from grabDoll.logics import rank_logic as rank_logic
 from grabDoll.logics import hatch_logic as hatch_logic
+from grabDoll.logics import formation_logic as formation_logic
 # import time
 __author__ = 'du_du'
 
@@ -26,6 +27,7 @@ def get_game_info(uid, open_key):
         'book': machine_logic.get_book_info(uid),
         'friend': friend_logic.get_my_friend_info(uid),
         'rank': rank_logic.get_rank_info(uid),
+        'formation': formation_logic.get_formation_info(uid),
     }
 
 if __name__ == "__main__":

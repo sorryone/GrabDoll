@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+from grabDoll.action.formation_action import FormationAction
+__author__ = 'du_du'
+
+
+def get_formation_info(uid):
+    action = FormationAction(uid)
+    res = {
+        'fight': action.get_fight_model_info(),
+    }
+    return res
+
+if __name__ == "__main__":
+    # print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
+    print get_formation_info('VIP')
+
