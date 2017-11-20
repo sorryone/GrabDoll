@@ -21,6 +21,9 @@ class FormationAction(BaseModel):
     def get_fight_model_info(self):
         data = self.get_value('fight_formation', None)
         res = []
+        if isinstance(data, (unicode,)):
+            print('start uft-8')
+            data = data.encode('uft-8')
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
         fill_ct = self.fight_length - len(res)
@@ -30,8 +33,10 @@ class FormationAction(BaseModel):
 
     def get_explore_model_info(self):
         data = self.get_value('explore_formation', None)
-        print(data)
         res = []
+        if isinstance(data, (unicode,)):
+            print('start uft-8')
+            data = data.encode('uft-8')
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
             print(res)
@@ -44,13 +49,13 @@ class FormationAction(BaseModel):
     def set_fight_model_info(self, heroes):
         if isinstance(heroes, (list,)) and len(heroes) == self.fight_length:
             data = self.split_str.join(str(i) for i in heroes)
-            res = self.set_value('fight_formation', data)
+            res = self.set_value('fight_formation', data.encode('utf-8'))
             return res
         return False
 
     def set_explore_model_info(self, heroes):
         if isinstance(heroes, (list,)) and len(heroes) == self.fight_length:
             data = self.split_str.join(str(i) for i in heroes)
-            res = self.set_value('explore_formation', data)
+            res = self.set_value('explore_formation', data.encode('utf-8'))
             return res
         return False
