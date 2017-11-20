@@ -11,7 +11,7 @@ def set_fight(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
-            index = list(request.query_params.get('list'))
+            index = str(request.query_params.get('list')).split(',')
             if index is None:
                 return 1, "错误索引"
         except Exception as e:
