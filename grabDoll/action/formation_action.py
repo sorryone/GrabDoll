@@ -43,6 +43,8 @@ class FormationAction(BaseModel):
             data = self.split_str.join(str(i) for i in heroes)
             res = self.set_value('fight_formation', data)
             return res
+        print (heroes is list)
+        print (len(heroes))
         print ('is error')
         return False
 
