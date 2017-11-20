@@ -30,12 +30,15 @@ class FormationAction(BaseModel):
 
     def get_explore_model_info(self):
         data = self.get_value('explore_formation', None)
+        print(data)
         res = []
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
+            print(res)
         fill_ct = self.explore_length - len(res)
         if fill_ct > 0:
             res.extend([''] * fill_ct)
+        print(fill_ct)
         return res
 
     def set_fight_model_info(self, heroes):
@@ -43,9 +46,6 @@ class FormationAction(BaseModel):
             data = self.split_str.join(str(i) for i in heroes)
             res = self.set_value('fight_formation', data)
             return res
-        print (isinstance(heroes, (list,)))
-        print (len(heroes))
-        print ('is error')
         return False
 
     def set_explore_model_info(self, heroes):
