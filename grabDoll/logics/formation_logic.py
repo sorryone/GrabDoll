@@ -7,6 +7,7 @@ def get_formation_info(uid):
     action = FormationAction(uid)
     res = {
         'fight': action.get_fight_model_info(),
+        'explore': action.get_explore_model_info(),
     }
     return res
 

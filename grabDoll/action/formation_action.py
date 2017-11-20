@@ -10,6 +10,7 @@ class FormationAction(BaseModel):
         self.u_id = u_id
         self.fight_length = 5
         self.explore_length = 5
+        self.split_str = ','
         super(FormationAction, self).__init__(
                     u_id, FormationModel, FormationTable, FormationTableSerializer, True)
 
@@ -19,16 +20,28 @@ class FormationAction(BaseModel):
 
     def get_fight_model_info(self):
         data = self.get_value('fight_formation', None)
-        return data
+        res = []
+        if data is str:
+            res = data.split(self.split_str)
+        return res
 
     def get_explore_model_info(self):
         data = self.get_value('explore_formation', None)
-        return data
+        res = []
+        if data is str:
+            res = data.split(self.split_str)
+        return res
 
     def set_fight_model_info(self, heroes):
-        data = self.set_value('fight_formation', heroes)
-        return data
+        if heroes is list and len(heroes) == self.fight_length:
+            data = self.split_str.join(heroes)
+            res = self.set_value('fight_formation', data)
+            return res
+        return False
 
     def set_explore_model_info(self, heroes):
-        data = self.set_value('explore_formation', heroes)
-        return data
+        if heroes is list and len(heroes) == self.fight_length:
+            data = self.split_str.join(heroes)
+            res = self.set_value('explore_formation', data)
+            return res
+        return False
