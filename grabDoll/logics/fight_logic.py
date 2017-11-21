@@ -10,15 +10,25 @@ __author__ = 'du_du'
 def get_atk(uid):
     formation_action = FormationAction(uid)
     hero_action = HeroAction(uid)
-    atk = 0
+    all_atk = 0
     hero_config = ConfigModel('doll')
     hero_upgrade_config = ConfigModel('doll_upgrade')
     fight_heroes = formation_action.get_fight_model_info()
     heroes = hero_action.get_model_info()
+    normal_per = 0.2
+    fight_per = 0.8
 
     for hero_id, hero_info in heroes.iteritems():
-        print hero_id
-        print hero_info
-    return atk
+        cur_hero_config = hero_config.get_config_by_id(hero_id)
+        cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
+        base_atk = int(cur_hero_config['atk'])
+        add = int(cur_lv_config['add'])
+        hero_atk = base_atk * add
+        print(hero_id, hero_atk, base_atk, add)
+        if hero_id in fight_heroes:
+            all_atk += hero_atk * fight_per
+        else:
+            all_atk += hero_atk * normal_per
+    return all_atk
 
 
