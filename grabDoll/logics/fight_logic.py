@@ -24,11 +24,19 @@ def get_atk(uid):
         base_atk = int(cur_hero_config['atk'])
         add = int(cur_lv_config['add'])
         hero_atk = base_atk * add
-        print(hero_id, hero_atk, base_atk, add)
+        # print(hero_id, hero_atk, base_atk, add)
         if hero_id in fight_heroes:
             all_atk += hero_atk * fight_per
         else:
             all_atk += hero_atk * normal_per
     return all_atk
+
+
+def fight_against(uid, opponent):
+    my_atk = get_atk(uid)
+    opponent_atk = get_atk(opponent)
+    if my_atk > opponent_atk:
+        return True
+    return False
 
 

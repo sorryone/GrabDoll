@@ -46,17 +46,15 @@ class HatchAction(BaseModel):
                 res_item[key] = data[key]
         return res_item
 
-    # 只有首次创建新用户初始化的时候调用
-    def create_model(self):
-        data = {
-            "pos": 0,
-        }
-        return self.set_values(data, {"pos": 0})
+    def get_empty_list(self):
+        res = []
+        for pos in self.hatch_pos:
+            res.append({'pos': pos})
+        return res
 
     def hatch_unlock(self, index):
         if index == 0 or index not in self.hatch_pos:
             print 'index error'
-            print type(index)
             return False
         data = {
             "pos": index,
