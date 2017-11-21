@@ -30,12 +30,14 @@ class HatchAction(BaseModel):
             for index, data in enumerate(data_list):
                 res_item = self.filter_data(data)
                 res.append(res_item)
+        '''
         full_length = len(self.hatch_pos)
         cur_length = len(res)
         # 填补未解锁的区域
         if cur_length < full_length:
             empty_list = [{'pos': self.hatch_pos[index]} for index in range(full_length) if index >= cur_length]
             res.extend(empty_list)
+        '''
         return sorted(res, key=lambda x: x['pos'], reverse=False)
 
     def get_model_info_by_index(self, index):
