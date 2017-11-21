@@ -17,7 +17,9 @@ class HatchAction(BaseModel):
 
     def get_model_info(self):
         data_list = self.get_all()
+        # 判定是否是新用户
         if len(data_list) == 0 and self.create_model():
+            # 重新获取一次
             data_list = self.get_all()
         res = []
         if isinstance(data_list, (dict, collections.OrderedDict)):
@@ -30,6 +32,7 @@ class HatchAction(BaseModel):
                 res.append(res_item)
         full_length = len(self.hatch_pos)
         cur_length = len(res)
+        # 填补未解锁的区域
         if cur_length < full_length:
             empty_list = [{'pos': self.hatch_pos[index]} for index in range(full_length) if index >= cur_length]
             res.extend(empty_list)
