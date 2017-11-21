@@ -7,8 +7,6 @@ __author__ = 'du_du'
 def get_hatch_info(uid):
     action = HatchAction(uid)
     res = action.get_model_info()
-    if len(res) == 0:
-        res = action.get_empty_list()
     return res
 
 

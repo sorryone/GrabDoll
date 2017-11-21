@@ -17,6 +17,8 @@ class HatchAction(BaseModel):
 
     def get_model_info(self):
         data_list = self.get_all()
+        if len(data_list) == 0 and self.create_model():
+            data_list = self.get_all()
         res = []
         if isinstance(data_list, (dict, collections.OrderedDict)):
             res_item = self.filter_data(data_list)
@@ -26,6 +28,11 @@ class HatchAction(BaseModel):
             for index, data in enumerate(data_list):
                 res_item = self.filter_data(data)
                 res.append(res_item)
+        full_length = len(self.hatch_pos)
+        cur_length = len(res)
+        if cur_length < full_length:
+            empty_list = [{'pos': self.hatch_pos[index]} for index in range(full_length) if index >= cur_length]
+            res.extend(empty_list)
         return sorted(res, key=lambda x: x['pos'], reverse=False)
 
     def get_model_info_by_index(self, index):
@@ -46,11 +53,12 @@ class HatchAction(BaseModel):
                 res_item[key] = data[key]
         return res_item
 
-    def get_empty_list(self):
-        res = []
-        for pos in self.hatch_pos:
-            res.append({'pos': pos})
-        return res
+    # 只有首次创建新用户初始化的时候调用
+    def create_model(self):
+        data = {
+            "pos": 0,
+        }
+        return self.set_values(data, {"pos": 0})
 
     def hatch_unlock(self, index):
         if index == 0 or index not in self.hatch_pos:
