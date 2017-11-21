@@ -33,7 +33,7 @@ def add_redis(data, name):
 
 
 def test():
-    config_group = ('egg', 'item', 'gacha', 'doll', 'machine', 'shop')
+    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade')
     data = dict()
     for config_name in config_group:
         data[config_name] = ConfigModel(config_name).get_model_info()
@@ -44,9 +44,11 @@ def read_files():
     config_dir = settings.CONFIG_DIR
     read_xls_file(config_dir, 'egg.xlsx')
     read_xls_file(config_dir, 'item.xlsx')
+    read_xls_file(config_dir, 'artifact.xlsx')
     read_xls_file(config_dir, 'doll.xlsx')
-    read_xls_file(config_dir, 'shop.xlsx')
     read_xls_file(config_dir, 'machine.xlsx')
+    read_xls_file(config_dir, 'shop.xlsx')
+    read_xls_file(config_dir, 'doll_upgrade.xlsx')
     print test()
 
 
