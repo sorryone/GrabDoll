@@ -33,3 +33,6 @@ class NoteModel(HashModel):
         time_str = time.time()
         res = self.set_value('machine_refresh_' + str(machine_id), time_str)
         return res
+
+    def get_redis(self):
+        self.get_client()
