@@ -18,6 +18,9 @@ class FormationAction(BaseModel):
         data = self.get_all()
         return data
 
+    def get_fight_atk(self):
+        return self.get_value('fight_atk', 0)
+
     def get_fight_model_info(self):
         data = self.get_value('fight_formation', None)
         res = []
