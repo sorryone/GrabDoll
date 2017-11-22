@@ -29,7 +29,12 @@ def get_my_friend_info(uid):
 def enter_friend_home(uid, f_id):
     # 需要记录谁进来了
     hero_action = HeroAction(f_id)
-    return hero_action.get_model_info()
+    res = {
+        'id': f_id,
+        'heroes': hero_action.get_model_info(),
+        'money': 1000,
+    }
+    return res
 
 
 # 申请成为好友
