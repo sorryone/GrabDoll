@@ -46,10 +46,10 @@ class FormationAction(BaseModel):
         print(fill_ct)
         return res
 
-    def set_fight_model_info(self, heroes):
+    def set_fight_model_info(self, heroes, fight_atk):
         if isinstance(heroes, (list,)) and len(heroes) == self.fight_length:
             data = self.split_str.join(str(i) for i in heroes)
-            res = self.set_value('fight_formation', data.encode('utf-8'))
+            res = self.set_values({'fight_formation': data.encode('utf-8'), 'fight_atk': fight_atk})
             return res
         return False
 
