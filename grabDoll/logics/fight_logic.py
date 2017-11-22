@@ -35,8 +35,13 @@ def get_atk(uid):
 def fight_against(uid, opponent):
     my_atk = get_atk(uid)
     opponent_atk = get_atk(opponent)
+    res = dict()
+    res['my_atk'] = my_atk
+    res['opponent_atk'] = my_atk
     if my_atk > opponent_atk:
-        return True
-    return False
+        res['result'] = True
+    else:
+        res['result'] = False
+    return res
 
 
