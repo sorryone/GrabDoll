@@ -13,6 +13,7 @@ class FormationModel(HashModel):
 class FormationTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
     fight_formation = models.CharField(max_length=512, null=True)
+    fight_atk = models.IntegerField(default=0)
     explore_formation = models.CharField(max_length=512, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
