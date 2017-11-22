@@ -15,8 +15,8 @@ def get_atk(uid):
     hero_upgrade_config = ConfigModel('doll_upgrade')
     fight_heroes = formation_action.get_fight_model_info()
     heroes = hero_action.get_model_info()
-    normal_per = 0.2
-    fight_per = 0.8
+    normal_per = 0.1
+    fight_per = 0.9
 
     for hero_id, hero_info in heroes.iteritems():
         cur_hero_config = hero_config.get_config_by_id(hero_id)
@@ -37,7 +37,7 @@ def fight_against(uid, opponent):
     opponent_atk = get_atk(opponent)
     res = dict()
     res['my_atk'] = my_atk
-    res['opponent_atk'] = my_atk
+    res['opponent_atk'] = opponent_atk
     if my_atk > opponent_atk:
         res['result'] = True
     else:
