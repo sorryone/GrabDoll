@@ -22,7 +22,7 @@ def fight_against(uid, opponent):
     user_action = UserAction(uid)
     item_action = ItemAction(uid)
     if my_atk > opponent_atk:
-        res['result'] = True
+        result = True
         award_item = random.choice(award_success_items)
         award_item_ct = 1
         if item_action.add_model(award_item, award_item_ct):
@@ -31,9 +31,11 @@ def fight_against(uid, opponent):
             award['gold'] = award_success_gold
 
     else:
-        res['result'] = False
+        result = False
         if user_action.add_gold(award_fail_gold):
             award['gold'] = award_fail_gold
+    res['award'] = award
+    res['result'] = result
     return res
 
 
