@@ -15,6 +15,8 @@ class FormationTable(models.Model):
     fight_formation = models.CharField(max_length=512, null=True)
     fight_atk = models.IntegerField(default=0)
     fight_state = models.IntegerField(default=0)
+    fight_ct = models.IntegerField(default=0)
+    defend_ct = models.IntegerField(default=0)
     explore_formation = models.CharField(max_length=512, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
