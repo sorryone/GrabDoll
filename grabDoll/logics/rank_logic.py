@@ -28,6 +28,7 @@ def get_my_friend_info(uid):
     for f_id in data:
         p_model = PlatformAction(f_id)
         u_model = UserAction(f_id)
+        print ('f_id', f_id)
         item = {
             'id': f_id,
             'name': p_model.get_value('nickname').decode('utf-8'),
