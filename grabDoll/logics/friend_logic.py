@@ -7,25 +7,6 @@ import random
 __author__ = 'du_du'
 
 
-# 我的好友列表信息
-def get_my_friend_info(uid):
-    model = FriendAction(uid)
-    data = model.get_model_info()
-    res = list()
-    for f_id in data:
-        p_model = PlatformAction(f_id)
-        u_model = UserAction(f_id)
-        item = {
-            'id': f_id,
-            'name': p_model.get_value('nickname', ''),
-            # 'name': p_model.get_value('nickname', '').decode('utf-8'),
-            'figureurl': p_model.get_value('figureurl'),
-            'lv': u_model.get_value('lv')
-        }
-        res.append(item)
-    return res
-
-
 # 进入好友家
 def enter_friend_home(uid, f_id):
     # 需要记录谁进来了
@@ -128,7 +109,6 @@ def rob_doll(uid, friend_id):
 
 
 if __name__ == "__main__":
-    # print enter_friend_home('ED57884CAA078DF9E0E08750D98CA834', 'E69014D0D63D8C50384919583C98AAAA')
-    print get_my_friend_info('VIP')
+    print enter_friend_home('ED57884CAA078DF9E0E08750D98CA834', 'E69014D0D63D8C50384919583C98AAAA')
 
 

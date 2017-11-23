@@ -2,6 +2,7 @@
 import json
 from lib.djhelper.api_view import api_render, api_view, api_result
 from grabDoll.logics import friend_logic as friend_logic
+from grabDoll.logics import rank_logic as rank_logic
 __author__ = 'du_du'
 
 
@@ -16,7 +17,7 @@ def get_my_friend_info(request):
             print(e)
             return 1, "参数错误"
     try:
-        data = friend_logic.get_my_friend_info(uid)
+        data = rank_logic.get_my_friend_info(uid)
         return 0, data
     except Exception as e:
         print(e)
