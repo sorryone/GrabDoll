@@ -25,7 +25,6 @@ def get_game_info(uid, open_key, is_debug=False):
         'note': machine_logic.get_note_info(uid),
         'hatch': hatch_logic.get_hatch_info(uid),
         'book': machine_logic.get_book_info(uid),
-        'friend': friend_logic.get_my_friend_info(uid),
         'rank': rank_logic.get_rank_info(uid),
         'formation': formation_logic.get_formation_info(uid),
     }
