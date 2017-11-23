@@ -14,3 +14,7 @@ class PlatformAction(BaseModel):
     def get_model_info(self):
         data = self.get_all()
         return data
+
+    def get_private_info(self):
+        data = self.get_all()
+        return data
