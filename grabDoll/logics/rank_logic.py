@@ -38,7 +38,7 @@ def get_my_friend_info(uid):
             'income': 100,
         }
         res.append(item)
-    res = sorted(res, key=lambda x: x['gold'], reverse=False)
+    res = sorted(res, key=lambda x: x['gold'], reverse=True)
     return res
 
 
