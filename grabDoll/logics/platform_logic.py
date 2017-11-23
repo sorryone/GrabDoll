@@ -10,9 +10,9 @@ appkey = 'STwl4MAK67bcemOd'
 iplist = ('openapi.sparta.html5.qq.com',)
 
 
-def get_user_info_by_platform(openid, openkey):
+def get_user_info_by_platform(openid, openkey, is_debug=False):
 
-    if openid == 'VIP' and openkey == 'VIP':
+    if openid == 'VIP' and openkey == 'VIP' or is_debug:
         print("IS VIP")
         action = PlatformAction(openid)
         return action.get_model_info()

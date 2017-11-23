@@ -11,9 +11,9 @@ from grabDoll.logics import formation_logic as formation_logic
 __author__ = 'du_du'
 
 
-def get_game_info(uid, open_key):
+def get_game_info(uid, open_key, is_debug=False):
 
-    platform_info = platform_logic.get_user_info_by_platform(uid, open_key)
+    platform_info = platform_logic.get_user_info_by_platform(uid, open_key, is_debug)
     if platform_info is False:
         return False
     return {
