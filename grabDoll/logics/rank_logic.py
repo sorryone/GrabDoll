@@ -33,7 +33,8 @@ def get_my_friend_info(uid):
             'id': f_id,
             'name': p_model_info['nickname'],
             'figureurl': p_model_info['figureurl'],
-            'lv': u_model.get_value('lv')
+            'lv': u_model.get_value('lv'),
+            'income': 100
         }
         res.append(item)
     return res
