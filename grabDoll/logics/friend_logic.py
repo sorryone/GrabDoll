@@ -17,7 +17,7 @@ def get_my_friend_info(uid):
         u_model = UserAction(f_id)
         item = {
             'id': f_id,
-            'name': p_model.get_value('nickname').decode('utf-8'),
+            'name': p_model.get_value('nickname', '').decode('utf-8'),
             'figureurl': p_model.get_value('figureurl'),
             'lv': u_model.get_value('lv')
         }
