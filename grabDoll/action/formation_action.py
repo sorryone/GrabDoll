@@ -24,6 +24,10 @@ class FormationAction(BaseModel):
             return 0
         return res
 
+    def set_income(self, value):
+        res = self.set_value('income', value)
+        return res
+
     def get_fight_atk(self):
         res = self.get_value('fight_atk', 0)
         if isinstance(res, (dict, list)):
