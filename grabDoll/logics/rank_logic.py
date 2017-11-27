@@ -3,6 +3,7 @@
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.friend_action import FriendAction
 from grabDoll.action.platform_action import PlatformAction
+from grabDoll.action.formation_action import FormationAction
 __author__ = 'du_du'
 
 
@@ -28,7 +29,9 @@ def get_my_friend_info(uid):
     for f_id in data:
         p_model = PlatformAction(f_id)
         u_model = UserAction(f_id)
+        f_ation = FormationAction(f_id)
         p_model_info = p_model.get_private_info()
+        f_info = f_ation.get_fight_model_info()
         item = {
             'id': f_id,
             'name': p_model_info['nickname'],
