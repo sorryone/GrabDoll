@@ -30,23 +30,32 @@ def set_fight(uid, fight_heroes):
     hero_upgrade_config = ConfigModel('doll_upgrade')
     # 计算战斗力
     all_atk = 0
-    normal_per = 0.1
+    all_capacity = 0
+    normal_fight_per = 0.1
     fight_per = 0.9
     for hero_id, hero_info in all_hero.iteritems():
         cur_hero_config = hero_config.get_config_by_id(hero_id)
         cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
         base_atk = int(cur_hero_config['atk'])
+        base_capacity = int(cur_hero_config['capacity'])
         add = int(cur_lv_config['add'])
         hero_atk = base_atk * add
+        hero_capacity = base_capacity * add
         if hero_id in fight_heroes:
             all_atk += hero_atk * fight_per
         else:
-            all_atk += hero_atk * normal_per
+            all_atk += hero_atk * normal_fight_per
+            all_capacity += hero_capacity
+    info = formation_action.get_model_info()
+    cur_income = info.get(formation_action.income_str)
     data = {
         formation_action.fight_formation_str: fight_heroes,
         formation_action.fight_atk_str: all_atk,
+        formation_action.capacity_str: all_capacity,
     }
-    return formation_action.set_fight_model_info(data)
+    if formation_action.set_fight_model_info(data):
+        return data
+    return False
 
 
 def set_explore(uid, heroes):
