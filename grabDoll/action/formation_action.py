@@ -11,6 +11,11 @@ class FormationAction(BaseModel):
         self.fight_length = 5
         self.explore_length = 5
         self.split_str = ','
+        self.fight_formation_str = 'fight_formation'
+        self.explore_formation_str = 'explore_formation'
+        self.capacity_str = 'capacity'
+        self.income_str = 'income'
+        self.fight_atk_str = 'fight_atk'
         super(FormationAction, self).__init__(
                     u_id, FormationModel, FormationTable, FormationTableSerializer, True)
 
@@ -19,23 +24,29 @@ class FormationAction(BaseModel):
         return data
 
     def get_income(self):
-        res = self.get_value('income', 0)
+        res = self.get_value(self.income_str, 0)
         if isinstance(res, (dict, list)):
             return 0
         return res
 
     def set_income(self, value):
-        res = self.set_value('income', value)
+        res = self.set_value(self.income_str, value)
         return res
 
     def get_fight_atk(self):
-        res = self.get_value('fight_atk', 0)
+        res = self.get_value(self.fight_atk_str, 0)
+        if isinstance(res, (dict, list)):
+            return 0
+        return res
+
+    def get_capacity(self):
+        res = self.get_value(self.capacity_str, 0)
         if isinstance(res, (dict, list)):
             return 0
         return res
 
     def get_fight_model_info(self):
-        data = self.get_value('fight_formation', None)
+        data = self.get_value(self.fight_formation_str, None)
         res = []
         if isinstance(data, (unicode,)):
             print('start utf-8')
@@ -48,7 +59,7 @@ class FormationAction(BaseModel):
         return res
 
     def get_explore_model_info(self):
-        data = self.get_value('explore_formation', None)
+        data = self.get_value(self.explore_formation_str, None)
         res = []
         if isinstance(data, (unicode,)):
             print('start utf-8')
@@ -62,16 +73,12 @@ class FormationAction(BaseModel):
         print(fill_ct)
         return res
 
-    def set_fight_model_info(self, heroes, fight_atk):
-        if isinstance(heroes, (list,)) and len(heroes) == self.fight_length:
-            data = self.split_str.join(str(i) for i in heroes)
-            res = self.set_values({'fight_formation': data.encode('utf-8'), 'fight_atk': fight_atk})
-            return res
-        return False
+    def set_fight_model_info(self, data):
+        fight_formation = data.get(self.fight_formation_str)
+        explore_formation = data.get(self.explore_formation_str)
+        if isinstance(fight_formation, (list,)) and len(fight_formation) == self.fight_length:
+            data[self.fight_formation_str] = self.split_str.join(str(i) for i in fight_formation)
+        if isinstance(explore_formation, (list,)) and len(explore_formation) == self.fight_length:
+            data[self.explore_formation_str] = self.split_str.join(str(i) for i in explore_formation)
+        return self.set_values(data)
 
-    def set_explore_model_info(self, heroes):
-        if isinstance(heroes, (list,)) and len(heroes) == self.fight_length:
-            data = self.split_str.join(str(i) for i in heroes)
-            res = self.set_value('explore_formation', data.encode('utf-8'))
-            return res
-        return False

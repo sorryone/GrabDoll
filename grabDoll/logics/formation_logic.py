@@ -42,7 +42,11 @@ def set_fight(uid, fight_heroes):
             all_atk += hero_atk * fight_per
         else:
             all_atk += hero_atk * normal_per
-    return formation_action.set_fight_model_info(fight_heroes, int(all_atk))
+    data = {
+        formation_action.fight_formation_str: fight_heroes,
+        formation_action.fight_atk_str: all_atk,
+    }
+    return formation_action.set_fight_model_info(data)
 
 
 def set_explore(uid, heroes):
