@@ -14,6 +14,7 @@ def enter_friend_home(uid, f_id):
     hero_action = HeroAction(f_id)
     f_action = FormationAction(f_id)
     f_info = f_action.get_model_info()
+    print(f_info)
     res = {
         'id': f_id,
         'heroes': hero_action.get_model_info(),
