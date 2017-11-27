@@ -90,14 +90,23 @@ class BaseModel(object):
             return list(set(keys + list(model_keys)))
 
     # 获取当前key的数据
-    def get_value(self, key, default=None):
+    def get_value(self, key, manydict={}):
         if self.is_DBTable:
-            try:
-                model_data = self.model.objects.get(u_id=self.u_id)
-            except self.model.DoesNotExist:
-                return None
+            if not manydict:
+                model_data = self.model.objects.filter(
+                        u_id=self.u_id).values(key)
+                data = model_data.values_list(key, flat=True)
+                if len(data) == 1:
+                    data = data[0]
+            else:
+                try:
+                    model_data = self.model.objects.get(
+                                    u_id=self.u_id, **manydict)
+                except self.model.DoesNotExist:
+                    return None
 
-            return getattr(model_data, key)
+                data = getattr(model_data, key)
+            return data
 
         elif self.is_KVTable:
             redis_data = self.hash_model.get_value(key)
@@ -136,16 +145,23 @@ class BaseModel(object):
     """
 
     # 获取当前用户当前表的所有数据
-    def get_all(self):
+    def get_all(self, manydict={}):
         if self.is_DBTable:
-            try:
-                model_datas = self.model.objects.get(u_id=self.u_id)
-            except self.class_keymodel.DoesNotExist:
-                print(self.class_keymodel.__class__, "get_all ERROR")
-                return None
-
-            data = self.modelSerializer(model_datas).data
+            if not manydict:
+                model_data = self.model.objects.filter(u_id=self.u_id)
+                data = self.modelSerializer(model_data, many=True).data
+                if len(data) == 1:
+                    data = data[0]
+            else:
+                try:
+                    model_data = self.model.objects.get(
+                            u_id=self.u_id, **manydict)
+                except self.model.DoesNotExist:
+                    print(self.model.__class__, "Not Data Error")
+                    return None
+                data = self.modelSerializer(model_data).data
             return data
+
         elif self.is_KVTable:
             redis_data = self.hash_model.get_all()
             model_datas = self.model.objects.filter(
@@ -160,17 +176,16 @@ class BaseModel(object):
                 redis_data.update(data)
             return redis_data
 
-    def set_value(self, key, value):
+    def set_value(self, key, value, manydict={}):
         if self.is_DBTable:
             try:
                 model_data, is_create = self.model.objects.get_or_create(
-                                            u_id=self.u_id)
+                                            u_id=self.u_id, **manydict)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "insert ERROR")
                 return None
 
-            model_data.key_id = key
-            model_data.value = value
+            setattr(model_data, key, value)
             model_data.save()
             return True
 
@@ -188,11 +203,11 @@ class BaseModel(object):
             return True
 
     # 当前表写入批量数据
-    def set_values(self, mapping):
+    def set_values(self, mapping, manydict={}):
         if self.is_DBTable:
             try:
                 model_data, is_create = self.model.objects.get_or_create(
-                                            u_id=self.u_id)
+                                            u_id=self.u_id, **manydict)
             except self.model.DoesNotExist:
                 print(self.model.__class__,  "insert ERROR")
                 return None
@@ -230,7 +245,7 @@ class BaseModel(object):
             self.hash_model.set_values(mapping)
             return True
 
-    def incr(self, key, amount=1):
+    def incr(self, key, amount=1, manydict={}):
         if self.is_DBTable:
             value = self.model._meta.get_field(key)
             if not isinstance(value, IntegerField):
@@ -238,7 +253,7 @@ class BaseModel(object):
                 return None
             try:
                 model_data, is_create = self.model.objects.get_or_create(
-                            u_id=self.u_id)
+                            u_id=self.u_id, **manydict)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "incr ERROR")
                 return None
