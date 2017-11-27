@@ -31,7 +31,7 @@ def get_my_friend_info(uid):
         u_model = UserAction(f_id)
         f_action = FormationAction(f_id)
         p_model_info = p_model.get_private_info()
-        f_info = f_action.get_fight_model_info()
+        f_info = f_action.get_model_info()
         item = {
             'id': f_id,
             'name': p_model_info['nickname'],
