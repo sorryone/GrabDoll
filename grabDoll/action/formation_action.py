@@ -19,10 +19,16 @@ class FormationAction(BaseModel):
         return data
 
     def get_income(self):
-        return self.get_value('income', 0)
+        res = self.get_value('income', 0)
+        if isinstance(res, (dict, list)):
+            return 0
+        return res
 
     def get_fight_atk(self):
-        return self.get_value('fight_atk', 0)
+        res = self.get_value('fight_atk', 0)
+        if isinstance(res, (dict, list)):
+            return 0
+        return res
 
     def get_fight_model_info(self):
         data = self.get_value('fight_formation', None)
