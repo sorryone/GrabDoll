@@ -29,16 +29,16 @@ def get_my_friend_info(uid):
     for f_id in data:
         p_model = PlatformAction(f_id)
         u_model = UserAction(f_id)
-        f_ation = FormationAction(f_id)
+        f_action = FormationAction(f_id)
         p_model_info = p_model.get_private_info()
-        f_info = f_ation.get_fight_model_info()
+        f_info = f_action.get_fight_model_info()
         item = {
             'id': f_id,
             'name': p_model_info['nickname'],
             'figureurl': p_model_info['figureurl'],
             'lv': u_model.get_value('lv'),
             'gold': u_model.get_gold(),
-            'income': 100,
+            'income': f_info['income'],
         }
         res.append(item)
     res = sorted(res, key=lambda x: x['gold'], reverse=True)

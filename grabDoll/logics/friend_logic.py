@@ -3,6 +3,7 @@ from grabDoll.action.user_action import UserAction
 from grabDoll.action.friend_action import FriendAction
 from grabDoll.action.platform_action import PlatformAction
 from grabDoll.action.hero_action import HeroAction
+from grabDoll.action.formation_action import FormationAction
 import random
 __author__ = 'du_du'
 
@@ -11,10 +12,12 @@ __author__ = 'du_du'
 def enter_friend_home(uid, f_id):
     # 需要记录谁进来了
     hero_action = HeroAction(f_id)
+    f_action = FormationAction(f_id)
+    f_info = f_action.get_fight_model_info()
     res = {
         'id': f_id,
         'heroes': hero_action.get_model_info(),
-        'money': 1000,
+        'income': f_info['income'],
     }
     return res
 
