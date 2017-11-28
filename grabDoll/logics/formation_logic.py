@@ -36,6 +36,9 @@ def set_fight(uid, fight_heroes):
     for hero_id, hero_info in all_hero.iteritems():
         cur_hero_config = hero_config.get_config_by_id(hero_id)
         cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
+        if int(cur_hero_config['capacity']) != formation_action.fight_type:
+            print('is not fight hero', hero_id)
+            return False
         base_atk = int(cur_hero_config['atk'])
         base_capacity = int(cur_hero_config['capacity'])
         add = int(cur_lv_config['add'])
@@ -53,7 +56,7 @@ def set_fight(uid, fight_heroes):
         formation_action.fight_atk_str: all_atk,
         formation_action.capacity_str: all_capacity,
     }
-    if formation_action.set_fight_model_info(data):
+    if formation_action.set_model_info(data):
         return data
     return False
 

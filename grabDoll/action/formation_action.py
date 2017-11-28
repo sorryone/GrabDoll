@@ -16,6 +16,8 @@ class FormationAction(BaseModel):
         self.capacity_str = 'capacity'
         self.income_str = 'income'
         self.fight_atk_str = 'fight_atk'
+        self.fight_type = 1
+        self.capacity_type = 0
         super(FormationAction, self).__init__(
                     u_id, FormationModel, FormationTable, FormationTableSerializer, True)
 
@@ -73,7 +75,7 @@ class FormationAction(BaseModel):
         print(fill_ct)
         return res
 
-    def set_fight_model_info(self, data):
+    def set_model_info(self, data):
         fight_formation = data.get(self.fight_formation_str)
         explore_formation = data.get(self.explore_formation_str)
         if isinstance(fight_formation, (list,)) and len(fight_formation) == self.fight_length:
