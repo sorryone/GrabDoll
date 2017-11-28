@@ -15,11 +15,13 @@ def set_fight(uid, fight_heroes):
     check_heroes = [i for i in fight_heroes if i != '']
     # 判断有没有重复英雄
     if len(check_heroes) != len(set(check_heroes)):
+        print('is same')
         return False
     hero_action = HeroAction(uid)
     all_hero = hero_action.get_model_info()
     # 有没有根本不存在的英雄
     if len(set(check_heroes) - set(all_hero.keys())) > 0:
+        print('is not exist')
         return False
     # 读取英雄属性配置信息
     hero_config = ConfigModel('doll')
@@ -29,6 +31,7 @@ def set_fight(uid, fight_heroes):
     all_capacity = 0
     normal_fight_per = 0.1
     fight_per = 0.9
+    print('mark here')
     for hero_id, hero_info in all_hero.iteritems():
         cur_hero_config = hero_config.get_config_by_id(hero_id)
         cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
