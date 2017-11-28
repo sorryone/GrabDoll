@@ -31,6 +31,8 @@ class FormationAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
+        data[self.fight_formation_str] = self.change_list_by_ct(data[self.fight_formation_str], self.fight_length)
+        data[self.explore_formation_str] = self.change_list_by_ct(data[self.explore_formation_str], self.explore_length)
         return data
 
     def get_income(self):
@@ -57,19 +59,13 @@ class FormationAction(BaseModel):
 
     def get_fight_model_info(self):
         data = self.get_value(self.fight_formation_str, None)
-        res = []
-        if isinstance(data, (unicode,)):
-            print('start utf-8')
-            data = data.encode('utf-8')
-        if isinstance(data, (str,)):
-            res = data.split(self.split_str)
-        fill_ct = self.fight_length - len(res)
-        if fill_ct > 0:
-            res.extend([''] * fill_ct)
-        return res
+        return self.change_list_by_ct(data, self.fight_length)
 
     def get_explore_model_info(self):
         data = self.get_value(self.explore_formation_str, None)
+        return self.change_list_by_ct(data, self.explore_length)
+
+    def change_list_by_ct(self, data, ct):
         res = []
         if isinstance(data, (unicode,)):
             print('start utf-8')
@@ -77,7 +73,7 @@ class FormationAction(BaseModel):
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
             print(res)
-        fill_ct = self.explore_length - len(res)
+        fill_ct = ct - len(res)
         if fill_ct > 0:
             res.extend([''] * fill_ct)
         print(fill_ct)
