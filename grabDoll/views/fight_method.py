@@ -62,3 +62,21 @@ def fight_against(request):
     except Exception as e:
         print(e)
         return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def catch(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            opponent = str(request.query_params.get('opponent'))
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = fight_logic.catch(uid, opponent)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"

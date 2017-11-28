@@ -16,6 +16,14 @@ class FormationAction(BaseModel):
         self.capacity_str = 'capacity'
         self.income_str = 'income'
         self.fight_atk_str = 'fight_atk'
+        self.fight_ct_str = 'fight_ct'
+        self.rob_ct_str = 'rob_ct'
+        self.catch_ct_str = 'catch_ct'
+        self.defend_ct_str = 'defend_ct'
+        self.defend_refresh_time_str = 'defend_refresh_time'
+        self.rob_refresh_time_str = 'rob_refresh_time'
+        self.catch_refresh_time_str = 'catch_refresh_time'
+        self.fight_refresh_time_str = 'fight_refresh_time'
         self.fight_type = 1
         self.capacity_type = 0
         super(FormationAction, self).__init__(
