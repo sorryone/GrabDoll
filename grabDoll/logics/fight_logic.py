@@ -4,6 +4,7 @@ from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
 import random
+import time
 __author__ = 'du_du'
 
 
@@ -40,10 +41,31 @@ def fight_against(uid, opponent):
 
 
 def catch(uid, opponent):
+    award = dict()
+    res = dict()
     opponent_formation = FormationAction(opponent)
     user_action = UserAction(uid)
     opponent_formation_info = opponent_formation.get_model_info()
     cur_income = opponent_formation_info.get(opponent_formation.income_str, 0)
-    fight_ct = opponent_formation_info.get(opponent_formation.fight_atk_str, 0)
-    res = dict()
+    catch_ct = opponent_formation_info.get(opponent_formation.catch_ct_str, 0)
+    catch_refresh_time = opponent_formation_info.get(opponent_formation.catch_refresh_time_str, 0)
+    cur_time = int(time.time())
+    catch_cd = 600
+    if cur_time < catch_refresh_time + catch_cd:
+        # 时间不到需要等待
+        return False
+    update_data = dict()
+    update_data[opponent_formation.catch_refresh_time_str] = cur_time
+    update_data[opponent_formation.catch_ct_str] = catch_ct + 1
+    gold = int(cur_income / 10)
+    update_data[opponent_formation.income_str] = cur_income - gold
+    if opponent_formation.set_model_info(update_data):
+        user_action.add_gold(gold)
+        print('gold', gold)
+        award['gold'] = gold
+        result = True
+    else:
+        result = False
+    res['award'] = award
+    res['result'] = result
     return res
