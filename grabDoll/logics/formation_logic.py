@@ -33,7 +33,9 @@ def set_fight(uid, fight_heroes):
     fight_per = 0.9
     print('mark here')
     for hero_id, hero_info in all_hero.iteritems():
+        print(hero_id, hero_info)
         cur_hero_config = hero_config.get_config_by_id(hero_id)
+        print(cur_hero_config)
         cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
         if int(cur_hero_config['capacity']) != formation_action.fight_type:
             print('is not fight hero', hero_id)
