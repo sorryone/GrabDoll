@@ -44,4 +44,6 @@ urlpatterns = patterns("",
                        url(r'^set_explore', 'grabDoll.views.fight_method.set_explore'),
                        url(r'^fight_against', 'grabDoll.views.fight_method.fight_against'),
                        url(r'^catch', 'grabDoll.views.fight_method.catch'),
+                       url(r'^refresh_income_info', 'grabDoll.views.island_method.refresh_income_info'),
+                       url(r'^award_income', 'grabDoll.views.island_method.award_income'),
                        )
