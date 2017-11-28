@@ -48,6 +48,7 @@ def set_fight(uid, fight_heroes):
         else:
             all_atk += hero_atk * normal_fight_per
             all_capacity += hero_capacity
+    print(all_atk, all_capacity)
     info = formation_action.get_model_info()
     cur_income = info.get(formation_action.income_str)
     data = {
