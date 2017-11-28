@@ -45,3 +45,5 @@ def catch(uid, opponent):
     opponent_formation_info = opponent_formation.get_model_info()
     cur_income = opponent_formation_info.get(opponent_formation.income_str, 0)
     fight_ct = opponent_formation_info.get(opponent_formation.fight_atk_str, 0)
+    res = dict()
+    return res
