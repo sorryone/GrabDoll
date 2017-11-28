@@ -63,6 +63,7 @@ def catch(uid, opponent):
         user_action.add_gold(gold)
         print('gold', gold)
         award['gold'] = gold
+        res['update'] = update_data
         result = True
     else:
         result = False
