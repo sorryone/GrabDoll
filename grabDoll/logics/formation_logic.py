@@ -31,30 +31,23 @@ def set_fight(uid, fight_heroes):
     all_capacity = 0
     normal_fight_per = 0.1
     fight_per = 0.9
-    print('mark here')
     for hero_id, hero_info in all_hero.iteritems():
-        print(hero_id, hero_info)
         cur_hero_config = hero_config.get_config_by_id(hero_id)
-        print(cur_hero_config)
         cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
-        print(cur_lv_config)
         if int(cur_hero_config['category']) != formation_action.fight_type and hero_id in check_heroes:
             print('is not fight hero', hero_id)
             return False
-        print('hero_id', hero_id)
         base_atk = int(cur_hero_config['atk'])
         base_capacity = int(cur_hero_config['capacity'])
         atk_add_per = int(cur_lv_config['add_atk'])
         capacity_add_per = int(cur_lv_config['add_capacity'])
         hero_atk = base_atk * atk_add_per
         hero_capacity = base_capacity * capacity_add_per
-        print(hero_atk, hero_capacity)
         if hero_id in fight_heroes:
             all_atk += hero_atk * fight_per
         else:
             all_atk += hero_atk * normal_fight_per
             all_capacity += hero_capacity
-    print(all_atk, all_capacity)
     info = formation_action.get_model_info()
     cur_income = info.get(formation_action.income_str)
     data = {
@@ -63,6 +56,7 @@ def set_fight(uid, fight_heroes):
         formation_action.capacity_str: all_capacity,
     }
     if formation_action.set_model_info(data):
+        print(data)
         return data
     return False
 
