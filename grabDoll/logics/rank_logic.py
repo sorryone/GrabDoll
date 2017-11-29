@@ -10,7 +10,7 @@ __author__ = 'du_du'
 def get_rank_info(uid):
     friend_list = get_my_friend_list(uid)
     top_list = get_top_100_list(uid)
-    all_list = set(top_list, friend_list)
+    all_list = set(top_list + friend_list)
     print(all_list)
     return {
         'my_rank': 10111,
