@@ -35,8 +35,10 @@ def award_income(uid):
     res = dict()
     award = {}
     if f_action.set_income(0):
-        res = u_action.add_gold(income)
-        award['gold'] = income
+        if u_action.add_gold(income):
+            award['gold'] = income
+        else:
+            print('is db error')
     else:
         award['gold'] = 0
     res['award'] = award
