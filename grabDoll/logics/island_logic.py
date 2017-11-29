@@ -15,8 +15,8 @@ def refresh_income_info(uid):
     cur_income = info.get('income', 0)
     cur_time = int(time.time())
     # 每个小时的获取的金币
-    per_hour_capacity = capacity / 10
-    income = int((cur_time - capacity_update_at) / 3600 * per_hour_capacity) + cur_income
+    per_hour_capacity = capacity / 10.0
+    income = int((cur_time - capacity_update_at) / 3600.0 * per_hour_capacity) + cur_income
     print(capacity, cur_income, per_hour_capacity, income)
 
     if income == cur_income:
