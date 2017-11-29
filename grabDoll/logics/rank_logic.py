@@ -27,7 +27,7 @@ def get_top_100_list(uid):
 # 我的好友列表
 def get_my_friend_list(uid):
     action = FriendAction(uid)
-    data = action.get_model_info()
+    data = action.get_keys()
     return data
 
 
