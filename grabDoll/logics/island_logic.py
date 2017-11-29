@@ -18,6 +18,9 @@ def refresh_income_info(uid):
     per_hour_capacity = capacity / 10
     income = int((cur_time - capacity_update_at) / 3600 * per_hour_capacity) + cur_income
     print(capacity, cur_income, per_hour_capacity, income)
+
+    if income == cur_income:
+        return False
     res = {
         'income': income,
         'capacity_update_at': cur_time,
