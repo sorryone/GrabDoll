@@ -7,6 +7,7 @@ from grabDoll.logics import friend_logic as friend_logic
 from grabDoll.logics import rank_logic as rank_logic
 from grabDoll.logics import hatch_logic as hatch_logic
 from grabDoll.logics import formation_logic as formation_logic
+from grabDoll.logics import island_logic as island_logic
 # import time
 __author__ = 'du_du'
 
@@ -16,6 +17,8 @@ def get_game_info(uid, open_key, is_debug=False):
     platform_info = platform_logic.get_user_info_by_platform(uid, open_key, is_debug)
     if platform_info is False:
         return False
+    # 刷新收入
+    island_logic.refresh_income_info(uid)
     return {
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
