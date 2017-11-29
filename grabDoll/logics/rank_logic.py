@@ -11,13 +11,28 @@ def get_rank_info(uid):
     return {
         'my_rank': 10111,
         'friend': get_my_friend_info(uid),
-        'all': get_top_100_info(),
+        'all': get_my_rank_info(uid),
+        'friend_list': get_my_friend_list(uid),
+        'all_list': get_top_100_list(uid),
+        'list': None,
     }
 
 
-def get_top_100_info():
+def get_top_100_list(uid):
     # 获取全区前100的 用户ID
     res = list()
+    return res
+
+
+# 我的好友列表
+def get_my_friend_list(uid):
+    action = FriendAction(uid)
+    data = action.get_model_info()
+    return data
+
+
+def get_my_rank_info(uid):
+    res = dict()
     return res
 
 
@@ -47,6 +62,8 @@ def get_my_friend_info(uid):
 def get_my_rank_info(uid):
     res = dict()
     return res
+
+
 
 
 
