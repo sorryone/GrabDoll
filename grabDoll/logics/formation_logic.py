@@ -44,9 +44,10 @@ def set_fight(uid, fight_heroes):
         print('hero_id', hero_id)
         base_atk = int(cur_hero_config['atk'])
         base_capacity = int(cur_hero_config['capacity'])
-        add = int(cur_lv_config['add'])
-        hero_atk = base_atk * add
-        hero_capacity = base_capacity * add
+        atk_add_per = int(cur_lv_config['add_atk'])
+        capacity_add_per = int(cur_lv_config['add_capacity'])
+        hero_atk = base_atk * atk_add_per
+        hero_capacity = base_capacity * capacity_add_per
         print(hero_atk, hero_capacity)
         if hero_id in fight_heroes:
             all_atk += hero_atk * fight_per
