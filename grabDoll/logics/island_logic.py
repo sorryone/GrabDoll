@@ -39,4 +39,5 @@ def award_income(uid):
         award['gold'] = income
     else:
         award['gold'] = 0
+    res['award'] = award
     return res
