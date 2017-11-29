@@ -68,15 +68,12 @@ class FormationAction(BaseModel):
     def change_list_by_ct(self, data, ct):
         res = []
         if isinstance(data, (unicode,)):
-            print('start utf-8')
             data = data.encode('utf-8')
         if isinstance(data, (str,)):
             res = data.split(self.split_str)
-            print(res)
         fill_ct = ct - len(res)
         if fill_ct > 0:
             res.extend([''] * fill_ct)
-        print(fill_ct)
         return res
 
     def set_model_info(self, data):
