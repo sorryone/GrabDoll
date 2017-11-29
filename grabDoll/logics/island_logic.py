@@ -32,8 +32,11 @@ def award_income(uid):
     f_action = FormationAction(uid)
     u_action = UserAction(uid)
     income = f_action.get_income()
+    res = dict()
+    award = {}
     if f_action.set_income(0):
         res = u_action.add_gold(income)
+        award['gold'] = income
     else:
-        res = False
+        award['gold'] = 0
     return res
