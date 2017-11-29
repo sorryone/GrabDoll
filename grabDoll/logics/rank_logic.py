@@ -8,11 +8,15 @@ __author__ = 'du_du'
 
 
 def get_rank_info(uid):
+    friend_list = get_my_friend_list(uid)
+    top_list = get_top_100_list(uid)
+    all_list = set(top_list, friend_list)
+    print(all_list)
     return {
         'my_rank': 10111,
         'friend': get_my_friend_info(uid),
         'all': get_my_rank_info(uid),
-        'friend_list': get_my_friend_list(uid),
+        'friend_list': friend_list,
         'all_list': get_top_100_list(uid),
         'list': None,
     }
@@ -21,6 +25,8 @@ def get_rank_info(uid):
 def get_top_100_list(uid):
     # 获取全区前100的 用户ID
     res = list()
+    res.append('Test10')
+    res.append('Test11')
     return res
 
 
