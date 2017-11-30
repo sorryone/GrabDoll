@@ -11,14 +11,11 @@ def get_rank_info(uid):
     friend_list = get_my_friend_list(uid)
     top_list = get_top_100_list(uid)
     all_list = set(top_list + friend_list)
-    print(all_list)
     return {
         'my_rank': 10111,
-        'friend': get_my_friend_info(uid),
-        'all': get_my_rank_info(uid),
         'friend_list': friend_list,
         'all_list': get_top_100_list(uid),
-        'list': None,
+        'list_info': get_list_info(all_list),
     }
 
 
@@ -39,6 +36,22 @@ def get_my_friend_list(uid):
 
 def get_my_rank_info(uid):
     res = dict()
+    return res
+
+
+# 我的好友列表信息
+def get_list_info(data):
+    res = list()
+    for f_id in data:
+        p_model = PlatformAction(f_id)
+        u_model = UserAction(f_id)
+        item = {
+            'id': f_id,
+            'platform': p_model.get_private_info(),
+            'userInfo': u_model.get_private_info(),
+        }
+        res.append(item)
+    # res = sorted(res, key=lambda x: x['gold'], reverse=True)
     return res
 
 

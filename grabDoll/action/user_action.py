@@ -7,6 +7,7 @@ __author__ = 'du_du'
 class UserAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
+        self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
         super(UserAction, self).__init__(
                     u_id, User, UserTable, UserTableSerializer, True)
 
@@ -62,6 +63,19 @@ class UserAction(BaseModel):
         return True
 
     def get_model_info(self):
+        data = self.get_all()
+        res = {}
+        if len(data) == 0:
+            data = self.create_model()
+        key_info = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
+        for key in key_info:
+            if key in data:
+                res[key] = data[key]
+            else:
+                res[key] = 0
+        return res
+
+    def get_private_info(self):
         data = self.get_all()
         res = {}
         if len(data) == 0:
