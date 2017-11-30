@@ -19,11 +19,11 @@ def fight_against(uid, opponent):
     res = dict()
     res['my_atk'] = my_atk
     res['opponent_atk'] = opponent_atk
-    if my_formation_info.get(my_formation.fight_type) == my_formation.state_injured:
+    if my_formation_info.get(my_formation.fight_state_str) == my_formation.state_injured:
         # 我受伤了已经
         res['error'] = True
         res['update'] = my_formation_info
-    elif opponent_info.get(opponent_formation.fight_type) == opponent_formation.state_injured:
+    elif opponent_info.get(opponent_formation.fight_state_str) == opponent_formation.state_injured:
         # 我受伤了已经
         res['error'] = True
         res['update'] = opponent_info
