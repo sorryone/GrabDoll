@@ -169,12 +169,12 @@ def open_egg(uid, egg_id):
                             add_exp = 0
                 else:
                     cur_hero['exp'] = exp
-                    cur_hero['add_exp'] = add_exp
                     hero_action.set_value(a_id, cur_hero)
                     res['hero_lv_up'] = False
                 # 如果已经有这个英雄了 就发金币吧
                 # user_action.add_gold(10)
                 # res['gold'] = 10
+                cur_hero['add_exp'] = add_exp
                 res['doll'] = cur_hero
                 res['hero_exist'] = a_id
         else:
