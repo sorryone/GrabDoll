@@ -144,9 +144,38 @@ def open_egg(uid, egg_id):
             if hero_action.get_doll_exist(a_id) is False:
                 res['doll'] = hero_action.add_model(a_id)
             else:
+                cur_hero = hero_action.get_doll_info_by_id(a_id)
+                hero_config_model = ConfigModel('doll_upgrade')
+                cur_lv_config = hero_config_model.get_config_by_id(70000 + cur_hero['lv'])
+                max_exp = cur_lv_config['exp']
+                max_lv = 5
+                add_exp = 10
+                # 新的经验值
+                exp = cur_hero['exp'] + add_exp
+                if exp >= max_exp:
+                    if cur_hero['lv'] < max_lv:
+                        cur_hero['lv'] += 1
+                        cur_hero['exp'] = exp - max_exp
+                        hero_action.set_value(a_id, cur_hero)
+                        res['hero_lv_up'] = True
+                    else:
+                        res['hero_lv_up'] = False
+                        # 满级了
+                        if cur_hero['exp'] < max_exp:
+                            cur_hero['exp'] = max_exp
+                            hero_action.set_value(a_id, cur_hero)
+                        else:
+                            # 经验槽也满了已经
+                            add_exp = 0
+                else:
+                    cur_hero['exp'] = exp
+                    cur_hero['add_exp'] = add_exp
+                    hero_action.set_value(a_id, cur_hero)
+                    res['hero_lv_up'] = False
                 # 如果已经有这个英雄了 就发金币吧
-                user_action.add_gold(10)
-                res['gold'] = 10
+                # user_action.add_gold(10)
+                # res['gold'] = 10
+                res['doll'] = cur_hero
                 res['hero_exist'] = a_id
         else:
             pass
