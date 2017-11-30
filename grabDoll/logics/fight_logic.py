@@ -56,7 +56,7 @@ def fight_against(uid, opponent):
             if user_action.add_gold(award_fail_gold):
                 award['gold'] = award_fail_gold
         res['award'] = award
-    res['result'] = result
+        res['result'] = result
     return res
 
 
