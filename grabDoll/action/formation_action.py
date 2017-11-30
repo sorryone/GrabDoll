@@ -37,9 +37,9 @@ class FormationAction(BaseModel):
 
     def get_income(self):
         res = self.get_value(self.income_str, 0)
-        if isinstance(res, (dict, list)):
-            return 0
-        return res
+        if isinstance(res, (int,)):
+            return res
+        return 0
 
     def set_income(self, value):
         res = self.set_value(self.income_str, value)
@@ -47,15 +47,15 @@ class FormationAction(BaseModel):
 
     def get_fight_atk(self):
         res = self.get_value(self.fight_atk_str, 0)
-        if isinstance(res, (dict, list)):
-            return 0
-        return res
+        if isinstance(res, (int,)):
+            return res
+        return 0
 
     def get_capacity(self):
         res = self.get_value(self.capacity_str, 0)
-        if isinstance(res, (dict, list)):
-            return 0
-        return res
+        if isinstance(res, (int,)):
+            return res
+        return 0
 
     def get_fight_model_info(self):
         data = self.get_value(self.fight_formation_str, None)
