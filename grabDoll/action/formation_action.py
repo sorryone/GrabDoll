@@ -15,6 +15,7 @@ class FormationAction(BaseModel):
         self.explore_formation_str = 'explore_formation'
         self.capacity_str = 'capacity'
         self.income_str = 'income'
+        self.fight_state_str = 'fight_state'
         self.fight_atk_str = 'fight_atk'
         self.fight_ct_str = 'fight_ct'
         self.rob_ct_str = 'rob_ct'
@@ -26,6 +27,8 @@ class FormationAction(BaseModel):
         self.fight_refresh_time_str = 'fight_refresh_time'
         self.fight_type = 1
         self.capacity_type = 0
+        self.state_normal = 0
+        self.state_injured = 1
         super(FormationAction, self).__init__(
                     u_id, FormationModel, FormationTable, FormationTableSerializer, True)
 
@@ -75,6 +78,12 @@ class FormationAction(BaseModel):
         if fill_ct > 0:
             res.extend([''] * fill_ct)
         return res
+
+    def set_normal(self):
+        return self.set_value(self.fight_type, self.state_normal)
+
+    def set_injured(self):
+        return self.set_value(self.fight_type, self.state_injured)
 
     def set_model_info(self, data):
         fight_formation = data.get(self.fight_formation_str)

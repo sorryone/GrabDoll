@@ -19,31 +19,44 @@ def fight_against(uid, opponent):
         return False
 
     my_formation = FormationAction(uid)
+    my_formation_info = my_formation.get_model_info()
     opponent_formation = FormationAction(opponent)
-    my_atk = my_formation.get_fight_atk()
-    opponent_atk = opponent_formation.get_fight_atk()
+    opponent_info = opponent_formation.get_model_info()
+    my_atk = my_formation_info.get(opponent_formation.fight_atk_str)
+    opponent_atk = opponent_info.get(opponent_formation.fight_atk_str)
+
     res = dict()
     res['my_atk'] = my_atk
     res['opponent_atk'] = opponent_atk
-    award_success_gold = 10
-    award_fail_gold = 2
-    award = dict()
-    award_success_items = [20010, 20011, 20012, 20013, 20014, 20015, 20016, 20017, 20018, 20019]
-    item_action = ItemAction(uid)
-    if my_atk > opponent_atk:
-        result = True
-        award_item = random.choice(award_success_items)
-        award_item_ct = 1
-        if item_action.add_model(award_item, award_item_ct):
-            award[award_item] = award_item_ct
-        if user_action.add_gold(award_success_gold):
-            award['gold'] = award_success_gold
-
+    if my_formation_info.get(my_formation.fight_type) == my_formation.state_injured:
+        # 我受伤了已经
+        res['error'] = True
+        res['update'] = my_formation_info
+    elif opponent_info.get(opponent_formation.fight_type) == opponent_formation.state_injured:
+        # 我受伤了已经
+        res['error'] = True
+        res['update'] = opponent_info
     else:
-        result = False
-        if user_action.add_gold(award_fail_gold):
-            award['gold'] = award_fail_gold
-    res['award'] = award
+        award_success_gold = 10
+        award_fail_gold = 2
+        award = dict()
+        award_success_items = [20010, 20011, 20012, 20013, 20014, 20015, 20016, 20017, 20018, 20019]
+        item_action = ItemAction(uid)
+        if my_atk > opponent_atk:
+            result = True
+            opponent_formation.set_injured()
+            award_item = random.choice(award_success_items)
+            award_item_ct = 1
+            if item_action.add_model(award_item, award_item_ct):
+                award[award_item] = award_item_ct
+            if user_action.add_gold(award_success_gold):
+                award['gold'] = award_success_gold
+        else:
+            result = False
+            my_formation.set_injured()
+            if user_action.add_gold(award_fail_gold):
+                award['gold'] = award_fail_gold
+        res['award'] = award
     res['result'] = result
     return res
 
