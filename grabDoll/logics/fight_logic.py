@@ -9,15 +9,6 @@ __author__ = 'du_du'
 
 
 def fight_against(uid, opponent):
-    user_action = UserAction(uid)
-    # 体力的扣除
-    cur_vit = user_action.get_vit()
-    cost_vit = 1
-    if cur_vit < cost_vit:
-        return False
-    if user_action.reduce_vit(cost_vit) is False:
-        return False
-
     my_formation = FormationAction(uid)
     my_formation_info = my_formation.get_model_info()
     opponent_formation = FormationAction(opponent)
@@ -37,6 +28,14 @@ def fight_against(uid, opponent):
         res['error'] = True
         res['update'] = opponent_info
     else:
+        user_action = UserAction(uid)
+        # 体力的扣除
+        cur_vit = user_action.get_vit()
+        cost_vit = 1
+        if cur_vit < cost_vit:
+            return False
+        if user_action.reduce_vit(cost_vit) is False:
+            return False
         award_success_gold = 10
         award_fail_gold = 2
         award = dict()
