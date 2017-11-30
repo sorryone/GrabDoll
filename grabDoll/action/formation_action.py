@@ -80,10 +80,10 @@ class FormationAction(BaseModel):
         return res
 
     def set_normal(self):
-        return self.set_value(self.fight_type, self.state_normal)
+        return self.set_value(self.fight_state_str, self.state_normal)
 
     def set_injured(self):
-        return self.set_value(self.fight_type, self.state_injured)
+        return self.set_value(self.fight_state_str, self.state_injured)
 
     def set_model_info(self, data):
         fight_formation = data.get(self.fight_formation_str)
