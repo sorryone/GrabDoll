@@ -9,6 +9,15 @@ __author__ = 'du_du'
 
 
 def fight_against(uid, opponent):
+    user_action = UserAction(uid)
+    # 体力的扣除
+    cur_vit = user_action.get_vit()
+    cost_vit = 1
+    if cur_vit < cost_vit:
+        return False
+    if user_action.reduce_vit(cost_vit) is False:
+        return False
+
     my_formation = FormationAction(uid)
     opponent_formation = FormationAction(opponent)
     my_atk = my_formation.get_fight_atk()
@@ -20,7 +29,6 @@ def fight_against(uid, opponent):
     award_fail_gold = 2
     award = dict()
     award_success_items = [20010, 20011, 20012, 20013, 20014, 20015, 20016, 20017, 20018, 20019]
-    user_action = UserAction(uid)
     item_action = ItemAction(uid)
     if my_atk > opponent_atk:
         result = True

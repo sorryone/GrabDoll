@@ -149,7 +149,7 @@ def open_egg(uid, egg_id):
                 cur_lv_config = hero_config_model.get_config_by_id(70000 + cur_hero['lv'])
                 max_exp = cur_lv_config['exp']
                 max_lv = 5
-                add_exp = 10
+                add_exp = 1
                 # 新的经验值
                 exp = cur_hero['exp'] + add_exp
                 if exp >= max_exp:
