@@ -108,6 +108,9 @@ def use_box(uid, config_info):
 # 治疗书的使用
 def use_heal(uid, config_info=None):
     formation_action = FormationAction(uid)
+    formation_info = formation_action.get_model_info()
+    if formation_info.get(formation_action.fight_state_str) != formation_action.state_injured:
+        return False
     res = formation_action.set_normal()
     return {'heal': res}
 

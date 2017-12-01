@@ -10,9 +10,11 @@ def refresh_income_info(uid):
     action = FormationAction(uid)
     info = action.get_model_info()
     print(info)
-    capacity = info.get('capacity', 0)
-    capacity_update_at = info.get('capacity_update_at', 0)
-    cur_income = info.get('income', 0)
+    capacity = info.get(action.capacity_str, 0)
+    capacity_update_at = info.get(action.capacity_update_at_str, 0)
+    if info.get(action.fight_state_str) == action.state_injured:
+        return False
+    cur_income = info.get(action.income_str, 0)
     cur_time = int(time.time())
     # 每个小时的获取的金币
     per_hour_capacity = capacity / 10.0

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.formation_model import FormationModel, FormationTable, FormationTableSerializer
+import time
 __author__ = 'du_du'
 
 
@@ -14,6 +15,7 @@ class FormationAction(BaseModel):
         self.fight_formation_str = 'fight_formation'
         self.explore_formation_str = 'explore_formation'
         self.capacity_str = 'capacity'
+        self.capacity_update_at_str = 'capacity_update_at'
         self.income_str = 'income'
         self.fight_state_str = 'fight_state'
         self.fight_atk_str = 'fight_atk'
@@ -80,7 +82,11 @@ class FormationAction(BaseModel):
         return res
 
     def set_normal(self):
-        return self.set_value(self.fight_state_str, self.state_normal)
+        res = {
+            self.fight_state_str: self.state_normal,
+            self.capacity_update_at: int(time.time())
+        }
+        return self.set_values(res)
 
     def set_injured(self):
         return self.set_value(self.fight_state_str, self.state_injured)
