@@ -16,7 +16,7 @@ def enter_friend_home(uid, f_id):
     res = {
         'id': f_id,
         'heroes': hero_action.get_model_info(),
-        'income': f_action.get_income(),
+        'formation': f_action.get_model_info(),
     }
     return res
 

@@ -24,7 +24,7 @@ def fight_against(uid, opponent):
         res['error'] = True
         res['update'] = my_formation_info
     elif opponent_info.get(opponent_formation.fight_state_str) == opponent_formation.state_injured:
-        # 我受伤了已经
+        # 对方受伤了已经
         res['error'] = True
         res['update'] = opponent_info
     else:
