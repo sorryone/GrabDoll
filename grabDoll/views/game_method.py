@@ -111,7 +111,7 @@ def use_item(request):
     if request.method == "GET":
         try:
             uid = request.query_params.get('uid')
-            item_id = request.query_params.get('item_id')
+            item_id = int(request.query_params.get('item_id'))
             if item_id is None:
                 return 1, "未知的道具"
         except Exception as e:

@@ -7,6 +7,7 @@ from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
 from grabDoll.models.config_model import ConfigModel
+from grabDoll.action.formation_action import FormationAction
 import random
 __author__ = 'du_du'
 
@@ -38,11 +39,7 @@ def add_item(uid, item_id):
 
 
 def use_item(uid, item_id):
-    if type(item_id) == 'unicode':
-        config_id = item_id.encode("utf-8")
-    else:
-        config_id = item_id
-    config_id = int(config_id)
+    config_id = int(item_id)
     print type(config_id)
     item_type = config_id/10000
     print('config_id', item_id, 'item_type', item_type)
@@ -52,39 +49,67 @@ def use_item(uid, item_id):
     del_res = reduce_item(uid, item_id)
     # 存在的话删除掉
     if del_res:
-        # 奖励
-        awards = get_award(item_id)
-        item_model = ItemAction(uid)
-        doll_model = HeroAction(uid)
-        hatch_action = HatchAction(uid)
-        user = UserAction(uid)
-        res = dict()
-        for a_id, ct in awards.iteritems():
-            # 如果是金币添加金币
-            if a_id == "gold":
-                user.add_gold(ct)
-                res[a_id] = ct
-            # 如果是钻石添加钻石
-            elif a_id == "diamond":
-                user.add_diamond(ct)
-                res[a_id] = ct
-            # 经验
-            elif a_id == "exp":
-                user.add_gold(ct)
-                res[a_id] = ct
-            # 如果是道具添加道具
-            elif int(a_id)/10000 == 2:
-                if item_model.add_model(a_id, ct):
-                    res[a_id] = ct
-            elif int(a_id)/10000 == 3:
-                hatch_action.add_model(a_id)
-            elif int(a_id)/10000 == 4:
-                res['doll'] = doll_model.add_model(a_id)
-            else:
-                pass
-        return res
+        config_model = ConfigModel('item')
+        config_info = config_model.get_config_by_id(item_id)
+        fun_dict = {
+            'normal': use_normal,
+            'box': use_heal,
+            'heal': use_heal,
+        }
+        return fun_dict.get(config_info['iType'])(uid, config_info)
     print("item  is not exits")
     return False
+
+
+def use_normal(uid, config_info=None):
+    res = {}
+    user = UserAction(uid)
+    ct = 1
+    user.add_gold(ct)
+    res['gold'] = ct
+    return res
+
+
+# 使用宝箱
+def use_box(uid, config_info):
+    # 奖励
+    awards = get_award(config_info)
+    item_model = ItemAction(uid)
+    doll_model = HeroAction(uid)
+    hatch_action = HatchAction(uid)
+    user = UserAction(uid)
+    res = dict()
+    for a_id, ct in awards.iteritems():
+        # 如果是金币添加金币
+        if a_id == "gold":
+            user.add_gold(ct)
+            res[a_id] = ct
+        # 如果是钻石添加钻石
+        elif a_id == "diamond":
+            user.add_diamond(ct)
+            res[a_id] = ct
+        # 经验
+        elif a_id == "exp":
+            user.add_gold(ct)
+            res[a_id] = ct
+        # 如果是道具添加道具
+        elif int(a_id) / 10000 == 2:
+            if item_model.add_model(a_id, ct):
+                res[a_id] = ct
+        elif int(a_id) / 10000 == 3:
+            hatch_action.add_model(a_id)
+        elif int(a_id) / 10000 == 4:
+            res['doll'] = doll_model.add_model(a_id)
+        else:
+            pass
+    return res
+
+
+# 治疗书的使用
+def use_heal(uid, config_info=None):
+    formation_action = FormationAction(uid)
+    res = formation_action.set_normal()
+    return {'heal': res}
 
 
 def reduce_item(uid, item_id):
@@ -103,10 +128,7 @@ def reduce_hatch(uid, item_id):
 
 
 # 查看奖励
-def get_award(item_id):
-
-    config_model = ConfigModel('item')
-    config_info = config_model.get_config_by_id(item_id)
+def get_award(config_info):
     award = config_info.get('award', dict())
     if type(award) is not dict:
         award = award.encode('utf-8')
