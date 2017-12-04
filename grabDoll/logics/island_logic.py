@@ -27,6 +27,7 @@ def refresh_income_info(uid):
         'income': income,
         'capacity_update_at': cur_time,
     }
+
     if action.set_values(res):
         print(res)
         return res

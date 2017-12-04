@@ -36,9 +36,12 @@ class FormationAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
-        data[self.fight_formation_str] = self.change_list_by_ct(data[self.fight_formation_str], self.fight_length)
-        data[self.explore_formation_str] = self.change_list_by_ct(data[self.explore_formation_str], self.explore_length)
-        return data
+        if isinstance(data, (list,)):
+            return {}
+        else:
+            data[self.fight_formation_str] = self.change_list_by_ct(data[self.fight_formation_str], self.fight_length)
+            data[self.explore_formation_str] = self.change_list_by_ct(data[self.explore_formation_str], self.explore_length)
+            return data
 
     def get_income(self):
         res = self.get_value(self.income_str, 0)
