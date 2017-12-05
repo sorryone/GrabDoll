@@ -17,11 +17,12 @@ class ArtifactAction(BaseModel):
     def get_model_info(self):
         data_list = self.get_all()
         # 判定是否是新用户
-        if len(data_list) == 0 and self.create_model():
+        if len(data_list) == 0:
             # 重新获取一次
-            data_list = self.get_all()
+            data_list = self.create_model()
+        else:
+            print data_list
         res = []
-
         return sorted(res, key=lambda x: x['key_id'], reverse=False)
 
     def get_model_info_by_id(self, w_id):
@@ -30,11 +31,12 @@ class ArtifactAction(BaseModel):
 
     # 只有首次创建新用户初始化的时候调用
     def create_model(self):
-        data = {
-            "key_id": 0,
-        }
-
-        return self.set_values(data, data)
+        for key_id in self.default_weapon:
+            data = {
+                "key_id": key_id,
+            }
+            self.set_values(data, data)
+        return self.default_weapon
 
 
 
