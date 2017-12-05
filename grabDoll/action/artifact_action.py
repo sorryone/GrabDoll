@@ -19,11 +19,12 @@ class ArtifactAction(BaseModel):
         # 判定是否是新用户
         if len(data_list) == 0:
             # 重新获取一次
-            data_list = self.create_model()
+            res = self.create_model()
         else:
-            print data_list
-        res = []
-        return sorted(res, key=lambda x: x['key_id'], reverse=False)
+            res = [int(item['key_id']) for item in data_list]
+            res.sort()
+            # res = sorted(res, key=lambda x: x['key_id'], reverse=False)
+        return res
 
     def get_model_info_by_id(self, w_id):
         data = self.get_all({"key_id": w_id})
