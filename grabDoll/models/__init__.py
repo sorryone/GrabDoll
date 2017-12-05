@@ -8,3 +8,4 @@ from grabDoll.models import handbook_model
 from grabDoll.models import item_model
 from grabDoll.models import platform_model
 from grabDoll.models import formation_model
+from grabDoll.models import artifact_model
