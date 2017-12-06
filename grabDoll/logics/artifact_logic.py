@@ -14,6 +14,15 @@ def get_artifact_info(uid):
 def upgrade_artifact(uid, artifact):
     action = ArtifactAction(uid)
     config_model = ConfigModel('artifact')
-    return action.get_model_info()
+    artifact_config = config_model.get_config_by_id(artifact)
+    if artifact_config is False:
+        print('流氓数据 错误的ID')
+        return False
+    next_id = artifact_config.get('next_id')
+    if next_id == -1:
+        print('流氓数据 满级了')
+        return False
+    return action.replace_model(artifact, next_id)
+
 
 
