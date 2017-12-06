@@ -20,7 +20,7 @@ def upgrade_artifact(uid, artifact):
         print('流氓数据 错误的ID')
         return False
     check_data = action.get_model_info_by_id(artifact)
-    if check_data is None or check_data is False or len(check_data):
+    if check_data is None or check_data is False or len(check_data) == 0:
         print('流氓数据 骗子')
         return False
     next_id = artifact_config.get('next_id')
