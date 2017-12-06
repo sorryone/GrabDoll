@@ -27,7 +27,7 @@ def upgrade_artifact(uid, artifact):
     if next_id == -1:
         print('流氓数据 满级了')
         return False
-    upgrade_item = check_data.get('upgrade')
+    upgrade_item = artifact_config.get('upgrade')
     upgrade_items = eval(upgrade_item)
     item_model = ItemAction(uid)
     all_item_info = item_model.get_model_info()
