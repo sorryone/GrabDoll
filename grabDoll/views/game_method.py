@@ -7,6 +7,7 @@ from grabDoll.logics import game_logic as game_logic
 from grabDoll.logics import machine_logic as machine_logic
 from grabDoll.logics import shop_logic as shop_logic
 from grabDoll.logics import hatch_logic as hatch_logic
+from grabDoll.logics import artifact_logic as artifact_logic
 __author__ = 'du_du'
 
 
@@ -199,6 +200,26 @@ def hatch_discard(request):
             return 1, "参数错误"
     try:
         data = hatch_logic.hatch_discard(uid, index)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def upgrade_artifact(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            artifact = int(request.query_params.get('artifact'))
+            if artifact is None:
+                return 1, "错误索引"
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = artifact_logic.upgrade_artifact(uid, artifact)
         return 0, data
     except Exception as e:
         print(e)
