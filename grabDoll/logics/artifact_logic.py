@@ -47,7 +47,8 @@ def get_artifact_akt(uid):
     action = ArtifactAction(uid)
     config_model = ConfigModel('artifact')
     artifact_group = action.get_model_info()
-    res = {}
+    all_atk = [int(config_model.get_config_by_id(c_id)['atk']) for c_id in artifact_group]
+    res = {'atk': sum(all_atk)}
     return res
 
 
