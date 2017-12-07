@@ -87,7 +87,7 @@ class FormationAction(BaseModel):
     def set_normal(self):
         res = {
             self.fight_state_str: self.state_normal,
-            self.capacity_update_at: int(time.time())
+            self.capacity_update_at_str: int(time.time())
         }
         return self.set_values(res)
 
