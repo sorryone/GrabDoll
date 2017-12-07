@@ -42,4 +42,15 @@ def upgrade_artifact(uid, artifact):
     return action.replace_model(artifact, next_id)
 
 
+# 神器的能力
+def get_artifact_akt(uid):
+    action = ArtifactAction(uid)
+    config_model = ConfigModel('artifact')
+    artifact_group = action.get_model_info()
+    res = {}
+    return res
+
+
+
+
 
