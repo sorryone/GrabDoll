@@ -3,6 +3,7 @@ from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
+from grabDoll.logics import artifact_logic
 import random
 import time
 __author__ = 'du_du'
@@ -15,10 +16,11 @@ def fight_against(uid, opponent):
     opponent_info = opponent_formation.get_model_info()
     my_atk = my_formation_info.get(opponent_formation.fight_atk_str)
     opponent_atk = opponent_info.get(opponent_formation.fight_atk_str)
-
+    my_art_atk = artifact_logic.get_artifact_akt(uid)
+    opponent_art_atk = artifact_logic.get_artifact_akt(opponent)
     res = dict()
-    res['my_atk'] = my_atk
-    res['opponent_atk'] = opponent_atk
+    res['my_atk'] = my_atk + my_art_atk
+    res['opponent_atk'] = opponent_atk + opponent_art_atk
     if my_formation_info.get(my_formation.fight_state_str) == my_formation.state_injured:
         # 我受伤了已经
         res['error'] = True
