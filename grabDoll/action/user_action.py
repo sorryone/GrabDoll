@@ -7,6 +7,7 @@ __author__ = 'du_du'
 class UserAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
+        self.max_vit_value = 100
         self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
         super(UserAction, self).__init__(
                     u_id, User, UserTable, UserTableSerializer, True)
@@ -25,6 +26,9 @@ class UserAction(BaseModel):
 
     def get_vit(self):
         return self.get_value("vit")
+
+    def reset_vit(self):
+        return self.set_value("vit", self.max_vit_value)
 
     def add_gold(self, ct):
         self.incr("gold", ct)
@@ -95,7 +99,7 @@ class UserAction(BaseModel):
             'diamond': 100,
             'uid': self.u_id,
             'exp': 0,
-            'vit': 100,
+            'vit': self.max_vit_value,
             'lv': 1,
         }
         if self.set_values(data):

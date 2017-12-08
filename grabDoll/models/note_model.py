@@ -34,5 +34,17 @@ class NoteModel(HashModel):
         res = self.set_value('machine_refresh_' + str(machine_id), time_str)
         return res
 
+    def get_vit_refresh_time(self):
+        res = self.get_value('vit_refresh_time')
+        if type(res) is str:
+            res = int(res)
+        return res
+
+    def set_vit_refresh_time(self):
+        res = self.set_value('vit_refresh_time', time.time())
+        if res == 0 or res is not False:
+            return True
+        return False
+
     def get_redis(self):
         self.get_client()
