@@ -47,4 +47,5 @@ urlpatterns = patterns("",
                        url(r'^refresh_income_info', 'grabDoll.views.island_method.refresh_income_info'),
                        url(r'^award_income', 'grabDoll.views.island_method.award_income'),
                        url(r'^upgrade_artifact', 'grabDoll.views.game_method.upgrade_artifact'),
+                       url(r'^buy_vit', 'grabDoll.views.game_method.buy_vit'),
                        )

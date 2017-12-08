@@ -7,6 +7,9 @@ __author__ = 'du_du'
 class UserAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
+        self.gold_str = 'gold'
+        self.diamond_str = 'diamond'
+        self.vit_str = 'vit'
         self.max_vit_value = 100
         self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
         super(UserAction, self).__init__(

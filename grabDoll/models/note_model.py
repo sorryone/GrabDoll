@@ -6,6 +6,9 @@ __author__ = 'du_du'
 
 class NoteModel(HashModel):
 
+    def __init__(self):
+        self.buy_vit_ct_str = 'buy_vit_ct'
+
     def get_model_info(self):
         return self.get_all()
 
@@ -14,6 +17,20 @@ class NoteModel(HashModel):
         if type(res) is str:
             res = int(res)
         return res
+
+    def get_buy_vit_ct(self):
+        res = self.get_value(self.buy_vit_ct_str)
+        if res is None:
+            res = 0
+        if type(res) is str:
+            res = int(res)
+        return res
+
+    def add_buy_vit_ct(self):
+        return self.incr(self.buy_vit_ct_str)
+
+    def reset_buy_vit_ct(self):
+        return self.set_value(self.buy_vit_ct_str, 0)
 
     def set_cur_machine(self, machine_id):
         res = self.set_value('cur_machine', machine_id)

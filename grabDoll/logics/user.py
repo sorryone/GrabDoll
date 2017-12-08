@@ -25,7 +25,30 @@ def get_user_info(uid):
     return u.get_model_info()
 
 
+def buy_vit(uid):
+    add_ct = 10
+    u = UserAction(uid)
+    user_info = u.get_model_info()
+    note_model = NoteModel(uid)
+    cur_buy_ct = note_model.get_buy_vit_ct()
+    price = 10
+    cost = 2**cur_buy_ct * price
+    cur_diamond = user_info.get(u.diamond_str, 0)
+    if cur_diamond < cost:
+        print (uid, u.diamond_str, 'not enough')
+        return False
+    data = {
+        u.diamond_str: cur_diamond - cost,
+        u.vit_str: user_info.get(u.vit_str, 0) + add_ct
+    }
+    # 记录次数
+    note_model.add_buy_vit_ct()
+    if u.set_values(data):
+        return data
+
+
 def refresh_vit(uid):
+    # 重置购买次数
     note_model = NoteModel(uid)
     last_refresh_time = note_model.get_vit_refresh_time()
     cur_time = time.time()
@@ -33,7 +56,7 @@ def refresh_vit(uid):
     if last_refresh_time < today_zero_time:
         u = UserAction(uid)
         if u.get_vit() < u.max_vit_value:
-            if u.reset_vit():
+            if note_model.reset_buy_vit_ct():    # if u.reset_vit():
                 note_model.set_vit_refresh_time()
         else:
             note_model.set_vit_refresh_time()
