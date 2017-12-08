@@ -36,8 +36,10 @@ class NoteModel(HashModel):
 
     def get_vit_refresh_time(self):
         res = self.get_value('vit_refresh_time')
+        if res is None:
+            res = 0
         if type(res) is str:
-            res = int(res)
+            res = float(res)
         return res
 
     def set_vit_refresh_time(self):
