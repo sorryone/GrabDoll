@@ -20,4 +20,5 @@ class NoteAction:
             if func is not None:
                 pass
             # this->cache->set($key, 1, 0, timerMaker()+$time);
+        return True
 

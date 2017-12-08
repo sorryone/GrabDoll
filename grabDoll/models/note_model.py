@@ -6,8 +6,9 @@ __author__ = 'du_du'
 
 class NoteModel(HashModel):
 
-    def __init__(self):
+    def __init__(self, uid):
         self.buy_vit_ct_str = 'buy_vit_ct'
+        HashModel.__init__(self, uid)
 
     def get_model_info(self):
         return self.get_all()
