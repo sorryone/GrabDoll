@@ -43,8 +43,10 @@ def buy_vit(uid):
     }
     # 记录次数
     note_model.add_buy_vit_ct()
+    res = {}
     if u.set_values(data):
-        return data
+        res['award'] = {'vit': add_ct}
+    return res
 
 
 def refresh_vit(uid):
