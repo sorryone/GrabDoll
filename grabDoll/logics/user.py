@@ -35,7 +35,7 @@ def buy_vit(uid):
     cost = 2**cur_buy_ct * price
     cur_diamond = user_info.get(u.diamond_str, 0)
     if cur_diamond < cost:
-        print (uid, u.diamond_str, 'not enough')
+        print (uid, u.diamond_str, 'not enough', cur_diamond, cost, cur_buy_ct)
         return False
     data = {
         u.diamond_str: cur_diamond - cost,
