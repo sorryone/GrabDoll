@@ -7,6 +7,7 @@ __author__ = 'du_du'
 class NoteModel(HashModel):
 
     def __init__(self, uid):
+        self.login_time_str = 'login_time'
         self.buy_vit_ct_str = 'buy_vit_ct'
         HashModel.__init__(self, uid)
 
@@ -18,6 +19,20 @@ class NoteModel(HashModel):
         if type(res) is str:
             res = int(res)
         return res
+
+    def get_login_time(self):
+        res = self.get_value(self.login_time_str)
+        if res is None:
+            res = 0
+        if type(res) is str:
+            res = float(res)
+        return res
+
+    def set_login_time(self):
+        res = self.set_value(self.login_time_str, time.time())
+        if res == 0 or res is not False:
+            return True
+        return False
 
     def get_buy_vit_ct(self):
         res = self.get_value(self.buy_vit_ct_str)

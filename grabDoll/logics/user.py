@@ -50,6 +50,12 @@ def buy_vit(uid):
 
 
 def refresh_vit(uid):
+    u = UserAction(uid)
+    if u.get_vit() < u.max_vit_value:
+        u.reset_vit()
+
+
+def reset_vit_buy_ct(uid):
     # 重置购买次数
     note_model = NoteModel(uid)
     last_refresh_time = note_model.get_vit_refresh_time()

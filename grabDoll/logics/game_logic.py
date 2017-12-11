@@ -9,7 +9,8 @@ from grabDoll.logics import hatch_logic as hatch_logic
 from grabDoll.logics import formation_logic as formation_logic
 from grabDoll.logics import island_logic as island_logic
 from grabDoll.logics import artifact_logic as artifact_logic
-# import time
+from grabDoll.models.note_model import NoteModel
+import time
 __author__ = 'du_du'
 
 
@@ -18,8 +19,16 @@ def get_game_info(uid, open_key, is_debug=False):
     platform_info = platform_logic.get_user_info_by_platform(uid, open_key, is_debug)
     if platform_info is False:
         return False
-    # 刷新体力
-    user_logic.refresh_vit(uid)
+
+    # 当日首次登陆的检查
+    note_model = NoteModel(uid)
+    last_refresh_time = note_model.get_login_time()
+    cur_time = time.time()
+    today_zero_time = cur_time-cur_time % 86400 + time.timezone
+    if last_refresh_time < today_zero_time:
+        note_model.set_login_time()
+        # 刷新体力
+        user_logic.refresh_vit(uid)
     # 刷新收入
     island_logic.refresh_income_info(uid)
     return {
