@@ -18,9 +18,9 @@ class PveAction(BaseModel):
     def get_model_info(self):
         data = self.get_all()
         if isinstance(data, (list,)):
-            return {}
-        else:
             return {self.pve_id_str: 80001}
+        else:
+            return data
 
     def get_hp(self):
         res = self.get_value(self.boss_hp_str, 0)
