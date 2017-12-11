@@ -20,7 +20,7 @@ class PveAction(BaseModel):
         if isinstance(data, (list,)):
             return {}
         else:
-            return data
+            return {self.pve_id_str: 80001}
 
     def get_hp(self):
         res = self.get_value(self.boss_hp_str, 0)
