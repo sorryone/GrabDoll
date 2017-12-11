@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.artifact_action import ArtifactAction
-from grabDoll.action.item_action import  ItemAction
+from grabDoll.action.item_action import ItemAction
 __author__ = 'du_du'
 
 

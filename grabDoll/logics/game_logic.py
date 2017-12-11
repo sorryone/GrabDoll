@@ -9,6 +9,7 @@ from grabDoll.logics import hatch_logic as hatch_logic
 from grabDoll.logics import formation_logic as formation_logic
 from grabDoll.logics import island_logic as island_logic
 from grabDoll.logics import artifact_logic as artifact_logic
+from grabDoll.logics import pve_logic as pve_logic
 from grabDoll.models.note_model import NoteModel
 import time
 __author__ = 'du_du'
@@ -43,6 +44,7 @@ def get_game_info(uid, open_key, is_debug=False):
         'rank': rank_logic.get_rank_info(uid),
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
+        'pve': pve_logic.get_pve_info(uid),
     }
 
 if __name__ == "__main__":
