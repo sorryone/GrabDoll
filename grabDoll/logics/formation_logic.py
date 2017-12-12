@@ -61,8 +61,30 @@ def set_fight(uid, fight_heroes):
     return False
 
 
-def set_explore(uid, heroes):
-    return True
+def set_explore(uid, fight_heroes):
+    formation_action = FormationAction(uid)
+    check_heroes = [i for i in fight_heroes if i != '']
+    # 判断有没有重复英雄
+    if len(check_heroes) != len(set(check_heroes)):
+        print('is same')
+        return False
+    hero_action = HeroAction(uid)
+    all_hero = hero_action.get_model_info()
+    # 有没有根本不存在的英雄
+    if len(set(check_heroes) - set(all_hero.keys())) > 0:
+        print('is not exist')
+        return False
+    info = formation_action.get_model_info()
+    if len(set(check_heroes) & set(info.get(formation_action.explore_formation_str))) > 0:
+        print('pve hero in fight formation')
+        return False
+    data = {
+        formation_action.explore_formation_str: fight_heroes,
+    }
+    if formation_action.set_model_info(data):
+        print(data)
+        return data
+    return False
 
 if __name__ == "__main__":
     # print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
