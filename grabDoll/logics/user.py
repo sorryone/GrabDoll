@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from grabDoll.action.user_action import UserAction
-from grabDoll.models.note_model import NoteModel
+from grabDoll.action.record_action import RecordAction
 import datetime
 import time
 __author__ = 'du_du'
@@ -29,8 +29,9 @@ def buy_vit(uid):
     add_ct = 10
     u = UserAction(uid)
     user_info = u.get_model_info()
-    note_model = NoteModel(uid)
-    cur_buy_ct = note_model.get_buy_vit_ct()
+    re_action = RecordAction(uid)
+    record_info = re_action.get_model_info()
+    cur_buy_ct = record_info.get(re_action.buy_vit_str)
     price = 10
     cost = 2**cur_buy_ct * price
     cur_diamond = user_info.get(u.diamond_str, 0)
@@ -42,7 +43,7 @@ def buy_vit(uid):
         u.vit_str: user_info.get(u.vit_str, 0) + add_ct
     }
     # 记录次数
-    note_model.add_buy_vit_ct()
+    re_action.update_model_info({re_action.buy_vit_str: cur_buy_ct+1})
     res = {}
     if u.set_values(data):
         res['award'] = {'vit': add_ct}

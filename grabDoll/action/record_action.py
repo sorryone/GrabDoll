@@ -48,3 +48,8 @@ class RecordAction(BaseModel):
                 data[key_id] = 0
         return data
 
+    def update_model_info(self, data):
+        return self.set_values(data, {self.key_str: self.day_id})
+
+    def update_vit_info(self, value):
+        return self.set_values(self.buy_vit_str, value, {self.key_str: self.day_id})
