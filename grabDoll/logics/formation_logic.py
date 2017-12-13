@@ -55,6 +55,7 @@ def set_fight(uid, fight_heroes):
         formation_action.fight_atk_str: all_atk,
         formation_action.capacity_str: all_capacity,
     }
+    print(fight_heroes)
     if formation_action.set_model_info(data):
         print(data)
         return data
@@ -81,6 +82,7 @@ def set_explore(uid, fight_heroes):
     data = {
         formation_action.explore_formation_str: fight_heroes,
     }
+    print(fight_heroes)
     if formation_action.set_model_info(data):
         print(data)
         return data
