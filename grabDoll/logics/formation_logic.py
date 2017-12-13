@@ -88,6 +88,15 @@ def set_explore(uid, fight_heroes):
         return data
     return False
 
+
+def get_pve_heroes_info(uid):
+    for_action = FormationAction(uid)
+    hero_action = HeroAction(uid)
+    all_hero = hero_action.get_model_info()
+    pve_heroes = for_action.get_explore_model_info()
+    return {hero_id: hero_info for hero_id, hero_info in all_hero.items() if hero_id in pve_heroes}
+
+
 if __name__ == "__main__":
     # print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
     print get_formation_info('VIP')
