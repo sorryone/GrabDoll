@@ -34,7 +34,7 @@ def refresh_pve_info(uid):
         hero_cur_hp = hero_max_hp - hero_info.get(h_action.loss_hp_str, 0)
         if hero_cur_hp > 0:
             alive_heroes[hero_id] = {'hp': hero_cur_hp, 'atk': hero_atk}
-    average_atk = round(pve_config_info.get('atk')/float(len(alive_heroes)))
+    average_atk = int(math.ceil(pve_config_info.get('atk')/float(len(alive_heroes))))
     boss_cur_hp = pve_config_info.get('hp') - pve_info.get(p_action.loss_hp_str, 0)
     print average_atk
     print boss_cur_hp
