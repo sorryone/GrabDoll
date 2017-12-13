@@ -19,7 +19,10 @@ def refresh_pve_info(uid):
     heroes = formation_logic.get_pve_heroes_info(uid)
     # 读取英雄属性配置信息
     hero_config = ConfigModel('doll')
+    pve_config = ConfigModel('pve')
     hero_upgrade_config = ConfigModel('doll_upgrade')
+    pve_config_info = pve_config.get_config_by_id(pve_info.get(pve_info.pve_id_str))
+    print pve_config_info
     alive_heroes = {}
     for hero_id, hero_info in heroes.iteritems():
         cur_hero_config = hero_config.get_config_by_id(hero_id)
