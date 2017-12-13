@@ -19,9 +19,13 @@ class FormationAction(BaseModel):
         self.income_str = 'income'
         self.fight_state_str = 'fight_state'
         self.fight_atk_str = 'fight_atk'
+        # 进攻对手的次数
         self.fight_ct_str = 'fight_ct'
+        # 打劫别人的次数
         self.rob_ct_str = 'rob_ct'
+        # 被打劫的次数
         self.catch_ct_str = 'catch_ct'
+        # 防守次数
         self.defend_ct_str = 'defend_ct'
         self.defend_refresh_time_str = 'defend_refresh_time'
         self.rob_refresh_time_str = 'rob_refresh_time'

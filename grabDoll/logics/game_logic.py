@@ -32,6 +32,11 @@ def get_game_info(uid, open_key, is_debug=False):
         user_logic.refresh_vit(uid)
     # 刷新收入
     island_logic.refresh_income_info(uid)
+
+    refresh_config = {
+        'income': 60,   # 收入刷新的间隔
+        'vit': 3600,    # 体力刷新的时间
+    }
     return {
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
@@ -45,6 +50,7 @@ def get_game_info(uid, open_key, is_debug=False):
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
         'pve': pve_logic.get_pve_info(uid),
+        'refresh': refresh_config,
     }
 
 if __name__ == "__main__":

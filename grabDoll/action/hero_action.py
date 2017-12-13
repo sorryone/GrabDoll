@@ -10,6 +10,7 @@ class HeroAction(BaseModel):
         self.u_id = u_id
         # 娃娃的四种状态
         self.state = ('normal', 'work', 'sleep', 'fight', 'hurt')
+        self.loss_hp_str = 'loss_hp',
         super(HeroAction, self).__init__(
                     u_id, DollModel, DollTable, DollTableSerializer, False)
 
@@ -58,6 +59,30 @@ class HeroAction(BaseModel):
         print('add_model result', res)
         if res is not False:
             return data
+        return False
+
+    # 治疗
+    def heal_doll_hp(self, doll_id, hp):
+        doll = self.get_doll_info_by_id(doll_id)
+        if doll.has_key(self.loss_hp_str):
+            doll[self.loss_hp_str] += hp
+        else:
+            doll[self.loss_hp_str] = hp
+        res = self.set_value(doll_id, doll)
+        if res is not False:
+            return doll
+        return False
+
+    # 击伤
+    def injure_doll_hp(self, doll_id, hp):
+        doll = self.get_doll_info_by_id(doll_id)
+        if doll.has_key(self.loss_hp_str):
+            doll[self.loss_hp_str] -= hp
+        else:
+            doll[self.loss_hp_str] = -hp
+        res = self.set_value(doll_id, doll)
+        if res is not False:
+            return doll
         return False
 
     # 增加娃娃经验

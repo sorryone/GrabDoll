@@ -11,3 +11,4 @@ from grabDoll.models import formation_model
 from grabDoll.models import artifact_model
 from grabDoll.models import machine_model
 from grabDoll.models import pve_model
+from grabDoll.models import record_model
