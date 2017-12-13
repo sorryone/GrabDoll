@@ -26,7 +26,7 @@ class RecordTable(models.Model):
     modify_at = models.DateTimeField(auto_now=True)
 
 
-class ArtifactTableSerializer(serializers.ModelSerializer):
+class RecordTableSerializer(serializers.ModelSerializer):
     create_at = UnixEpochDateField(required=False, allow_null=True)
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 
