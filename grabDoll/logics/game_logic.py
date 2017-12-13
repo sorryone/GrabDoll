@@ -11,6 +11,7 @@ from grabDoll.logics import island_logic as island_logic
 from grabDoll.logics import artifact_logic as artifact_logic
 from grabDoll.logics import pve_logic as pve_logic
 from grabDoll.models.note_model import NoteModel
+from grabDoll.action.record_action import RecordAction
 import time
 __author__ = 'du_du'
 
@@ -37,6 +38,8 @@ def get_game_info(uid, open_key, is_debug=False):
         'income': 60,   # 收入刷新的间隔
         'vit': 3600,    # 体力刷新的时间
     }
+    r_action = RecordAction(uid)
+    r_info = r_action.get_model_info()
     return {
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
@@ -51,6 +54,7 @@ def get_game_info(uid, open_key, is_debug=False):
         'artifact': artifact_logic.get_artifact_info(uid),
         'pve': pve_logic.get_pve_info(uid),
         'refresh': refresh_config,
+        'record': r_info,
     }
 
 if __name__ == "__main__":
