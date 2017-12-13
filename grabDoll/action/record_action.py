@@ -32,7 +32,7 @@ class RecordAction(BaseModel):
     def get_model_info(self):
         data_list = self.get_all({self.key_str: self.day_id})
         # 判定是否是新用户
-        if len(data_list) == 0:
+        if data_list is None:
             # 重新获取一次
             res = self.get_empty_info()
         else:
