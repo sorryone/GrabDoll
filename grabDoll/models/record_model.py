@@ -31,6 +31,6 @@ class RecordTableSerializer(serializers.ModelSerializer):
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 
     class Meta:
-        model = RecordModel
+        model = RecordTable
         unique_together = (("u_id", "day_id"),)
         fields = '__all__'
