@@ -3,6 +3,7 @@ from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.pve_action import PveAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.logics import formation_logic
+import math
 __author__ = 'du_du'
 
 
@@ -22,7 +23,6 @@ def refresh_pve_info(uid):
     pve_config = ConfigModel('pve')
     hero_upgrade_config = ConfigModel('doll_upgrade')
     pve_config_info = pve_config.get_config_by_id(pve_info.get(p_action.pve_id_str))
-    print pve_config_info
     alive_heroes = {}
     for hero_id, hero_info in heroes.iteritems():
         cur_hero_config = hero_config.get_config_by_id(hero_id)
@@ -34,5 +34,9 @@ def refresh_pve_info(uid):
         hero_cur_hp = hero_max_hp - hero_info.get(h_action.loss_hp_str, 0)
         if hero_cur_hp > 0:
             alive_heroes[hero_id] = {'hp': hero_cur_hp, 'atk': hero_atk}
+    average_atk = round(pve_config_info.get('atk')/float(len(alive_heroes)))
+    boss_cur_hp = pve_config_info.get('hp') - pve_info.get(p_action.loss_hp_str, 0)
+    print average_atk
+    print boss_cur_hp
     return alive_heroes
 

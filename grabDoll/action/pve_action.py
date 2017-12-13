@@ -10,7 +10,7 @@ class PveAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         self.pve_id_str = 'pve_id'
-        self.boss_hp_str = 'boss_hp'
+        self.loss_hp_str = 'loss_hp'
         self.fight_refresh_time_str = 'fight_refresh_time'
         super(PveAction, self).__init__(
                     u_id, PveModel, PveTable, PveTableSerializer, True)
@@ -23,13 +23,13 @@ class PveAction(BaseModel):
             return data
 
     def get_hp(self):
-        res = self.get_value(self.boss_hp_str, 0)
+        res = self.get_value(self.loss_hp_str, 0)
         if isinstance(res, (int, long)):
             return res
         return 0
 
     def set_hp(self, value):
-        res = self.set_value(self.boss_hp_str, value)
+        res = self.set_value(self.loss_hp_str, value)
         return res
 
 
