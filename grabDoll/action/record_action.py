@@ -25,7 +25,7 @@ class RecordAction(BaseModel):
                              self.fight_victory_str, self.fight_fail_str, self.defend_str, self.defend_victory_str,
                              self.defend_fail_str)
         # 今天的日期
-        self.day_id = datetime.datetime.now().strftime('%Y%m%d')
+        self.day_id = int(datetime.datetime.now().strftime('%Y%m%d'))
         super(RecordAction, self).__init__(
                     u_id, RecordModel, RecordTable, RecordTableSerializer, True)
 
