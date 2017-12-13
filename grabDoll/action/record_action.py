@@ -51,5 +51,23 @@ class RecordAction(BaseModel):
     def update_model_info(self, data):
         return self.set_values(data, {self.key_str: self.day_id})
 
+    def get_vit(self):
+        return self.get_value(self.buy_vit_str, {self.key_str: self.day_id})
+
+    def get_rob(self):
+        return self.get_value(self.rob_str, {self.key_str: self.day_id})
+
+    def get_fight(self):
+        return self.get_value(self.fight_str, {self.key_str: self.day_id})
+
+    def update_grab_doll(self, value):
+        return self.set_value(self.grab_doll_str, value, {self.key_str: self.day_id})
+
     def update_vit_info(self, value):
         return self.set_value(self.buy_vit_str, value, {self.key_str: self.day_id})
+
+    def update_rob(self, value):
+        return self.set_value(self.rob_str, value, {self.key_str: self.day_id})
+
+    def update_fight(self, value):
+        return self.set_value(self.fight_str, value, {self.key_str: self.day_id})
