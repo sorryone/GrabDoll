@@ -32,7 +32,7 @@ def open_pve(uid):
         return False
     update_date = {
         p_action.pve_id_str: pve_config_info.get('config_id'),
-        p_action.is_start_str: False,
+        p_action.is_start_str: True,
         p_action.boss_hp_str: pve_config_info.get('hp', 999),
     }
     if p_action.set_values(update_date):
