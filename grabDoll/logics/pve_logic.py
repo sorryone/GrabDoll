@@ -79,6 +79,9 @@ def refresh_pve_info(uid):
     last_refresh_date = pve_info.get(p_action.modify_at_str, '')
     my_atk = formation_logic.get_pve_atk(uid)
     second = time.time() - (last_refresh_date/1000)
+    if second < 10:
+        print('net attack')
+        return False
     print('second', second)
     print('my_atk', my_atk)
     rate = 60.0
