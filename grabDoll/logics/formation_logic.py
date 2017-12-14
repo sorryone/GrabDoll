@@ -97,6 +97,25 @@ def get_pve_heroes_info(uid):
     return {hero_id: hero_info for hero_id, hero_info in all_hero.items() if hero_id in pve_heroes}
 
 
+def get_pve_atk(uid):
+    for_action = FormationAction(uid)
+    hero_action = HeroAction(uid)
+    all_hero = hero_action.get_model_info()
+    pve_heroes = for_action.get_explore_model_info()
+    heroes = {hero_id: hero_info for hero_id, hero_info in all_hero.items() if hero_id in pve_heroes}
+    hero_config = ConfigModel('doll')
+    hero_upgrade_config = ConfigModel('doll_upgrade')
+    all_atk = 0
+    for hero_id, hero_info in heroes.iteritems():
+        cur_hero_config = hero_config.get_config_by_id(hero_id)
+        cur_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_info['lv']))
+        base_atk = int(cur_hero_config['atk'])
+        atk_add_per = float(cur_lv_config['add_atk'])
+        hero_atk = base_atk * atk_add_per
+        all_atk += hero_atk
+    return all_atk
+
+
 if __name__ == "__main__":
     # print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
     print get_formation_info('VIP')

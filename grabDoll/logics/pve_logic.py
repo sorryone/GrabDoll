@@ -13,7 +13,7 @@ def get_pve_info(uid):
 
 
 # 更新副本信息
-def refresh_pve_info(uid):
+def refresh_pve_info2(uid):
     p_action = PveAction(uid)
     h_action = HeroAction(uid)
     pve_info = p_action.get_model_info()
@@ -35,8 +35,28 @@ def refresh_pve_info(uid):
         if hero_cur_hp > 0:
             alive_heroes[hero_id] = {'hp': hero_cur_hp, 'atk': hero_atk}
     average_atk = int(math.ceil(pve_config_info.get('atk')/float(len(alive_heroes))))
-    boss_cur_hp = pve_config_info.get('hp') - pve_info.get(p_action.loss_hp_str, 0)
+    boss_cur_hp = pve_config_info.get('hp') - pve_info.get(p_action.boss_hp_str, 0)
     print average_atk
     print boss_cur_hp
     return alive_heroes
+
+
+# 更新副本信息
+def refresh_pve_info(uid):
+    p_action = PveAction(uid)
+    pve_info = p_action.get_model_info()
+    last_refresh_date = pve_info.get(p_action.modify_at_str, '')
+    print(last_refresh_date)
+    my_atk = formation_logic.get_pve_atk(uid)
+    if my_atk <= 0:
+        print('my_atk', my_atk)
+        return False
+    boss_cur_hp = pve_info.get(p_action.boss_hp_str, 0)
+    if boss_cur_hp <= 0:
+        print('boss_cur_hp', boss_cur_hp)
+        # 已经凉了
+        return False
+    # 正常扣血
+    return p_action.set_hp(boss_cur_hp - my_atk)
+
 

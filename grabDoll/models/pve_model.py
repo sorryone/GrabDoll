@@ -13,8 +13,7 @@ class PveModel(HashModel):
 class PveTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
     pve_id = models.IntegerField(default=0)
-    loss_hp = models.IntegerField(default=0)
-    fight_refresh_time = models.IntegerField(default=0)
+    boss_hp = models.IntegerField(default=0)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 
