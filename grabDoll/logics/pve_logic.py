@@ -87,6 +87,8 @@ def refresh_pve_info(uid):
         # 已经凉了
         return False
     # 正常扣血
-    return p_action.set_hp(boss_cur_hp - my_atk)
+    last_hp = boss_cur_hp - my_atk
+    if p_action.set_hp(last_hp):
+        return {p_action.boss_hp_str: last_hp}
 
 
