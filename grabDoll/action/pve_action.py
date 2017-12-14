@@ -12,13 +12,15 @@ class PveAction(BaseModel):
         self.pve_id_str = 'pve_id'
         self.boss_hp_str = 'boss_hp'
         self.modify_at_str = 'modify_at'
+        self.is_start_str = 'is_start'
+        self.is_award_str = 'is_award'
         super(PveAction, self).__init__(
                     u_id, PveModel, PveTable, PveTableSerializer, True)
 
     def get_model_info(self):
         data = self.get_all()
         if isinstance(data, (list,)):
-            return {self.pve_id_str: 80001}
+            return {self.pve_id_str: 80001, self.is_start_str: False}
         else:
             return data
 

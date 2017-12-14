@@ -12,6 +12,34 @@ def get_pve_info(uid):
     return action.get_model_info()
 
 
+# 开启副本
+def open_pve(uid):
+    p_action = PveAction(uid)
+    pve_info = p_action.get_model_info()
+    is_start = pve_info.get(p_action.is_start_str)
+    pve_config = ConfigModel('pve')
+    if is_start is False:
+        pve_config_info = pve_config.get_config_by_id(pve_info.get(p_action.pve_id_str))
+    elif pve_info.get(p_action.is_award_str) is True:
+        cur_pve_id = pve_info.get(p_action.pve_id_str)
+        next_pve_id = cur_pve_id + 1
+        pve_config_info = pve_config.get_config_by_id(next_pve_id)
+    else:
+        return False
+    if pve_config_info is None:
+        # 已经通关
+        print 'pve is over'
+        return False
+    update_date = {
+        p_action.pve_id_str: pve_config_info.get('config_id'),
+        p_action.is_start_str: False,
+        p_action.boss_hp_str: pve_config_info.get('hp', 999),
+    }
+    if p_action.set_values(update_date):
+        return update_date
+    return False
+
+
 # 更新副本信息
 def refresh_pve_info2(uid):
     p_action = PveAction(uid)
