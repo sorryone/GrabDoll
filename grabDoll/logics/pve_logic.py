@@ -73,6 +73,8 @@ def refresh_pve_info2(uid):
 def refresh_pve_info(uid):
     p_action = PveAction(uid)
     pve_info = p_action.get_model_info()
+    if pve_info.get(p_action.is_start_str) is not True or pve_info.get(p_action.is_award_str) is True:
+        return False
     last_refresh_date = pve_info.get(p_action.modify_at_str, '')
     print(last_refresh_date)
     my_atk = formation_logic.get_pve_atk(uid)
