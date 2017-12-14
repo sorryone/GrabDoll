@@ -4,6 +4,7 @@ from grabDoll.action.pve_action import PveAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.logics import formation_logic
 import math
+import time
 __author__ = 'du_du'
 
 
@@ -76,8 +77,12 @@ def refresh_pve_info(uid):
     if pve_info.get(p_action.is_start_str) is not True or pve_info.get(p_action.is_award_str) is True:
         return False
     last_refresh_date = pve_info.get(p_action.modify_at_str, '')
-    print(last_refresh_date)
     my_atk = formation_logic.get_pve_atk(uid)
+    second = time.time() - (last_refresh_date/1000)
+    print('second', second)
+    print('my_atk', my_atk)
+    rate = 60.0
+    loss_hp = my_atk/rate * (second/rate)
     if my_atk <= 0:
         print('my_atk', my_atk)
         return False
@@ -86,8 +91,9 @@ def refresh_pve_info(uid):
         print('boss_cur_hp', boss_cur_hp)
         # 已经凉了
         return False
+
     # 正常扣血
-    last_hp = boss_cur_hp - my_atk
+    last_hp = boss_cur_hp - loss_hp
     if p_action.set_hp(last_hp):
         return {p_action.boss_hp_str: last_hp}
 
