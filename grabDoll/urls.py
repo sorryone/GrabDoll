@@ -48,5 +48,7 @@ urlpatterns = patterns("",
                        url(r'^award_income', 'grabDoll.views.island_method.award_income'),
                        url(r'^upgrade_artifact', 'grabDoll.views.game_method.upgrade_artifact'),
                        url(r'^buy_vit', 'grabDoll.views.game_method.buy_vit'),
-                       url(r'^get_pve_info', 'grabDoll.views.island_method.get_pve_info'),
+                       url(r'^get_pve_info', 'grabDoll.views.pve_method.get_pve_info'),
+                       url(r'^open_pve', 'grabDoll.views.pve_method.open_pve'),
+                       url(r'^refresh_pve_info', 'grabDoll.views.pve_method.refresh_pve_info'),
                        )
