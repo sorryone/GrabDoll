@@ -118,6 +118,8 @@ def get_pve_award(uid):
     cur_pve_id = pve_info.get(p_action.pve_id_str)
     next_pve_id = cur_pve_id + 1
     pve_config_info = pve_config.get_config_by_id(next_pve_id)
+    if formation_logic.set_explore(uid, ['', '', '', '', '']) is False:
+        return False
     if pve_config_info is not None:
         update_date = {
             p_action.pve_id_str: pve_config_info.get('config_id'),
@@ -131,6 +133,6 @@ def get_pve_award(uid):
         }
     if p_action.set_values(update_date):
         res['pve'] = update_date
-        res['award'] = inventory_logic.add_awards(award_items)
+        res['award'] = inventory_logic.add_awards(uid, award_items)
     return res
 
