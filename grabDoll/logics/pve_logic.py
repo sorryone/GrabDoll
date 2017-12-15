@@ -3,6 +3,7 @@ from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.pve_action import PveAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.logics import formation_logic
+from grabDoll.logics import inventory_logic
 import math
 import time
 __author__ = 'du_du'
@@ -108,4 +109,28 @@ def get_pve_award(uid):
         return False
     if pve_info.get(p_action.boss_hp_str, 1) > 0:
         return False
-    return True
+    pve_config = ConfigModel('pve')
+    pve_config_info = pve_config.get_config_by_id(pve_info.get(p_action.pve_id_str))
+    award_item = pve_config_info.get('award')
+    award_items = eval(award_item)
+    res = dict()
+    # 获取下一关的配置
+    cur_pve_id = pve_info.get(p_action.pve_id_str)
+    next_pve_id = cur_pve_id + 1
+    pve_config_info = pve_config.get_config_by_id(next_pve_id)
+    if pve_config_info is not None:
+        update_date = {
+            p_action.pve_id_str: pve_config_info.get('config_id'),
+            p_action.boss_hp_str: pve_config_info.get('hp', 999),
+            p_action.is_start_str: False,
+            p_action.is_award_str: False,
+        }
+    else:
+        update_date = {
+            p_action.is_award_str: True,
+        }
+    if p_action.set_values(update_date):
+        res['pve'] = update_date
+        res['award'] = inventory_logic.add_awards(award_items)
+    return res
+

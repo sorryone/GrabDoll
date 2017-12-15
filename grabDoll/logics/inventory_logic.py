@@ -105,6 +105,39 @@ def use_box(uid, config_info):
     return res
 
 
+# 添加一堆的奖励
+def add_awards(uid,awards):
+    item_model = ItemAction(uid)
+    doll_model = HeroAction(uid)
+    hatch_action = HatchAction(uid)
+    user = UserAction(uid)
+    res = dict()
+    for a_id, ct in awards.iteritems():
+        # 如果是金币添加金币
+        if a_id == "gold":
+            user.add_gold(ct)
+            res[a_id] = ct
+        # 如果是钻石添加钻石
+        elif a_id == "diamond":
+            user.add_diamond(ct)
+            res[a_id] = ct
+        # 经验
+        elif a_id == "exp":
+            user.add_gold(ct)
+            res[a_id] = ct
+        # 如果是道具添加道具
+        elif int(a_id) / 10000 == 2:
+            if item_model.add_model(a_id, ct):
+                res[a_id] = ct
+        elif int(a_id) / 10000 == 3:
+            hatch_action.add_model(a_id)
+        elif int(a_id) / 10000 == 4:
+            res['doll'] = doll_model.add_model(a_id)
+        else:
+            pass
+    return res
+
+
 # 治疗书的使用
 def use_heal(uid, config_info=None):
     formation_action = FormationAction(uid)
