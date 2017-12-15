@@ -94,10 +94,18 @@ def refresh_pve_info(uid):
         print('boss_cur_hp', boss_cur_hp)
         # 已经凉了
         return False
-
     # 正常扣血
     last_hp = boss_cur_hp - loss_hp
     if p_action.set_hp(last_hp):
-        return {p_action.boss_hp_str: last_hp}
+        pve_info[p_action.boss_hp_str] = last_hp
+        return pve_info
 
 
+def get_pve_award(uid):
+    p_action = PveAction(uid)
+    pve_info = p_action.get_model_info()
+    if pve_info.get(p_action.is_start_str) is not True or pve_info.get(p_action.is_award_str) is True:
+        return False
+    if pve_info.get(p_action.boss_hp_str, 1) > 0:
+        return False
+    return True

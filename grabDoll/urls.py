@@ -51,4 +51,5 @@ urlpatterns = patterns("",
                        url(r'^get_pve_info', 'grabDoll.views.pve_method.get_pve_info'),
                        url(r'^open_pve', 'grabDoll.views.pve_method.open_pve'),
                        url(r'^refresh_pve_info', 'grabDoll.views.pve_method.refresh_pve_info'),
+                       url(r'^get_pve_award', 'grabDoll.views.pve_method.get_pve_award'),
                        )
