@@ -127,12 +127,14 @@ def get_pve_award(uid):
             p_action.is_start_str: False,
             p_action.is_award_str: False,
         }
+        res['pve'] = update_date
     else:
         update_date = {
             p_action.is_award_str: True,
         }
-    if p_action.set_values(update_date):
+        pve_info[p_action.is_award_str] = update_date[p_action.is_award_str]
         res['pve'] = update_date
+    if p_action.set_values(update_date):
         res['award'] = inventory_logic.add_awards(uid, award_items)
     return res
 
