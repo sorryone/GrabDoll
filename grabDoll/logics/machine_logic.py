@@ -191,13 +191,14 @@ def open_egg(uid, egg_id):
 
 # 查看奖励
 def get_award(item_id):
-    ct = 2
     data = dict()
-    data['gold'] = ct
+    data['gold'] = random.randrange(10, 50)
     doll_id = random.randint(40001, 40150)
     data[doll_id] = 1
-    print('get_award', data)
-    return data
+    check_award = data.popitem()
+    print check_award[0]
+    print check_award[1]
+    return check_award
 
 
 # 根据时间自动刷新娃娃蛋
