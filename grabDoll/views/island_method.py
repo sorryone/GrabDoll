@@ -38,20 +38,3 @@ def award_income(request):
         print(e)
         return 1, "数据错误"
 
-
-@api_view(["GET"])
-@api_result
-def get_pve_info(request):
-    if request.method == "GET":
-        try:
-            uid = request.query_params.get('uid')
-        except Exception as e:
-            print(e)
-            return 1, "参数错误"
-    try:
-        data = pve_logic.get_pve_info(uid)
-        return 0, data
-    except Exception as e:
-        print(e)
-        return 1, "数据错误"
-
