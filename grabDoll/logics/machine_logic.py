@@ -196,9 +196,7 @@ def get_award(item_id):
     doll_id = random.randint(40001, 40150)
     data[doll_id] = 1
     check_award = data.popitem()
-    print check_award[0]
-    print check_award[1]
-    return check_award
+    return {check_award[0]: check_award[1]}
 
 
 # 根据时间自动刷新娃娃蛋
