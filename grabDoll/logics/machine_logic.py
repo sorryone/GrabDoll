@@ -192,7 +192,7 @@ def open_egg(uid, egg_id):
 # 查看奖励
 def get_award(item_id):
     rand_value = random.randrange(0, 100)
-    if rand_value > 20:
+    if rand_value > 30:
         return {'gold': random.randrange(10, 50)}
     else:
         egg_config_model = ConfigModel('egg')
