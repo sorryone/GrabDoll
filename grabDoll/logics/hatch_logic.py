@@ -32,7 +32,10 @@ def hatch_speed(uid, index):
     return False
 
 
-def open_egg_by_cost(uid, egg_id):
+def open_egg_by_cost(uid, index):
+    action = HatchAction(uid)
+    data = action.get_model_info_by_index(index)
+    egg_id = data['key_id']
     egg_config_model = ConfigModel('egg')
     cur_egg_config = egg_config_model.get_config_by_id(egg_id)
     if cur_egg_config is False:
@@ -47,10 +50,10 @@ def open_egg_by_cost(uid, egg_id):
     if check_cost is False:
         return False
     action = HatchAction(uid)
-    data = action.get_model_info_by_index(0)
-    return data
-    # 已经进入孵化器了
-    return machine_logic.open_egg(uid, egg_id)
+    if action.remove_model(index):
+        return machine_logic.open_egg(uid, egg_id)
+    else:
+        return False
 
 
 def hatch_open(uid, index):

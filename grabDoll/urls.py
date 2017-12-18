@@ -14,6 +14,7 @@ urlpatterns = patterns("",
                        url(r'^hatch_speed', 'grabDoll.views.game_method.hatch_speed'),
                        url(r'^hatch_open', 'grabDoll.views.game_method.hatch_open'),
                        url(r'^hatch_discard', 'grabDoll.views.game_method.hatch_discard'),
+                       url(r'^open_egg_by_cost', 'grabDoll.views.game_method.open_egg_by_cost'),
                        # 切换娃娃机
                        url(r'^switch_machine', 'grabDoll.views.game_method.switch_machine'),
                        # 刷新重置娃娃机
