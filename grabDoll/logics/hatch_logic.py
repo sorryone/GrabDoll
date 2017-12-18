@@ -1,6 +1,7 @@
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.logics import machine_logic
+from grabDoll.models.config_model import ConfigModel
 __author__ = 'du_du'
 
 
@@ -28,6 +29,27 @@ def hatch_speed(uid, index):
         return action.add_exp(index, 100)
     print 'not gold'
     return False
+
+
+def open_egg_by_cost(uid, egg_id):
+    egg_config_model = ConfigModel('egg')
+    cur_egg_config = egg_config_model.get_config_by_id(egg_id)
+    if cur_egg_config is False:
+        return False
+    open_type = cur_egg_config.get('open_type')
+    open_cost = cur_egg_config.get('open_cost')
+    user_action = UserAction(uid)
+    if open_type == 'gold':
+        check_cost = user_action.reduce_gold(open_cost)
+    else:
+        check_cost = user_action.reduce_diamond(open_cost)
+    if check_cost is False:
+        return False
+    action = HatchAction(uid)
+    data = action.get_model_info_by_index(0)
+    return data
+    # 已经进入孵化器了
+    return machine_logic.open_egg(uid, egg_id)
 
 
 def hatch_open(uid, index):
