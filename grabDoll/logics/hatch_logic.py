@@ -42,6 +42,7 @@ def open_egg_by_cost(uid, index):
         return False
     open_type = cur_egg_config.get('open_type')
     open_cost = cur_egg_config.get('open_cost')
+    print(open_type, open_cost)
     user_action = UserAction(uid)
     if open_type == 'gold':
         check_cost = user_action.reduce_gold(open_cost)
