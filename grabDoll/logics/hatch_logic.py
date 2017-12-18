@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.logics import machine_logic
