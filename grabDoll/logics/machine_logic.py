@@ -191,14 +191,19 @@ def open_egg(uid, egg_id):
 
 # 查看奖励
 def get_award(item_id):
-    rand_value = random.randrange(0, 100)
-    if rand_value > 30:
-        return {'gold': random.randrange(10, 50)}
-    else:
-        egg_config_model = ConfigModel('egg')
-        cur_egg_config = egg_config_model.get_config_by_id(item_id)
-        if cur_egg_config:
-            return {cur_egg_config['doll_id']: 1}
+    egg_config_model = ConfigModel('egg')
+    cur_egg_config = egg_config_model.get_config_by_id(item_id)
+    if cur_egg_config is False:
+        print('cur_egg_config is null')
+        return False
+    doll_id = cur_egg_config.get('doll_id')
+    hero_config_model = ConfigModel('doll')
+    hero_config = hero_config_model.get_config_by_id(doll_id)
+    if hero_config:
+        rand_value = random.random()
+        if rand_value < hero_config.get('rate', 0):
+            return {'gold': hero_config.get('gold', 1)}
+        return {doll_id: 1}
     return False
 
 
