@@ -191,12 +191,15 @@ def open_egg(uid, egg_id):
 
 # 查看奖励
 def get_award(item_id):
-    data = dict()
-    data['gold'] = random.randrange(10, 50)
-    doll_id = random.randint(40001, 40150)
-    data[doll_id] = 1
-    check_award = data.popitem()
-    return {check_award[0]: check_award[1]}
+    rand_value = random.randrange(0, 100)
+    if rand_value > 20:
+        return {'gold': random.randrange(10, 50)}
+    else:
+        egg_config_model = ConfigModel('egg')
+        cur_egg_config = egg_config_model.get_config_by_id(item_id)
+        if cur_egg_config:
+            return {cur_egg_config['doll_id']: 1}
+    return False
 
 
 # 根据时间自动刷新娃娃蛋
