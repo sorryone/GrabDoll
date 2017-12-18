@@ -92,7 +92,7 @@ def grab_egg(uid, key_id, eggs):
     if item_id is False:
         return False
     config = ConfigModel('egg').get_config_by_id(item_id)
-    if config['lv'] <= 2:
+    if config['lv'] < 2:
         res = open_egg(uid, item_id)
     else:
         hatch_action = HatchAction(uid)
