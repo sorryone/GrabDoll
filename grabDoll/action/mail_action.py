@@ -62,4 +62,5 @@ class MailAction(BaseModel):
         return self.set_values(data, {self.key_str: key_id})
 
     def get_key_id(self):
-        return hashlib.md5(self.u_id + time.time())
+        return hashlib.md5(self.u_id + str(time.time()))
+
