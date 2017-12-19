@@ -54,7 +54,7 @@ def get_game_info(uid, open_key, is_debug=False):
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
         'pve': pve_logic.get_pve_info(uid),
-        'mial': mail_logic.get_mail_info(uid),
+        'mail': mail_logic.get_mail_info(uid),
         'refresh': refresh_config,
         'record': r_info,
     }
