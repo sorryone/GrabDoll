@@ -27,5 +27,5 @@ def get_mail_award(uid, mail_id):
         return False
     if action.mark_read(mail_id) is False:
         return False
-    return inventory_logic.add_awards(award)
+    return inventory_logic.add_awards(uid, award)
 
