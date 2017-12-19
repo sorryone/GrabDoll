@@ -36,7 +36,7 @@ class MailAction(BaseModel):
             for index, data in enumerate(data_list):
                 res_item = self.filter_data(data)
                 res.append(res_item)
-        res = sorted(data_list, key=lambda x: x[self.create_at_str], reverse=False)
+        # res = sorted(data_list, key=lambda x: x[self.create_at_str], reverse=False)
         return res
 
     def get_model_info_by_id(self, w_id):
