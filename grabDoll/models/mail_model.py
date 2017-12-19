@@ -14,6 +14,7 @@ class MailTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
     key_id = models.CharField(max_length=32, unique=True)
     fr_id = models.CharField(max_length=32,)
+    mType = models.IntegerField(default=0)
     info = models.CharField(max_length=512,)
     award = models.CharField(max_length=512,)
     read = models.BooleanField(default=False)

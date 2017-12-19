@@ -8,3 +8,8 @@ def get_mail_info(uid):
     res = action.get_model_info()
     return res
 
+
+def add_lv_up_award(uid):
+    action = MailAction(uid)
+    award = {'gold': 100, 'diamond': 10}
+    return action.add_lv_up_award(award)
