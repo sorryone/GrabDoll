@@ -27,5 +27,31 @@ def get_mail_award(uid, mail_id):
         return False
     if action.mark_read(mail_id) is False:
         return False
-    return inventory_logic.add_awards(uid, award)
+    award_res = inventory_logic.add_awards(uid, award)
+    res = {
+        'key_id': mail_id,
+        'award': award_res,
+    }
+    return res
 
+
+def delete_all_mail(uid, m_type):
+    action = MailAction(uid)
+    # 拿到已读的
+    mail_list = action.get_mails_by_type(m_type, True)
+    print mail_list
+    if len(mail_list) < 0:
+        return False
+    res = []
+    return res
+
+
+def get_all_mail_award(uid, m_type):
+    action = MailAction(uid)
+    # 拿到未读的
+    mail_list = action.get_mails_by_type(m_type, False)
+    print mail_list
+    if len(mail_list) < 0:
+        return False
+    res = []
+    return res

@@ -13,7 +13,7 @@ class MailAction(BaseModel):
         self.u_id = u_id
         self.key_str = 'key_id'
         self.fr_id_str = 'fr_id'
-        self.mType = 'mType'
+        self.mType_str = 'mType'
         self.info_str = 'info'
         self.award_str = 'award'
         self.read_str = 'read'
@@ -21,12 +21,26 @@ class MailAction(BaseModel):
         self.lv_up_type = 1
         self.invite_type = 2
         self.friend_type = 3
-        self.key_info = ('u_id', self.key_str, self.fr_id_str, self.mType, self.info_str, self.award_str, self.create_at_str, self.read_str)
+        self.key_info = ('u_id', self.key_str, self.fr_id_str, self.mType_str, self.info_str, self.award_str, self.create_at_str, self.read_str)
         super(MailAction, self).__init__(
                     u_id, MailModel, MailTable, MailTableSerializer, True)
 
     def get_model_info(self):
         data_list = self.get_all()
+        res = []
+        if isinstance(data_list, (dict, collections.OrderedDict)):
+            res_item = self.filter_data(data_list)
+            res.append(res_item)
+        else:
+            # 如果是数组
+            for index, data in enumerate(data_list):
+                res_item = self.filter_data(data)
+                res.append(res_item)
+        # res = sorted(data_list, key=lambda x: x[self.create_at_str], reverse=False)
+        return res
+
+    def get_mails_by_type(self, m_type, is_read):
+        data_list = self.get_all({self.mType_str: m_type, self.read_str: is_read})
         res = []
         if isinstance(data_list, (dict, collections.OrderedDict)):
             res_item = self.filter_data(data_list)
@@ -55,7 +69,7 @@ class MailAction(BaseModel):
         key_id = self.get_key_id()
         data = {
             self.key_str: key_id,
-            self.mType: self.lv_up_type,
+            self.mType_str: self.lv_up_type,
             self.award_str: award,
         }
         return self.set_values(data, {self.key_str: key_id})
@@ -65,7 +79,7 @@ class MailAction(BaseModel):
         key_id = self.get_key_id()
         data = {
             self.key_str: key_id,
-            self.mType: self.invite_type,
+            self.mType_str: self.invite_type,
             self.award_str: award,
         }
         return self.set_values(data, {self.key_str: key_id})
@@ -75,7 +89,7 @@ class MailAction(BaseModel):
         key_id = self.get_key_id()
         data = {
             self.key_str: key_id,
-            self.mType: self.friend_type,
+            self.mType_str: self.friend_type,
             self.fr_id_str: fight_u_id,
         }
         return self.set_values(data, {self.key_str: key_id})
