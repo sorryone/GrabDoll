@@ -10,6 +10,7 @@ from grabDoll.logics import formation_logic as formation_logic
 from grabDoll.logics import island_logic as island_logic
 from grabDoll.logics import artifact_logic as artifact_logic
 from grabDoll.logics import pve_logic as pve_logic
+from grabDoll.logics import mail_logic as mail_logic
 from grabDoll.models.note_model import NoteModel
 from grabDoll.action.record_action import RecordAction
 import time
@@ -53,6 +54,7 @@ def get_game_info(uid, open_key, is_debug=False):
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
         'pve': pve_logic.get_pve_info(uid),
+        'mial': mail_logic.get_mail_info(uid),
         'refresh': refresh_config,
         'record': r_info,
     }

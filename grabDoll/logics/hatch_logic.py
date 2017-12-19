@@ -59,6 +59,7 @@ def open_egg_by_cost(uid, index):
 
 def hatch_open(uid, index):
     action = HatchAction(uid)
+    # 这里需要验证时间的
     data = action.get_model_info_by_index(index)
     egg_id = data['key_id']
     if action.remove_model(index):

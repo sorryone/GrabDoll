@@ -11,7 +11,6 @@ class MailAction(BaseModel):
 
     def __init__(self, u_id):
         self.u_id = u_id
-        self.default_weapon = (30001, 30011, 30021, 30031, 30041)
         self.key_str = 'key_id'
         self.key_str = 'fr_id'
         self.info_str = 'info'
