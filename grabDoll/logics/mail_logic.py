@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from grabDoll.action.mail_action import MailAction
+from grabDoll.logics import inventory_logic
 __author__ = 'du_du'
 
 
@@ -18,5 +19,13 @@ def add_lv_up_award(uid):
 def get_mail_award(uid, mail_id):
     action = MailAction(uid)
     mail_info = action.get_model_info_by_id(mail_id)
-    return mail_info
+    if mail_info.get(action.read_str, True):
+        return False
+    award_json = mail_info.get(action.award_str)
+    award = eval(award_json)
+    if len(award) < 0:
+        return False
+    if action.mark_read(mail_id) is False:
+        return False
+    return inventory_logic.add_awards(award)
 

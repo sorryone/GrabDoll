@@ -106,7 +106,7 @@ def use_box(uid, config_info):
 
 
 # 添加一堆的奖励
-def add_awards(uid,awards):
+def add_awards(uid, awards):
     item_model = ItemAction(uid)
     doll_model = HeroAction(uid)
     hatch_action = HatchAction(uid)

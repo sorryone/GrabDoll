@@ -19,11 +19,11 @@ def buy(uid, shop_id):
     if shop_info.get('method', 'gold') == 'gold' and price >= user_action.get_value('gold', 0):
         return False
     else:
-        user_action.add_gold(-price)
+        user_action.reduce_gold(price)
     if shop_info.get('method') == 'diamond' and price >= user_action.get_value('diamond', 0):
         return False
     else:
-        user_action.add_diamond(-price)
+        user_action.reduce_diamond(price)
     print(item_info)
     item_action.add_model(item_info.get('config_id'), 1)
     return True
