@@ -59,9 +59,9 @@ def get_all_mail_award(uid, m_type):
     return all_awards
 
 
-def union_dict(*objs):
-    _keys = set(sum([obj.keys() for obj in objs], []))
+def union_dict(data_group):
+    _keys = set(sum([obj.keys() for obj in data_group], []))
     _total = {}
     for _key in _keys:
-        _total[_key] = sum([obj.get(_key, 0) for obj in objs])
+        _total[_key] = sum([obj.get(_key, 0) for obj in data_group])
     return _total
