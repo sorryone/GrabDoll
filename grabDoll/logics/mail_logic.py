@@ -62,5 +62,5 @@ def union_dict(*objs):
     _keys = set(sum([obj.keys() for obj in objs],[]))
     _total = {}
     for _key in _keys:
-    _total[_key] = sum([obj.get(_key,0) for obj in objs])
+        _total[_key] = sum([obj.get(_key,0) for obj in objs])
     return _total
