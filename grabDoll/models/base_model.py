@@ -144,6 +144,16 @@ class BaseModel(object):
             return data
     """
 
+    # 获得多个人的信息
+    def get_all_by_userlist(self, userList, manydict={}):
+        if self.is_DBTable:
+            model_data = self.model.objects.filter(u_id__in=userList, **manydict)
+            data = self.modelSerializer(model_data, many=True).data
+            if len(data) == 1:
+                data = data[0]
+            return data
+        return False
+
     # 获取当前用户当前表的所有数据
     def get_all(self, manydict={}):
         if self.is_DBTable:
