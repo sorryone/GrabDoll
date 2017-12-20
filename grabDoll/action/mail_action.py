@@ -23,7 +23,8 @@ class MailAction(BaseModel):
         self.lv_up_type = 1
         self.invite_type = 2
         self.friend_type = 3
-        self.key_info = ('u_id', self.key_str, self.fr_id_str, self.mType_str, self.info_str, self.award_str, self.create_at_str, self.read_str)
+        self.key_info = ('u_id', self.key_str, self.fr_id_str, self.mType_str, self.info_str, self.award_str, self.create_at_str,
+                         self.read_str, self.can_delete_str)
         super(MailAction, self).__init__(
                     u_id, MailModel, MailTable, MailTableSerializer, True)
 
