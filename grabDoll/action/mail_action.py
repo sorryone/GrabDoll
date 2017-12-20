@@ -41,7 +41,7 @@ class MailAction(BaseModel):
         return self.get_mail_list_by_filter(data_list)
 
     def remove_scrap_mails(self):
-        data_list = self.set_values({self.is_delete_str: True}, {self.can_delete_str: True, self.is_delete_str: False})
+        data_list = self.update_values({self.is_delete_str: True}, {self.can_delete_str: True, self.is_delete_str: False})
         return self.get_mail_list_by_filter(data_list)
 
     def get_need_award_mails(self):
@@ -53,7 +53,7 @@ class MailAction(BaseModel):
             self.read_str: True,
             self.can_delete_str: True,
         }
-        return self.set_values(data, {self.read_str: False, self.can_delete_str: False})
+        return self.update_values(data, {self.read_str: False, self.can_delete_str: False})
 
     def get_model_info_by_id(self, w_id):
         data = self.get_all({self.key_str: w_id, self.is_delete_str: False})

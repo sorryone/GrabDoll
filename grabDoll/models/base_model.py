@@ -246,6 +246,23 @@ class BaseModel(object):
             self.hash_model.set_values(mapping)
             return True
 
+    # 当前表写入批量数据
+    def update_values(self, mapping, manydict={}):
+        if self.is_DBTable:
+            model_data = self.model.objects.filter(u_id=self.u_id,
+                                                   **manydict)
+            for data in model_data:
+                for k, v in mapping.iteritems():
+                    if hasattr(data, str(k)):
+                        setattr(data, str(k), v)
+                data.save()
+            datas = self.modelSerializer(model_data, many=True).data
+            if len(datas) == 1:
+                datas = datas[0]
+            return datas
+        elif self.is_KVTable:
+            return False
+
     def incr(self, key, amount=1, manydict={}):
         if self.is_DBTable:
             value = self.model._meta.get_field(key)
