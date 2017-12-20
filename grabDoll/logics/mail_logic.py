@@ -52,4 +52,15 @@ def get_all_mail_award(uid, m_type):
     if len(mail_list) < 0:
         return False
     mail_id_list = [str(mail[action.key_str]) for mail in mail_list]
-    return mail_id_list
+    print(mail_id_list)
+    awards = [eval(mail.get(action.award_str)) for mail in mail_list]
+    all_awards  = union_dict(awards)
+    return all_awards
+
+
+def union_dict(*objs):
+    _keys = set(sum([obj.keys() for obj in objs],[]))
+    _total = {}
+    for _key in _keys:
+    _total[_key] = sum([obj.get(_key,0) for obj in objs])
+    return _total
