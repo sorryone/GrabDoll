@@ -18,6 +18,8 @@ class MailTable(models.Model):
     info = models.CharField(max_length=512,)
     award = models.CharField(max_length=512,)
     read = models.BooleanField(default=False)
+    can_delete = models.BooleanField(default=False)
+    is_delete = models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 

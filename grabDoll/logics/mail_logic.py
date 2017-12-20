@@ -35,28 +35,34 @@ def get_mail_award(uid, mail_id):
     return res
 
 
-def delete_all_mail(uid, m_type):
+def delete_all_mail(uid):
     action = MailAction(uid)
     # 拿到已读的
-    mail_list = action.get_mails_by_type(m_type, True)
+    mail_list = action.get_can_delete_mails()
     if len(mail_list) < 0:
         return False
     mail_id_list = [str(mail[action.key_str]) for mail in mail_list]
+    remove_result = action.remove_scrap_mails()
+    print('remove_result', remove_result)
     return mail_id_list
 
 
-def get_all_mail_award(uid, m_type):
+def get_all_mail_award(uid):
     action = MailAction(uid)
     # 拿到未读的
-    mail_list = action.get_mails_by_type(m_type, False)
+    mail_list = action.get_need_award_mails()
     if len(mail_list) < 0:
         return False
-    mail_id_list = [str(mail[action.key_str]) for mail in mail_list]
-    print(mail_id_list)
     awards = [eval(mail.get(action.award_str)) for mail in mail_list]
     print(awards)
     all_awards = union_dict(awards)
-    return all_awards
+    mark_result = action.mark_read_group()
+    print('remove_result', mark_result)
+    award_res = inventory_logic.add_awards(uid, all_awards)
+    res = {
+        'award': award_res,
+    }
+    return res
 
 
 def union_dict(data_group):

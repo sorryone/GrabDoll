@@ -8,7 +8,6 @@ from grabDoll.logics import machine_logic as machine_logic
 from grabDoll.logics import shop_logic as shop_logic
 from grabDoll.logics import hatch_logic as hatch_logic
 from grabDoll.logics import artifact_logic as artifact_logic
-from grabDoll.logics import mail_logic as mail_logic
 __author__ = 'du_du'
 
 
@@ -258,24 +257,6 @@ def buy_vit(request):
             return 1, "参数错误"
     try:
         data = user_logic.buy_vit(uid)
-        return 0, data
-    except Exception as e:
-        print(e)
-        return 1, "数据错误"
-
-
-@api_view(["GET"])
-@api_result
-def get_mail_award(request):
-    if request.method == "GET":
-        try:
-            uid = request.query_params.get('uid')
-            mail_id = str(request.query_params.get('mail_id'))
-        except Exception as e:
-            print(e)
-            return 1, "参数错误"
-    try:
-        data = mail_logic.get_mail_award(uid, mail_id)
         return 0, data
     except Exception as e:
         print(e)
