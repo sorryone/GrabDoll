@@ -104,6 +104,7 @@ class MailAction(BaseModel):
             self.key_str: key_id,
             self.mType_str: self.friend_type,
             self.fr_id_str: fight_u_id,
+            self.can_delete_str: True,
         }
         return self.set_values(data, {self.key_str: key_id, self.can_delete_str: True})
 
