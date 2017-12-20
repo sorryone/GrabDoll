@@ -94,8 +94,10 @@ def grab_egg(uid, key_id, eggs):
     config = ConfigModel('egg').get_config_by_id(item_id)
     print(config)
     if config['lv'] < 2:
-        print('is open')
-        res = open_egg(uid, item_id)
+        if mach_action.delete_egg(key_id):
+            res = open_egg(uid, item_id)
+        else:
+            return False
     else:
         print('is hatch')
         hatch_action = HatchAction(uid)
