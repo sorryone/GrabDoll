@@ -39,19 +39,17 @@ def delete_all_mail(uid, m_type):
     action = MailAction(uid)
     # 拿到已读的
     mail_list = action.get_mails_by_type(m_type, True)
-    print mail_list
     if len(mail_list) < 0:
         return False
-    res = []
-    return res
+    mail_id_list = [str(mail[action.key_str]) for mail in mail_list]
+    return mail_id_list
 
 
 def get_all_mail_award(uid, m_type):
     action = MailAction(uid)
     # 拿到未读的
     mail_list = action.get_mails_by_type(m_type, False)
-    print mail_list
     if len(mail_list) < 0:
         return False
-    res = []
-    return res
+    mail_id_list = [str(mail[action.key_str]) for mail in mail_list]
+    return mail_id_list
