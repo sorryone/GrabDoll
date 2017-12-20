@@ -271,17 +271,22 @@ class BaseModel(object):
             self.hash_model.incr(key, amount)
             return model_data.value
 
-    def remove(self, key):
+    def remove(self, key, manydict={}):
         if self.is_DBTable:
+            model_data = self.model.objects.filter(u_id=self.u_id, **manydict)
+            for i in model_data:
+                i.delete()
+
             return None
 
         elif self.is_KVTable:
+            if manydict:
+                return False
             try:
                 model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "remove ERROR")
                 return None
-
             model_data.delete()
             self.hash_model.pop(key)
             return True
