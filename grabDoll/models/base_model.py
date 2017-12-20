@@ -147,19 +147,10 @@ class BaseModel(object):
     # 获取当前用户当前表的所有数据
     def get_all(self, manydict={}):
         if self.is_DBTable:
-            if not manydict:
-                model_data = self.model.objects.filter(u_id=self.u_id)
-                data = self.modelSerializer(model_data, many=True).data
-                if len(data) == 1:
-                    data = data[0]
-            else:
-                try:
-                    model_data = self.model.objects.get(
-                            u_id=self.u_id, **manydict)
-                except self.model.DoesNotExist:
-                    print(self.model.__class__, "Not Data Error")
-                    return None
-                data = self.modelSerializer(model_data).data
+            model_data = self.model.objects.filter(u_id=self.u_id, **manydict)
+            data = self.modelSerializer(model_data, many=True).data
+            if len(data) == 1:
+                data = data[0]
             return data
 
         elif self.is_KVTable:
