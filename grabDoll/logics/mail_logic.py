@@ -45,17 +45,15 @@ def delete_all_mail(uid):
 
 def get_all_mail_award(uid):
     action = MailAction(uid)
-    # 拿到未读的
-    mail_list = action.get_need_award_mails()
-    if len(mail_list) < 0:
-        return False
-    awards = [eval(mail.get(action.award_str)) for mail in mail_list]
-    print(awards)
-    all_awards = union_dict(awards)
     mark_result = action.mark_read_group()
-    print('remove_result', mark_result)
+    if len(mark_result) == 0:
+        return False
+    awards = [eval(mail.get(action.award_str)) for mail in mark_result]
+    mail_id_list = [str(mail[action.key_str]) for mail in mark_result]
+    all_awards = union_dict(awards)
     award_res = inventory_logic.add_awards(uid, all_awards)
     res = {
+        'list': mail_id_list,
         'award': award_res,
     }
     return res
