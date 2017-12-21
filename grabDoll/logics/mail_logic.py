@@ -37,13 +37,15 @@ def get_mail_award(uid, mail_id):
 
 def delete_all_mail(uid):
     action = MailAction(uid)
-    # 拿到已读的
-    mail_list = action.get_can_delete_mails()
-    if len(mail_list) < 0:
-        return False
-    mail_id_list = [str(mail[action.key_str]) for mail in mail_list]
     remove_result = action.remove_scrap_mails()
-    print('remove_result', remove_result)
+    if remove_result is False:
+        return False
+    elif isinstance(remove_result, (list, )):
+        mail_id_list = [str(mail[action.key_str]) for mail in remove_result]
+    else:
+        print('type', type(remove_result))
+        mail_id_list = [remove_result[action.key_str]]
+    print('mail_id_list', mail_id_list)
     return mail_id_list
 
 
