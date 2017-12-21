@@ -38,13 +38,7 @@ def get_mail_award(uid, mail_id):
 def delete_all_mail(uid):
     action = MailAction(uid)
     remove_result = action.remove_scrap_mails()
-    if remove_result is False:
-        return False
-    elif isinstance(remove_result, (list, )):
-        mail_id_list = [str(mail[action.key_str]) for mail in remove_result]
-    else:
-        print('type', type(remove_result))
-        mail_id_list = [remove_result[action.key_str]]
+    mail_id_list = [str(mail[action.key_str]) for mail in remove_result]
     print('mail_id_list', mail_id_list)
     return mail_id_list
 
