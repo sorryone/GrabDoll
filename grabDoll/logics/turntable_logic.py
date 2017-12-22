@@ -9,7 +9,6 @@ __author__ = 'du_du'
 def try_once(uid):
     turntable_config_model = ConfigModel('turntable')
     turntable_config_info = turntable_config_model.get_model_info()
-    print(turntable_config_info)
     random_list = []
     for key, value in turntable_config_info.items():
         random_list.extend([key] * value['chance'])
