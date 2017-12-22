@@ -18,10 +18,11 @@ def try_once(uid):
     for key, value in turntable_config_info.items():
         random_list.extend([key] * value['chance'])
     selected_key = random.choice(random_list)
-    print(turntable_config_info[selected_key])
-    award = {turntable_config_info[selected_key]['item_id']: turntable_config_info[selected_key]['ct']}
+    selected_info = turntable_config_info[selected_key]
+    print(selected_info)
+    award = {selected_info['item_id']: int(selected_info['ct'])}
     res = {
-        'selected': turntable_config_info['config_id'],
+        'selected': selected_info['config_id'],
         'award': inventory_logic.add_awards(uid, award),
     }
     return res
