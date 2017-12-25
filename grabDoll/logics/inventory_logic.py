@@ -25,7 +25,7 @@ def get_inventory_info(uid):
 
 
 def get_config_info():
-    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade', 'pve', 'turntable')
+    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade', 'pve', 'turntable', 'user_lv')
     config_data = dict()
     for config_name in config_group:
         config_data[config_name] = ConfigModel(config_name).get_model_info()
