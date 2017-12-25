@@ -14,7 +14,7 @@ def get_rank_info(uid):
     return {
         'my_rank': 10111,
         'friend_list': friend_list,
-        'all_list': get_top_100_list(uid),
+        'all_list': top_list,
         'list_info': get_list_info(all_list),
     }
 
@@ -45,10 +45,12 @@ def get_list_info(data):
     for f_id in data:
         p_model = PlatformAction(f_id)
         u_model = UserAction(f_id)
+        f_action = FormationAction(f_id)
         item = {
             'id': f_id,
             'platform': p_model.get_private_info(),
             'userInfo': u_model.get_private_info(),
+            'formation': f_action.get_private_info(),
         }
         res.append(item)
     # res = sorted(res, key=lambda x: x['gold'], reverse=True)
