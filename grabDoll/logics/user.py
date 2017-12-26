@@ -33,7 +33,7 @@ def add_exp(uid, add_value):
     cur_exp = info.get(u.exp_str, 0)
     latest_exp = cur_exp + add_value
     lv_config_model = ConfigModel('user_lv')
-    cur_lv_config = lv_config_model.get_config_by_id(11000 + int(cur_lv))
+    cur_lv_config = lv_config_model.get_config_by_id(110000 + int(cur_lv))
     print(cur_lv_config)
     # 最高等级
     max_lv = 5
