@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.record_action import RecordAction
+from grabDoll.models.config_model import ConfigModel
 import datetime
 import time
 __author__ = 'du_du'
@@ -23,6 +24,26 @@ def add_awards(uid, data):
 def get_user_info(uid):
     u = UserAction(uid)
     return u.get_model_info()
+
+
+def add_exp(uid, add_value):
+    u = UserAction(uid)
+    info = u.get_model_info()
+    cur_lv = info.get(u.lv_str, 1)
+    cur_exp = info.get(u.exp_str, 0)
+    latest_exp = cur_exp + add_value
+    lv_config_model = ConfigModel('user_lv')
+    cur_lv_config = lv_config_model.get_config_by_id(11000 + int(cur_lv))
+    print(cur_lv_config)
+    # 最高等级
+    max_lv = 5
+    res = dict()
+    if cur_lv < max_lv and latest_exp >= cur_lv_config.get('exp', 0):
+        res[u.lv_str] = cur_lv + 1
+        res[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
+    else:
+        res[u.exp_str] = latest_exp
+    return res
 
 
 def buy_vit(uid):

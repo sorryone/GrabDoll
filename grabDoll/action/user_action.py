@@ -10,8 +10,10 @@ class UserAction(BaseModel):
         self.gold_str = 'gold'
         self.diamond_str = 'diamond'
         self.vit_str = 'vit'
+        self.lv_str = 'lv'
+        self.exp_str = 'exp'
         self.max_vit_value = 100
-        self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
+        self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', self.lv_str, self.exp_str)
         super(UserAction, self).__init__(
                     u_id, User, UserTable, UserTableSerializer, True)
 

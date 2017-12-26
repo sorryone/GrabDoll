@@ -8,6 +8,7 @@ from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
 from grabDoll.models.config_model import ConfigModel
 import grabDoll.logics.book_logic as book_logic
+import grabDoll.logics.user as user_logic
 import time
 import random
 __author__ = 'du_du'
@@ -114,8 +115,7 @@ def grab_egg(uid, key_id, eggs):
     cur_eggs_keys = mach_action.get_egg_group(mach_id)
     values = {k: v for k, v in eggs.items() if k in cur_eggs_keys and k != key_id}
     mach_action.add_egg_list(values)
-    user_action = UserAction(uid)
-    user_action.add_exp(1)
+    user_logic.add_exp(uid, 1)
     return res
 
 
