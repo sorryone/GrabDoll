@@ -42,7 +42,9 @@ def add_exp(uid, add_value):
         data[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
     else:
         data[u.exp_str] = latest_exp
-    return u.update_info(data)
+    if u.update_info(data):
+        return data
+    return False
 
 
 def buy_vit(uid):
