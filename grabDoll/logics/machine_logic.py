@@ -44,7 +44,7 @@ def reset_machine(uid, mach_id):
     egg_refresh_time = note_model.get_machine_create_time(mach_id)
     cd = 600
     # 剩余时间
-    remain_time = cur_time - egg_refresh_time - cd
+    remain_time = egg_refresh_time + cd - cur_time
     if remain_time > 0:
         cost_gold = 100
         user_action = UserAction(uid)
