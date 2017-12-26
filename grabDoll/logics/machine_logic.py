@@ -114,6 +114,8 @@ def grab_egg(uid, key_id, eggs):
     cur_eggs_keys = mach_action.get_egg_group(mach_id)
     values = {k: v for k, v in eggs.items() if k in cur_eggs_keys and k != key_id}
     mach_action.add_egg_list(values)
+    user_action = UserAction(uid)
+    user_action.add_exp(1)
     return res
 
 
