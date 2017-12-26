@@ -35,11 +35,12 @@ def add_exp(uid, add_value):
     lv_config_model = ConfigModel('user_lv')
     cur_lv_config = lv_config_model.get_config_by_id(110000 + int(cur_lv))
     # 最高等级
-    max_lv = 5
+    max_lv = 50
     data = dict()
     if cur_lv < max_lv and latest_exp >= cur_lv_config.get('exp', 0):
         data[u.lv_str] = cur_lv + 1
         data[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
+        data[u.vit_str] = 100
     else:
         data[u.exp_str] = latest_exp
     if u.update_info(data):
