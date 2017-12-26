@@ -40,7 +40,8 @@ def add_exp(uid, add_value):
     if cur_lv < max_lv and latest_exp >= cur_lv_config.get('exp', 0):
         data[u.lv_str] = cur_lv + 1
         data[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
-        data[u.vit_str] = 100
+        if info.get(u.vit_str, 0) < 100:
+            data[u.vit_str] = 100
     else:
         data[u.exp_str] = latest_exp
     if u.update_info(data):
