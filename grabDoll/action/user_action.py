@@ -97,6 +97,9 @@ class UserAction(BaseModel):
                 res[key] = 0
         return res
 
+    def update_info(self, info):
+        return self.set_values(info)
+
     # 创建新用户
     def create_model(self):
         data = {

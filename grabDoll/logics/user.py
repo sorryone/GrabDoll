@@ -34,16 +34,16 @@ def add_exp(uid, add_value):
     latest_exp = cur_exp + add_value
     lv_config_model = ConfigModel('user_lv')
     cur_lv_config = lv_config_model.get_config_by_id(110000 + int(cur_lv))
-    print(cur_lv_config)
     # 最高等级
     max_lv = 5
-    res = dict()
+    data = dict()
     if cur_lv < max_lv and latest_exp >= cur_lv_config.get('exp', 0):
-        res[u.lv_str] = cur_lv + 1
-        res[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
+        data[u.lv_str] = cur_lv + 1
+        data[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
     else:
-        res[u.exp_str] = latest_exp
-    return res
+        data[u.exp_str] = latest_exp
+
+    return u.update_info(data)
 
 
 def buy_vit(uid):
