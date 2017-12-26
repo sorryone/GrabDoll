@@ -70,13 +70,20 @@ def reset_machine(uid, mach_id):
 
 
 def start_grab(uid, key_id):
-    key_id = int(key_id.split('_')[0])
+    mach_action = MachineAction(uid)
+    egg = mach_action.get_egg_info(key_id)
+    if egg is False:
+        print("egg  is not exits")
+        return False
+    item_id = egg.get('id', False)
+    if item_id is False:
+        return False
     user_action = UserAction(uid)
     vit = user_action.get_vit()
     vit_cost = 1
     if vit < vit_cost or user_action.reduce_vit(vit_cost) is False:
         return False
-    config = ConfigModel('egg').get_config_by_id(key_id)
+    config = ConfigModel('egg').get_config_by_id(item_id)
     probability = int(config['lv']) / 100
     rand = random.random()
     res = dict()
