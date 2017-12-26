@@ -45,12 +45,16 @@ def reset_machine(uid, mach_id):
     cd = 600
     # 剩余时间
     remain_time = cur_time - egg_refresh_time - cd
-    cost_gold = 100
-    user_action = UserAction(uid)
-    cur_gold = user_action.get_gold()
-    if cur_gold < cost_gold:
-        return False
-    check_cost = user_action.reduce_gold(cost_gold)
+    if remain_time > 0:
+        cost_gold = 100
+        user_action = UserAction(uid)
+        cur_gold = user_action.get_gold()
+        if cur_gold < cost_gold:
+            return False
+        check_cost = user_action.reduce_gold(cost_gold)
+    else:
+        cost_gold = 0
+        check_cost = True
     # 需要先扣钱
     if check_cost:
         note_model.set_machine_create_time(mach_id)
