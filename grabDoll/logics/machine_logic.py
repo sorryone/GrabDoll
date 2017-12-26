@@ -70,6 +70,7 @@ def reset_machine(uid, mach_id):
 
 
 def start_grab(uid, key_id):
+    key_id = int(key_id.split('_')[0])
     user_action = UserAction(uid)
     vit = user_action.get_vit()
     vit_cost = 1
