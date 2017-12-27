@@ -4,6 +4,7 @@ from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hero_action import HeroAction
+from grabDoll.models.config_model import ConfigModel
 from grabDoll.logics import artifact_logic
 import random
 import time
@@ -22,8 +23,10 @@ def fight_against(uid, opponent):
     res = dict()
     res['my_atk'] = my_atk + my_art_info.get('atk', 0)
     res['opponent_atk'] = opponent_atk + opponent_art_info.get('atk', 0)
-    my_heroes = my_formation_info.get(my_formation.fight_formation_str)
-    print(my_heroes)
+    my_fight_heroes = my_formation_info.get(my_formation.fight_formation_str)
+    my_fight_heroes_group = [i for i in my_fight_heroes if i != '']
+    print(my_fight_heroes_group)
+    eat_atk(uid, my_fight_heroes_group, res['opponent_atk'])
     if my_formation_info.get(my_formation.fight_state_str) == my_formation.state_injured:
         # 我受伤了已经
         res['error'] = True
@@ -34,7 +37,6 @@ def fight_against(uid, opponent):
         res['update'] = opponent_info
     else:
         user_action = UserAction(uid)
-        hero_action = HeroAction(uid)
         # 体力的扣除
         cur_vit = user_action.get_vit()
         cost_vit = 1
@@ -64,6 +66,21 @@ def fight_against(uid, opponent):
         res['award'] = award
         res['result'] = result
     return res
+
+
+def eat_atk(uid, heroes_group, atk):
+    hero_action = HeroAction(uid)
+    heroes_info = hero_action.get_model_info()
+    return heroes_info
+
+
+def get_hero_max_hp(hero_id, hero_lv):
+    hero_config = ConfigModel('doll')
+    hero_upgrade_config = ConfigModel('doll_upgrade')
+    cur_hero_config = hero_config.get_config_by_id(hero_id)
+    cur_hero_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_lv))
+    max_hp = cur_hero_config.get('hp') * cur_hero_lv_config.get('add_hp')
+    return max_hp
 
 
 def catch(uid, opponent):

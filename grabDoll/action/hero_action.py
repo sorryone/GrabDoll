@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.doll_model import DollModel, DollTable, DollTableSerializer
+from grabDoll.models.config_model import ConfigModel
 __author__ = 'du_du'
 
 
@@ -44,9 +45,11 @@ class HeroAction(BaseModel):
     # 增加娃娃
     def add_model(self, item_id):
         # 娃娃的数据格式{'doll_id':40001,'exp':100,'lv':1,'state':0}
+        hero_config_hero = ConfigModel('doll')
+        hero_config_info = hero_config_hero.get_config_by_id(item_id)
         doll = self.get_value(item_id)
         if doll is None or doll == {}:
-            data = {'doll_id': item_id, 'exp': 0, 'lv': 1, 'state': 0}
+            data = {'doll_id': item_id, 'exp': 0, 'lv': 1, 'state': 0, 'hp': hero_config_info.get('hp')}
             res = self.set_value(item_id, data)
             data['type'] = 'new'
         else:
@@ -80,6 +83,7 @@ class HeroAction(BaseModel):
             doll[self.loss_hp_str] -= hp
         else:
             doll[self.loss_hp_str] = -hp
+        doll[self.loss_hp_str] = max(doll[self.loss_hp_str], 0)
         res = self.set_value(doll_id, doll)
         if res is not False:
             return doll
