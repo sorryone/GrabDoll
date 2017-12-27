@@ -3,6 +3,7 @@ from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
+from grabDoll.action.hero_action import HeroAction
 from grabDoll.logics import artifact_logic
 import random
 import time
@@ -21,6 +22,8 @@ def fight_against(uid, opponent):
     res = dict()
     res['my_atk'] = my_atk + my_art_info.get('atk', 0)
     res['opponent_atk'] = opponent_atk + opponent_art_info.get('atk', 0)
+    my_heroes = my_formation_info.get(my_formation.fight_formation_str)
+    print(my_heroes)
     if my_formation_info.get(my_formation.fight_state_str) == my_formation.state_injured:
         # 我受伤了已经
         res['error'] = True
@@ -31,6 +34,7 @@ def fight_against(uid, opponent):
         res['update'] = opponent_info
     else:
         user_action = UserAction(uid)
+        hero_action = HeroAction(uid)
         # 体力的扣除
         cur_vit = user_action.get_vit()
         cost_vit = 1
