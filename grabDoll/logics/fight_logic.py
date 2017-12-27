@@ -74,15 +74,6 @@ def eat_atk(uid, heroes_group, atk):
     return heroes_info
 
 
-def get_hero_max_hp(hero_id, hero_lv):
-    hero_config = ConfigModel('doll')
-    hero_upgrade_config = ConfigModel('doll_upgrade')
-    cur_hero_config = hero_config.get_config_by_id(hero_id)
-    cur_hero_lv_config = hero_upgrade_config.get_config_by_id(70000 + int(hero_lv))
-    max_hp = cur_hero_config.get('hp') * cur_hero_lv_config.get('add_hp')
-    return max_hp
-
-
 def catch(uid, opponent):
     award = dict()
     res = dict()
