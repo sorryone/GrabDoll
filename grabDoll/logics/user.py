@@ -55,7 +55,7 @@ def buy_vit(uid):
     user_info = u.get_model_info()
     re_action = RecordAction(uid)
     record_info = re_action.get_model_info()
-    cur_buy_ct = record_info.get(re_action.buy_vit_str)
+    cur_buy_ct = record_info.get(re_action.buy_vit_str, 0)
     price = 10
     cost = 2**cur_buy_ct * price
     cur_diamond = user_info.get(u.diamond_str, 0)
