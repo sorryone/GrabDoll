@@ -62,7 +62,7 @@ def get_test_info(request):
             return 1, "参数错误"
 
     try:
-        data = game_logic.get_test_info(uid, open_key, is_debug)
+        data = game_logic.get_check(uid, open_key, is_debug)
         return 0, data
     except Exception as e:
         print(e)
