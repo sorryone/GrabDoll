@@ -17,6 +17,10 @@ import time
 __author__ = 'du_du'
 
 
+def get_test_config():
+    return inventory_logic.get_config_info(),
+
+
 def get_test_info(uid, open_key, is_debug=False):
 
     platform_info = platform_logic.get_user_info_by_platform(uid, open_key, is_debug)
