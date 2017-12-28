@@ -59,7 +59,7 @@ def get_test_info(uid, open_key, is_debug=False):
     print('inventory_data', time.time() - start_time)
 
     start_time = time.time()
-    config_data = inventory_logic.get_config_info(),
+    # config_data = inventory_logic.get_config_info(),
     print('config_data', time.time() - start_time)
 
     start_time = time.time()
