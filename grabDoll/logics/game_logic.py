@@ -62,6 +62,7 @@ def get_game_info(uid, open_key, is_debug=False):
 
 def get_user_data(uid, open_key, is_debug=False):
 
+    print('get_user_data', 'logic')
     platform_info = platform_logic.get_user_info_by_platform(uid, open_key, is_debug)
     if platform_info is False:
         return False
