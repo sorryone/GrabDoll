@@ -12,6 +12,7 @@ __author__ = 'maxijie'
 def get_user(request):
     if request.method == "GET":
         try:
+            print('get_user', 'user')
             uid = request.query_params.get('uid')
             open_key = request.query_params.get('openkey')
             is_debug = request.query_params.get('isDebug')
