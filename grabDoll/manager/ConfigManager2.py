@@ -35,4 +35,4 @@ def add_redis(data, name):
 
 def read_files():
     config_dir = settings.CONFIG_DIR
-    read_xls_file(config_dir, 'egg.xlsx')
+    read_xls_file(config_dir, 'egg.xlsx') 
