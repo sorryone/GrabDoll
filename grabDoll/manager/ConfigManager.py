@@ -33,7 +33,7 @@ def add_redis(data, name):
 
 
 def test():
-    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade', 'pve', 'turntable', 'user_lv ')
+    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade', 'pve', 'turntable', 'task', 'user_lv ')
     data = dict()
     for config_name in config_group:
         data[config_name] = ConfigModel(config_name).get_model_info()
@@ -51,6 +51,7 @@ def read_files():
     read_xls_file(config_dir, 'doll_upgrade.xlsx')
     read_xls_file(config_dir, 'pve.xlsx')
     read_xls_file(config_dir, 'turntable.xlsx')
+    read_xls_file(config_dir, 'task.xlsx')
     read_xls_file(config_dir, 'user_lv.xlsx')
     print test()
 
