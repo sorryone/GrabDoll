@@ -59,4 +59,5 @@ urlpatterns = patterns("",
                        url(r'^get_all_mail_award/', 'grabDoll.views.mail_method.get_all_mail_award'),
                        url(r'^try_once/', 'grabDoll.views.turntable_method.try_once'),
                        url(r'^try_five_times/', 'grabDoll.views.turntable_method.try_five_times'),
+                       url(r'^get_task_info/', 'grabDoll.views.task_method.get_task_info'),
                        )
