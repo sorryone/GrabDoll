@@ -19,7 +19,8 @@ def update_task_info(uid, action_type, task_target, task_value):
 
     task_action = TaskAction(uid)
 
-    task_action.get_model_info()
+    cur_task_group = task_action.get_model_info()
 
-    print day_group
-    return task_action
+    update_task_list = [[task_id, ] for task_id in day_group]
+    print update_task_list
+    return cur_task_group
