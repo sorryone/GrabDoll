@@ -11,9 +11,11 @@ def get_task_info(uid):
     return action.get_model_info()
 
 
-def update_task_info(uid, task_action, task_target, task_value):
-    print(task_action, task_target, task_value)
+def update_task_info(uid, action_type, task_target, task_value):
+    print(action_type, task_target, task_value)
 
     config_model = ConfigModel('task')
     all_task_config_group = config_model.get_model_info()
-    return all_task_config_group
+
+    check_group = [x for x in all_task_config_group if x.get('action_type', '') == action_type]
+    return check_group
