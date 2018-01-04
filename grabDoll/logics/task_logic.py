@@ -26,7 +26,7 @@ def update_task_info(uid, action_type, task_target, task_value):
         cur_task_info = cur_task_group.get(task_id, {})
         cur_task_config = all_task_config_group.get(task_id)
         print cur_task_info.get('is_award', False), cur_task_config.get('action_value', 0), cur_task_info.get('t_value', 0)
-        if cur_task_info.get('is_award', False) and cur_task_config.get('action_value', 0) > cur_task_info.get('t_value', 0):
+        if cur_task_info.get('is_award', False) is False and cur_task_config.get('action_value', 0) > cur_task_info.get('t_value', 0):
             update_data = {'key_id': task_id, 'action_value': cur_task_info.get('t_value', 0) + task_value}
             res[task_id] = update_data
 
