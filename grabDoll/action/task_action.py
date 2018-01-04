@@ -23,5 +23,12 @@ class TaskAction(BaseModel):
         else:
             return data
 
+    def get_task_info_by_id(self):
+        data = self.get_all()
+        return data
+
+    def update_task_info_by_id(self, task_id):
+        return True
+
     def get_award(self):
         return 0

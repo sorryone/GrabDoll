@@ -13,9 +13,13 @@ def get_task_info(uid):
 
 def update_task_info(uid, action_type, task_target, task_value):
     print(action_type, task_target, task_value)
-
     config_model = ConfigModel('task')
     all_task_config_group = config_model.get_model_info()
+    day_group = [key for key, x in all_task_config_group.items() if x.get('action_type', '') == action_type and x.get('mainType', '') == 'day']
 
-    check_group = [x for x in all_task_config_group.values() if x.get('action_type', '') == action_type]
-    return check_group
+    task_action = TaskAction(uid)
+
+    task_action.get_model_info()
+
+    print day_group
+    return task_action
