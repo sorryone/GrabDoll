@@ -10,3 +10,10 @@ def get_task_info(uid):
     action = TaskAction(uid)
     return action.get_model_info()
 
+
+def update_task_info(uid, task_action, task_target, task_value):
+    print(task_action, task_target, task_value)
+
+    config_model = ConfigModel('task')
+    all_task_config_group = config_model.get_model_info()
+    return all_task_config_group
