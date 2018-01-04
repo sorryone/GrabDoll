@@ -24,6 +24,6 @@ class TaskTableSerializer(serializers.ModelSerializer):
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 
     class Meta:
-        model = TaskModel
+        model = TaskTable
         unique_together = (("u_id", "key_id"),)
         fields = '__all__'
