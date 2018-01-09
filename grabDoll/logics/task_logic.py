@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.task_action import TaskAction
-from grabDoll.logics import inventory_logic
 import math
 import time
 import sys
@@ -61,6 +60,7 @@ def get_task_award(uid, task_id):
         res['update'] = update_data
     award = config_model.get('award', {}).encode('utf-8')
     award = eval(award)
+    from grabDoll.logics import inventory_logic
     res['award'] = inventory_logic.add_awards(award)
     return res
 
