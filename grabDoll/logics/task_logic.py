@@ -54,7 +54,7 @@ def get_task_award(uid, task_id):
     cur_task_config = config_model.get_config_by_id(task_id)
     if cur_task.get(task_action.value_str, 0) < cur_task_config.get('action_value', sys.maxint):
         return False
-    res = []
+    res = {}
     update_data = {task_action.is_award_str: True}
     if task_action.update_task_info_by_id(task_id, update_data) is True:
         res['update'] = update_data
