@@ -46,7 +46,7 @@ class UserAction(BaseModel):
             return False
         res = self.incr("gold", -ct)
         if res is True:
-            task_logic.update_task_info('cost', 'gold', ct)
+            task_logic.update_task_info(self.u_id, 'cost', 'gold', ct)
         return res
 
     def add_diamond(self, ct):
@@ -59,7 +59,7 @@ class UserAction(BaseModel):
             return False
         res = self.incr("diamond", -ct)
         if res is True:
-            task_logic.update_task_info('cost', 'diamond', ct)
+            task_logic.update_task_info(self.u_id, 'cost', 'diamond', ct)
         return res
 
     def add_exp(self, ct):
