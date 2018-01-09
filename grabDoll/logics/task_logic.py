@@ -19,7 +19,10 @@ def update_task_info(uid, action_type, task_target, task_value):
     cur_task_group = task_action.get_model_info()
     res = {}
     for task_id in day_group:
-        cur_task_info = cur_task_group.get(task_id, {})
+        cur_task_info = {}
+        for task_info in cur_task_group:
+            if task_info.get('key_id', 0) == task_id:
+                cur_task_info = task_info
         cur_task_config = all_task_config_group.get(task_id)
         print cur_task_info.get('is_award', False), cur_task_config.get('action_value', 0), cur_task_info.get('t_value', 0)
         if cur_task_info.get('is_award', False) is False and cur_task_config.get('action_value', 0) > cur_task_info.get('t_value', 0):
