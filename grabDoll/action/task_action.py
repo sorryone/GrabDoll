@@ -2,6 +2,7 @@
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.task_model import TaskModel, TaskTable, TaskTableSerializer
 import time
+import collections
 __author__ = 'du_du'
 
 
@@ -18,10 +19,12 @@ class TaskAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
+        res = []
         if isinstance(data, (list,)):
-            return {}
-        else:
-            return data
+            res = data
+        elif isinstance(data, (dict, collections.OrderedDict)):
+            res.append(data)
+        return res
 
     def get_task_info_by_id(self, task_id):
         data = self.get_all({self.key_id_str: task_id})
