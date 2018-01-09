@@ -6,7 +6,7 @@ from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.logics import artifact_logic
-from grabDoll.logics import task_logic
+from grabDoll.logics.task_logic import task_listen_result
 import random
 import time
 __author__ = 'du_du'
@@ -100,9 +100,15 @@ def catch(uid, opponent):
         award['gold'] = gold
         res['update'] = update_data
         result = True
-        task_logic.update_task_info(uid, 'rob', 0, 1)
+        send_task_update(uid, 'rob', 0, 1)
     else:
         result = False
     res['award'] = award
     res['result'] = result
     return res
+
+
+@task_listen_result
+def send_task_update(*data):
+    return data
+

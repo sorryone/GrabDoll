@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.user import User, UserTable, UserTableSerializer
-from grabDoll.logics import task_logic
+from grabDoll.logics.task_logic import task_listen_result
 __author__ = 'du_du'
 
 
@@ -46,7 +46,7 @@ class UserAction(BaseModel):
             return False
         res = self.incr("gold", -ct)
         if res >= 0:
-            task_logic.update_task_info(self.u_id, 'cost', 'gold', ct)
+            self.send_task_update(self.u_id, 'cost', 'gold', ct)
         return res
 
     def add_diamond(self, ct):
@@ -59,8 +59,12 @@ class UserAction(BaseModel):
             return False
         res = self.incr("diamond", -ct)
         if res >= 0:
-            task_logic.update_task_info(self.u_id, 'cost', 'diamond', ct)
+            self.send_task_update(self.u_id, 'cost', 'diamond', ct)
         return res
+
+    @task_listen_result
+    def send_task_update(self, *data):
+        return data
 
     def add_exp(self, ct):
         self.incr("exp", ct)

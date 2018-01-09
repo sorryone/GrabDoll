@@ -8,6 +8,17 @@ import sys
 __author__ = 'du_du'
 
 
+def task_listen_result(func):
+    def decorator(*args, **kwargs):
+        res = func(*args, **kwargs)
+        test_info(*args)
+    return decorator
+
+
+def test_info(data):
+    print data
+
+
 def get_task_info(uid):
     action = TaskAction(uid)
     return action.get_model_info()
