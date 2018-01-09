@@ -12,7 +12,6 @@ def get_task_info(uid):
 
 
 def update_task_info(uid, action_type, task_target, task_value):
-    print(action_type, task_target, task_value)
     config_model = ConfigModel('task')
     all_task_config_group = config_model.get_model_info()
     day_group = [key for key, x in all_task_config_group.items() if x.get('action_type', '') == action_type and x.get('mainType', '') == 'day']
@@ -25,6 +24,7 @@ def update_task_info(uid, action_type, task_target, task_value):
         print cur_task_info.get('is_award', False), cur_task_config.get('action_value', 0), cur_task_info.get('t_value', 0)
         if cur_task_info.get('is_award', False) is False and cur_task_config.get('action_value', 0) > cur_task_info.get('t_value', 0):
             update_data = {'key_id': task_id, 't_value': cur_task_info.get('t_value', 0) + task_value}
+            print (task_id, update_data)
             task_action.update_task_info_by_id(task_id, update_data)
             res[task_id] = update_data
     return res
