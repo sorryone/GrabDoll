@@ -45,7 +45,7 @@ class UserAction(BaseModel):
         if cur_value < ct:
             return False
         res = self.incr("gold", -ct)
-        if res is True:
+        if res >= 0:
             task_logic.update_task_info(self.u_id, 'cost', 'gold', ct)
         return res
 
@@ -58,7 +58,7 @@ class UserAction(BaseModel):
         if cur_value < ct:
             return False
         res = self.incr("diamond", -ct)
-        if res is True:
+        if res >= 0:
             task_logic.update_task_info(self.u_id, 'cost', 'diamond', ct)
         return res
 
