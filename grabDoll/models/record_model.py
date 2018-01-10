@@ -26,7 +26,7 @@ class RecordTable(models.Model):
     defend_victory = models.IntegerField(default=0)
     defend_fail = models.IntegerField(default=0)
     box_ct = models.IntegerField(default=0)
-    day_task_group = models.CharField(max_length=512,)
+    day_task_group = models.CharField(max_length=512, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 
