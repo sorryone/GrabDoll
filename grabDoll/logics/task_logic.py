@@ -50,6 +50,6 @@ def get_task_award(uid, task_id):
     award = cur_task_config.get('award', {}).encode('utf-8')
     award = eval(award)
     from grabDoll.logics import inventory_logic
-    res['award'] = inventory_logic.add_awards(award)
+    res['award'] = inventory_logic.add_awards(uid, award)
     return res
 
