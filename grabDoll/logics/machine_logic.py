@@ -6,9 +6,9 @@ from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
+from grabDoll.action.record_action import RecordAction
 from grabDoll.models.config_model import ConfigModel
 import grabDoll.logics.book_logic as book_logic
-from grabDoll.logics.task_logic import task_listen_result
 import grabDoll.logics.user as user_logic
 import time
 import random
@@ -163,7 +163,8 @@ def open_egg(uid, egg_id):
         elif int(a_id) / 10000 == 4:
             if hero_action.get_doll_exist(a_id) is False:
                 res['doll'] = hero_action.add_model(a_id)
-                send_task_update(uid, 'get_hero', 0, 1)
+                re_action = RecordAction(uid)
+                re_action.add_action_ct('get_hero', 0, 1)
             else:
                 cur_hero = hero_action.get_doll_info_by_id(a_id)
                 hero_config_model = ConfigModel('doll_upgrade')
@@ -271,9 +272,6 @@ def reset_machine_egg_info(uid, mach_id):
     return False
 
 
-@task_listen_result
-def send_task_update(*data):
-    return data
 
 if __name__ == "__main__":
     print switch_machine('ED57884CAA078DF9E0E08750D98CA834', 50001)

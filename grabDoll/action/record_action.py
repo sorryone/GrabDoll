@@ -57,6 +57,9 @@ class RecordAction(BaseModel):
                     data[key_id] = 0
         return data
 
+    def add_action_ct(self, action_str, ct):
+        return self.incr(action_str, ct, {self.key_str: self.day_id})
+
     def update_model_info(self, data):
         return self.set_values(data, {self.key_str: self.day_id})
 
