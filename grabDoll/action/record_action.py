@@ -52,7 +52,7 @@ class RecordAction(BaseModel):
                 data[key_id] = self.day_id
             else:
                 if self.day_task_group_str == key_id:
-                    data[key_id] = None
+                    data[key_id] = []
                 else:
                     data[key_id] = 0
         return data
@@ -84,4 +84,10 @@ class RecordAction(BaseModel):
 
     def update_fight(self, value):
         return self.set_value(self.fight_str, value, {self.key_str: self.day_id})
+
+    def get_day_task_group(self):
+        return self.get_value(self.day_task_group_str, {self.key_str: self.day_id})
+
+    def update_day_task_group(self, value):
+        return self.set_value(self.day_task_group_str, value, {self.key_str: self.day_id})
 
