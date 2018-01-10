@@ -26,6 +26,7 @@ class RecordAction(BaseModel):
         self.defend_fail_str = 'defend_fail'
         self.box_ct_str = 'box_ct'
         self.day_task_group_str = 'day_task_group'
+        self.split_str = ','
         self.default_list = (self.key_str, self.grab_doll_str, self.get_hero_str, self.buy_vit_str,
                              self.cost_gold_str, self.rob_str, self.cost_diamond_str, self.fight_str,
                              self.fight_victory_str, self.fight_fail_str, self.defend_str, self.defend_victory_str,
@@ -42,6 +43,12 @@ class RecordAction(BaseModel):
             # 重新获取一次
             res = self.get_empty_info()
         else:
+            day_task_group = data_list.get(self.day_task_group_str, None)
+            if isinstance(day_task_group, (unicode,)):
+                day_task_group = day_task_group.encode('utf-8')
+            if isinstance(day_task_group, (str,)):
+                day_task_group = day_task_group.split(self.split_str)
+            data_list[self.day_task_group_str] = day_task_group
             res = data_list
         return res
 
@@ -85,9 +92,8 @@ class RecordAction(BaseModel):
     def update_fight(self, value):
         return self.set_value(self.fight_str, value, {self.key_str: self.day_id})
 
-    def get_day_task_group(self):
-        return self.get_value(self.day_task_group_str, {self.key_str: self.day_id})
-
     def update_day_task_group(self, value):
+        if isinstance(value, (list,)):
+            value = self.split_str.join(str(i) for i in value)
         return self.set_value(self.day_task_group_str, value, {self.key_str: self.day_id})
 
