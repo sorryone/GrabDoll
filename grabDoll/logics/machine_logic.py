@@ -164,7 +164,7 @@ def open_egg(uid, egg_id):
             if hero_action.get_doll_exist(a_id) is False:
                 res['doll'] = hero_action.add_model(a_id)
                 re_action = RecordAction(uid)
-                re_action.add_action_ct('get_hero', 0, 1)
+                re_action.add_action_ct('get_hero', 1)
             else:
                 cur_hero = hero_action.get_doll_info_by_id(a_id)
                 hero_config_model = ConfigModel('doll_upgrade')

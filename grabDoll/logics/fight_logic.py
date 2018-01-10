@@ -101,7 +101,7 @@ def catch(uid, opponent):
         res['update'] = update_data
         result = True
         re_action = RecordAction(uid)
-        re_action.add_action_ct('rob', 0, 1)
+        re_action.add_action_ct('rob', 1)
     else:
         result = False
     res['award'] = award
