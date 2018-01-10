@@ -52,7 +52,7 @@ class RecordAction(BaseModel):
                 data[key_id] = self.day_id
             else:
                 if self.day_task_group_str == key_id:
-                    data[key_id] = []
+                    data[key_id] = None
                 else:
                     data[key_id] = 0
         return data

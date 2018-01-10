@@ -27,7 +27,9 @@ def get_task_info(uid):
 def get_task_award(uid, task_id):
     re_action = RecordAction(uid)
     re_info = re_action.get_model_info()
-    day_task_group = re_info.get(re_action.day_task_group_str, [])
+    day_task_group = re_info.get(re_action.day_task_group_str)
+    if day_task_group is None:
+        day_task_group = []
     if task_id in day_task_group:
         return False
     config_model = ConfigModel('task')
