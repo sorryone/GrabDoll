@@ -34,9 +34,12 @@ def get_task_award(uid, task_id):
         return False
     config_model = ConfigModel('task')
     cur_task_config = config_model.get_config_by_id(task_id)
-    core_str = cur_task_config.get('action_type')
-    if cur_task_config.get('action_target', None) is not None:
-        core_str = '%s_%s' % (core_str, cur_task_config.get('action_target', None))
+    action_type = cur_task_config.get('action_type')
+    action_target = cur_task_config.get('action_target')
+    if action_target is not None and action_target != 0:
+        core_str = '%s_%s' % (action_type, action_target)
+    else:
+        core_str = action_type
     print core_str
     if re_info.get(core_str, 0) < cur_task_config.get('action_value', sys.maxint):
         return False
