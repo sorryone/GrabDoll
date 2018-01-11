@@ -12,6 +12,7 @@ class RecordAction(BaseModel):
     def __init__(self, u_id):
         self.u_id = u_id
         self.key_str = 'day_id'
+        self.point_str = 'point'
         self.grab_doll_str = 'grab_doll'
         self.get_hero_str = 'get_hero'
         self.buy_vit_str = 'buy_vit'
@@ -27,7 +28,7 @@ class RecordAction(BaseModel):
         self.box_ct_str = 'box_ct'
         self.day_task_group_str = 'day_task_group'
         self.split_str = ','
-        self.default_list = (self.key_str, self.grab_doll_str, self.get_hero_str, self.buy_vit_str,
+        self.default_list = (self.key_str, self.point_str, self.grab_doll_str, self.get_hero_str, self.buy_vit_str,
                              self.cost_gold_str, self.rob_str, self.cost_diamond_str, self.fight_str,
                              self.fight_victory_str, self.fight_fail_str, self.defend_str, self.defend_victory_str,
                              self.defend_fail_str, self.box_ct_str, self.day_task_group_str)
