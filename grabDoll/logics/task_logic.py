@@ -57,7 +57,23 @@ def get_task_award(uid, task_id):
 def get_box_award(uid, box_id):
     re_action = RecordAction(uid)
     re_info = re_action.get_model_info()
-    day_task_group = re_info.get(re_action.day_task_group_str)
+    day_box_group = re_info.get(re_action.day_box_group_str)
+    if day_box_group is None:
+        day_box_group = []
+    if str(box_id) in day_box_group:
+        print 'box_id is haven'
+        return False
     config_model = ConfigModel('box')
     box_config = config_model.get_config_by_id(box_id)
-    return box_config
+    if box_config.get('point') > re_info.get(re_action.point_str, 0):
+        print 'point is not enough'
+        return False
+    res = {}
+    day_box_group.append(box_id)
+    if re_action.update_day_box_group(day_box_group) is True:
+        res['update'] = box_id
+    award = box_config.get('award', {}).encode('utf-8')
+    award = eval(award)
+    from grabDoll.logics import inventory_logic
+    res['award'] = inventory_logic.add_awards(uid, award)
+    return award

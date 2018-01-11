@@ -27,11 +27,12 @@ class RecordAction(BaseModel):
         self.defend_fail_str = 'defend_fail'
         self.box_ct_str = 'box_ct'
         self.day_task_group_str = 'day_task_group'
+        self.day_box_group_str = 'day_box_group'
         self.split_str = ','
         self.default_list = (self.key_str, self.point_str, self.grab_doll_str, self.get_hero_str, self.buy_vit_str,
                              self.cost_gold_str, self.rob_str, self.cost_diamond_str, self.fight_str,
                              self.fight_victory_str, self.fight_fail_str, self.defend_str, self.defend_victory_str,
-                             self.defend_fail_str, self.box_ct_str, self.day_task_group_str)
+                             self.defend_fail_str, self.box_ct_str, self.day_task_group_str, self.day_box_group_str)
         # 今天的日期
         self.day_id = int(datetime.datetime.now().strftime('%Y%m%d'))
         super(RecordAction, self).__init__(
@@ -50,6 +51,14 @@ class RecordAction(BaseModel):
             if isinstance(day_task_group, (str,)):
                 day_task_group = day_task_group.split(self.split_str)
             data_list[self.day_task_group_str] = day_task_group
+
+            day_box_group = data_list.get(self.day_box_group_str, None)
+            if isinstance(day_box_group, (unicode,)):
+                day_box_group = day_box_group.encode('utf-8')
+            if isinstance(day_box_group, (str,)):
+                day_box_group = day_box_group.split(self.split_str)
+            data_list[self.day_box_group_str] = day_box_group
+
             res = data_list
         return res
 
@@ -59,7 +68,7 @@ class RecordAction(BaseModel):
             if key_id == self.key_str:
                 data[key_id] = self.day_id
             else:
-                if self.day_task_group_str == key_id:
+                if self.day_task_group_str == key_id or self.day_box_group_str == key_id:
                     data[key_id] = None
                 else:
                     data[key_id] = 0
@@ -98,3 +107,7 @@ class RecordAction(BaseModel):
             value = self.split_str.join(str(i) for i in value)
         return self.set_value(self.day_task_group_str, value, {self.key_str: self.day_id})
 
+    def update_day_box_group(self, value):
+        if isinstance(value, (list,)):
+            value = self.split_str.join(str(i) for i in value)
+        return self.set_value(self.day_box_group_str, value, {self.key_str: self.day_id})
