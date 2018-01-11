@@ -38,3 +38,21 @@ def get_task_award(request):
     except Exception as e:
         print(e)
         return 1, "数据错误"
+
+
+@api_view(["GET"])
+@api_result
+def get_box_award(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            box_id = int(request.query_params.get('box_id'))
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = task_logic.get_box_award(uid, box_id)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"

@@ -53,3 +53,11 @@ def get_task_award(uid, task_id):
     res['award'] = inventory_logic.add_awards(uid, award)
     return res
 
+
+def get_box_award(uid, box_id):
+    re_action = RecordAction(uid)
+    re_info = re_action.get_model_info()
+    day_task_group = re_info.get(re_action.day_task_group_str)
+    config_model = ConfigModel('box')
+    box_config = config_model.get_config_by_id(box_id)
+    return box_config

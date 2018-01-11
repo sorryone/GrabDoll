@@ -61,4 +61,5 @@ urlpatterns = patterns("",
                        url(r'^try_five_times/', 'grabDoll.views.turntable_method.try_five_times'),
                        url(r'^get_task_info/', 'grabDoll.views.task_method.get_task_info'),
                        url(r'^get_task_award/', 'grabDoll.views.task_method.get_task_award'),
+                       url(r'^get_box_award/', 'grabDoll.views.task_method.get_box_award'),
                        )
