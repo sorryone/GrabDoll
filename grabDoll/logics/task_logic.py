@@ -36,7 +36,7 @@ def get_task_award(uid, task_id):
     cur_task_config = config_model.get_config_by_id(task_id)
     action_type = cur_task_config.get('action_type')
     action_target = cur_task_config.get('action_target')
-    if action_target is not None and action_target != 0:
+    if action_target is not None and action_target != 0 and action_target != '':
         core_str = '%s_%s' % (action_type, action_target)
     else:
         core_str = action_type
