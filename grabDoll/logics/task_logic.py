@@ -45,7 +45,12 @@ def get_task_award(uid, task_id):
         return False
     res = {}
     day_task_group.append(task_id)
-    if re_action.update_day_task_group(day_task_group) is True:
+    update_data = {
+        re_action.day_task_group_str: day_task_group,
+        re_action.point_str: re_info.get(re_action.point_str) + cur_task_config.get('point', 0),
+    }
+    # if re_action.update_day_task_group(day_task_group) is True:
+    if re_action.update_model_info(update_data) is True:
         res['update'] = task_id
     award = cur_task_config.get('award', {}).encode('utf-8')
     award = eval(award)

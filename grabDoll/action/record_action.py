@@ -75,10 +75,15 @@ class RecordAction(BaseModel):
         return data
 
     def add_action_ct(self, action_str, ct):
-        print(action_str, ct)
         return self.incr(action_str, ct, {self.key_str: self.day_id})
 
     def update_model_info(self, data):
+        task_data = data.get(self.day_task_group_str, None)
+        if task_data is not None and isinstance(task_data, (list,)):
+            data[self.day_task_group_str] = self.split_str.join(str(i) for i in task_data)
+        box_data = data.get(self.day_box_group_str, None)
+        if box_data is not None and isinstance(box_data, (list,)):
+            data[self.day_box_group_str] = self.split_str.join(str(i) for i in box_data)
         return self.set_values(data, {self.key_str: self.day_id})
 
     def get_vit(self):
