@@ -81,4 +81,4 @@ def get_box_award(uid, box_id):
     award = eval(award)
     from grabDoll.logics import inventory_logic
     res['award'] = inventory_logic.add_awards(uid, award)
-    return award
+    return res
