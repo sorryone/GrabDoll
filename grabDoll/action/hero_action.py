@@ -76,6 +76,7 @@ class HeroAction(BaseModel):
 
     # 击伤
     def injure_doll_hp(self, doll_id, hp):
+        print (doll_id)
         doll = self.get_doll_info_by_id(doll_id)
         doll[self.hp_str] = doll.get(self.hp_str, 0) - hp
         doll[self.hp_str] = max(doll[self.hp_str], 0)
