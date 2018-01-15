@@ -9,6 +9,7 @@ from grabDoll.action.mail_action import MailAction
 from grabDoll.logics import artifact_logic
 import random
 import time
+import math
 __author__ = 'du_du'
 
 
@@ -72,7 +73,13 @@ def fight_against(uid, opponent):
 def eat_atk(uid, heroes_group, atk):
     hero_action = HeroAction(uid)
     heroes_info = hero_action.get_model_info()
-    return heroes_info
+    check_hero_group = [hero for hero in heroes_info if hero.get('hp', -1) > 0]
+    hero_ct = len(check_hero_group)
+    share_atk = math.floor(float(atk) / hero_ct)
+    print hero_ct, share_atk
+    for hero in heroes_group:
+        print hero
+    return check_hero_group
 
 
 def catch(uid, opponent):
