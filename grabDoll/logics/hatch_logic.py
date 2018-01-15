@@ -3,6 +3,7 @@ from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.logics import machine_logic
 from grabDoll.models.config_model import ConfigModel
+import time
 __author__ = 'du_du'
 
 
@@ -61,6 +62,12 @@ def hatch_open(uid, index):
     action = HatchAction(uid)
     # 这里需要验证时间的
     data = action.get_model_info_by_index(index)
+    cur_time = time.time()
+    need_time = 3000  # 需要的时间 先写死
+    finish_time = int(data['mark_at']) + int(data['ad']) + need_time
+    if cur_time < finish_time:
+        # 时间没到
+        return False
     egg_id = data['key_id']
     if action.remove_model(index):
         return machine_logic.open_egg(uid, egg_id)
