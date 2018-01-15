@@ -73,7 +73,7 @@ def fight_against(uid, opponent):
 def eat_atk(uid, heroes_group, atk):
     hero_action = HeroAction(uid)
     heroes_info = hero_action.get_model_info()
-    check_hero_group = [hero for hero_id, hero in heroes_info if hero_id in heroes_group and hero.get('hp', -1) > 0]
+    check_hero_group = [hero for hero_id, hero in heroes_info.items() if hero_id in heroes_group and hero.get('hp', -1) > 0]
     hero_ct = len(check_hero_group)
     share_atk = math.floor(float(atk) / hero_ct)
     print hero_ct, share_atk
