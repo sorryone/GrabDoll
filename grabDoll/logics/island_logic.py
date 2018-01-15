@@ -12,22 +12,23 @@ def refresh_income_info(uid):
     print(info)
     capacity = info.get(action.capacity_str, 0)
     capacity_update_at = info.get(action.capacity_update_at_str, 0)
+    '''
     if info.get(action.fight_state_str) == action.state_injured:
+        print('state_injured')
         return False
+    '''
     cur_income = info.get(action.income_str, 0)
     cur_time = int(time.time())
     # 每个小时的获取的金币
     per_hour_capacity = capacity / 10.0
     income = int((cur_time - capacity_update_at) / 3600.0 * per_hour_capacity) + cur_income
-    print(capacity, cur_income, per_hour_capacity, income)
-
+    # print(capacity, cur_income, per_hour_capacity, income)
     if income == cur_income:
         return False
     res = {
         'income': income,
         'capacity_update_at': cur_time,
     }
-
     if action.set_values(res):
         print(res)
         return res
