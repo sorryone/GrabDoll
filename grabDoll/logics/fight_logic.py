@@ -78,7 +78,7 @@ def eat_atk(uid, heroes_group, atk):
     share_atk = math.floor(float(atk) / hero_ct)
     print hero_ct, share_atk
     for hero in check_hero_group:
-        print hero, hero.get(hero_action.doll_id_str, 0), hero[hero_action.doll_id_str]
+        print hero, type(hero), hero.get(hero_action.doll_id_str, 0), hero['doll_id'], hero[hero_action.doll_id_str]
         hero_action.injure_doll_hp(hero.get(hero_action.doll_id_str, 0), share_atk)
     return check_hero_group
 
