@@ -27,13 +27,13 @@ def fight_against(uid, opponent):
     res['opponent_atk'] = opponent_atk + opponent_art_info.get('atk', 0)
     my_fight_heroes = my_formation_info.get(my_formation.fight_formation_str)
     my_fight_heroes_group = [i for i in my_fight_heroes if i != '']
-    print(my_fight_heroes_group)
-    eat_atk(uid, my_fight_heroes_group, res['opponent_atk'])
-    if my_formation_info.get(my_formation.fight_state_str) == my_formation.state_injured:
+
+    if eat_atk(uid, my_fight_heroes_group, res['opponent_atk']) is False:
         # 我受伤了已经
         res['error'] = True
         res['update'] = my_formation_info
-    elif opponent_info.get(opponent_formation.fight_state_str) == opponent_formation.state_injured:
+    elif False:
+        # elif opponent_info.get(opponent_formation.fight_state_str) == opponent_formation.state_injured:
         # 对方受伤了已经
         res['error'] = True
         res['update'] = opponent_info
@@ -75,6 +75,8 @@ def eat_atk(uid, heroes_group, atk):
     heroes_info = hero_action.get_model_info()
     check_hero_group = [hero for hero_id, hero in heroes_info.items() if hero_id in heroes_group and hero.get('hp', -1) > 0]
     hero_ct = len(check_hero_group)
+    if hero_ct == 0:
+        return False
     share_atk = math.floor(float(atk) / hero_ct)
     print hero_ct, share_atk
     for hero in check_hero_group:
