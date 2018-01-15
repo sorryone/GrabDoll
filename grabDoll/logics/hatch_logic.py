@@ -67,6 +67,7 @@ def hatch_open(uid, index):
     finish_time = int(data['mark_at']) + int(data['ad']) + need_time
     if cur_time < finish_time:
         # 时间没到
+        print('not ready', cur_time, finish_time, finish_time - cur_time)
         return False
     egg_id = data['key_id']
     if action.remove_model(index):
