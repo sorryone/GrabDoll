@@ -2,6 +2,7 @@
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.record_action import RecordAction
 from grabDoll.models.config_model import ConfigModel
+from grabDoll.logics import mail_logic
 import datetime
 import time
 __author__ = 'du_du'
@@ -45,6 +46,8 @@ def add_exp(uid, add_value):
     else:
         data[u.exp_str] = latest_exp
     if u.update_info(data):
+        if data[u.lv_str] > cur_lv:
+            mail_logic.add_lv_up_award(uid)
         return data
     return False
 

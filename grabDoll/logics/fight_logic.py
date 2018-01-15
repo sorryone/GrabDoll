@@ -5,7 +5,7 @@ from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.record_action import RecordAction
-from grabDoll.models.config_model import ConfigModel
+from grabDoll.action.mail_action import MailAction
 from grabDoll.logics import artifact_logic
 import random
 import time
@@ -102,6 +102,8 @@ def catch(uid, opponent):
         result = True
         re_action = RecordAction(uid)
         re_action.add_action_ct('rob', 1)
+        mail_action = MailAction(opponent)
+        mail_action.add_fight_message(uid)
     else:
         result = False
     res['award'] = award
