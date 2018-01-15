@@ -38,15 +38,17 @@ def add_exp(uid, add_value):
     # 最高等级
     max_lv = 50
     data = dict()
+    lv_up = False
     if cur_lv < max_lv and latest_exp >= cur_lv_config.get('exp', 0):
         data[u.lv_str] = cur_lv + 1
         data[u.exp_str] = latest_exp - cur_lv_config.get('exp', 0)
         if info.get(u.vit_str, 0) < 100:
             data[u.vit_str] = 100
+        lv_up = True
     else:
         data[u.exp_str] = latest_exp
     if u.update_info(data):
-        if data[u.lv_str] > cur_lv:
+        if lv_up:
             mail_logic.add_lv_up_award(uid)
         return data
     return False
