@@ -28,7 +28,7 @@ def hatch_speed(uid, index):
     cost = 100
     if user_action.reduce_gold(cost):
         action = HatchAction(uid)
-        return action.add_exp(index, 100)
+        return action.add_exp(index, 300)
     print 'not gold'
     return False
 
