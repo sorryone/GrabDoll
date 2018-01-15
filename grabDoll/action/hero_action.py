@@ -11,8 +11,8 @@ class HeroAction(BaseModel):
         self.u_id = u_id
         # 娃娃的四种状态
         self.state = ('normal', 'work', 'sleep', 'fight', 'hurt')
-        self.hp_str = 'hp',
-        self.doll_id_str = 'doll_id',
+        self.hp_str = 'hp'
+        self.doll_id_str = 'doll_id'
         super(HeroAction, self).__init__(
                     u_id, DollModel, DollTable, DollTableSerializer, False)
 
