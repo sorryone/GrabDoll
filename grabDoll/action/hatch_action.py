@@ -129,7 +129,7 @@ class HatchAction(BaseModel):
             return False
         cur_time = time.time()
         need_time = 3000     # 需要的时间 先写死
-        finish_time = int(hatch_info['mark_at']) + int(hatch_info['ad']) + need_time
+        finish_time = int(hatch_info['mark_at']) - int(hatch_info['ad']) + need_time
 
         if cur_time < finish_time:
             data = {

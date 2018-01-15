@@ -64,7 +64,7 @@ def hatch_open(uid, index):
     data = action.get_model_info_by_index(index)
     cur_time = time.time()
     need_time = 3000  # 需要的时间 先写死
-    finish_time = int(data['mark_at']) + int(data['ad']) + need_time
+    finish_time = int(data['mark_at']) - int(data['ad']) + need_time
     if cur_time < finish_time:
         # 时间没到
         print('not ready', cur_time, finish_time, finish_time - cur_time)
