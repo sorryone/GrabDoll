@@ -11,7 +11,8 @@ class HeroAction(BaseModel):
         self.u_id = u_id
         # 娃娃的四种状态
         self.state = ('normal', 'work', 'sleep', 'fight', 'hurt')
-        self.loss_hp_str = 'loss_hp',
+        self.hp_str = 'hp',
+        self.doll_id_str = 'doll_id',
         super(HeroAction, self).__init__(
                     u_id, DollModel, DollTable, DollTableSerializer, False)
 
@@ -67,10 +68,7 @@ class HeroAction(BaseModel):
     # 治疗
     def heal_doll_hp(self, doll_id, hp):
         doll = self.get_doll_info_by_id(doll_id)
-        if doll.has_key(self.loss_hp_str):
-            doll[self.loss_hp_str] += hp
-        else:
-            doll[self.loss_hp_str] = hp
+        doll[self.hp_str] = doll.get(self.hp_str, 0) + hp
         res = self.set_value(doll_id, doll)
         if res is not False:
             return doll
@@ -79,11 +77,8 @@ class HeroAction(BaseModel):
     # 击伤
     def injure_doll_hp(self, doll_id, hp):
         doll = self.get_doll_info_by_id(doll_id)
-        if doll.has_key(self.loss_hp_str):
-            doll[self.loss_hp_str] -= hp
-        else:
-            doll[self.loss_hp_str] = -hp
-        doll[self.loss_hp_str] = max(doll[self.loss_hp_str], 0)
+        doll[self.hp_str] = doll.get(self.hp_str, 0) - hp
+        doll[self.hp_str] = max(doll[self.hp_str], 0)
         res = self.set_value(doll_id, doll)
         if res is not False:
             return doll
