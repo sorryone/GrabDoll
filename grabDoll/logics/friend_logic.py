@@ -4,12 +4,14 @@ from grabDoll.action.friend_action import FriendAction
 from grabDoll.action.platform_action import PlatformAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.formation_action import FormationAction
+from grabDoll.logics import island_logic
 import random
 __author__ = 'du_du'
 
 
 # 进入好友家
 def enter_friend_home(uid, f_id):
+    island_logic.refresh_income_info(f_id)
     # 需要记录谁进来了
     hero_action = HeroAction(f_id)
     f_action = FormationAction(f_id)
