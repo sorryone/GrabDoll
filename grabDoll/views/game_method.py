@@ -273,6 +273,7 @@ def get_debug(request):
             print(e)
             return 1, "参数错误"
     try:
+        print debug_info
         return 0, debug_info
     except Exception as e:
         print(e)
