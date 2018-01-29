@@ -12,7 +12,7 @@ iplist = ('openapi.sparta.html5.qq.com',)
 
 def get_user_info_by_platform(openid, openkey, is_debug=False):
 
-    if openid == 'VIP' and openkey == 'VIP' or is_debug:
+    if openid == 'VIP' and openkey == 'VIP':
         print("IS VIP")
         action = PlatformAction(openid)
         return action.get_model_info()
@@ -72,6 +72,7 @@ def get_app_friends(openid, openkey):
     return j_data
 
 
+# 这个接口需要申请
 def get_rcmd_friends(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
