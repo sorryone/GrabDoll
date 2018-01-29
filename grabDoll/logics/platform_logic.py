@@ -34,6 +34,8 @@ def get_user_info_by_platform(openid, openkey, is_debug=False):
         print("a new user enter game")
         # 记录新用户的注册时间
         res['create_time'] = time.time()
+    else:
+        print("old user enter game")
 
     canshu_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
     for canshu in canshu_group:
@@ -51,6 +53,17 @@ def get_info(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
     j_data = api.call('/v3/user/get_info', {
+        'pf': pf,
+        'openid': openid,
+        'openkey': openkey
+    })
+    return j_data
+
+
+def get_app_friends(openid, openkey):
+    api = OpenAPIV3(appid, appkey, iplist)
+    pf = 'qzone'
+    j_data = api.call('/v3/relation/get_app_friends', {
         'pf': pf,
         'openid': openid,
         'openkey': openkey
