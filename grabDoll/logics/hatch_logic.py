@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.logics import machine_logic
+from grabDoll.models.config_model import ConfigModel
+import time
 __author__ = 'du_du'
 
 
@@ -25,14 +28,47 @@ def hatch_speed(uid, index):
     cost = 100
     if user_action.reduce_gold(cost):
         action = HatchAction(uid)
-        return action.add_exp(index, 100)
+        return action.add_exp(index, 300)
     print 'not gold'
     return False
 
 
-def hatch_open(uid, index):
+def open_egg_by_cost(uid, index):
     action = HatchAction(uid)
     data = action.get_model_info_by_index(index)
+    egg_id = data['key_id']
+    egg_config_model = ConfigModel('egg')
+    cur_egg_config = egg_config_model.get_config_by_id(egg_id)
+    if cur_egg_config is False:
+        return False
+    open_type = cur_egg_config.get('open_type')
+    open_cost = cur_egg_config.get('open_cost')
+    print(open_type, open_cost)
+    user_action = UserAction(uid)
+    if open_type == 'gold':
+        check_cost = user_action.reduce_gold(open_cost)
+    else:
+        check_cost = user_action.reduce_diamond(open_cost)
+    if check_cost is False:
+        return False
+    action = HatchAction(uid)
+    if action.remove_model(index):
+        return machine_logic.open_egg(uid, egg_id)
+    else:
+        return False
+
+
+def hatch_open(uid, index):
+    action = HatchAction(uid)
+    # 这里需要验证时间的
+    data = action.get_model_info_by_index(index)
+    cur_time = time.time()
+    need_time = 3000  # 需要的时间 先写死
+    finish_time = int(data['mark_at']) - int(data['ad']) + need_time
+    if cur_time < finish_time:
+        # 时间没到
+        print('not ready', cur_time, finish_time, finish_time - cur_time)
+        return False
     egg_id = data['key_id']
     if action.remove_model(index):
         return machine_logic.open_egg(uid, egg_id)

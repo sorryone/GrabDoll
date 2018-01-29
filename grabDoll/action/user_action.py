@@ -10,8 +10,10 @@ class UserAction(BaseModel):
         self.gold_str = 'gold'
         self.diamond_str = 'diamond'
         self.vit_str = 'vit'
+        self.lv_str = 'lv'
+        self.exp_str = 'exp'
         self.max_vit_value = 100
-        self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', 'lv')
+        self.private_property = ('uid', 'name', 'gold', 'diamond', 'exp', 'vit', self.lv_str, self.exp_str)
         super(UserAction, self).__init__(
                     u_id, User, UserTable, UserTableSerializer, True)
 
@@ -41,7 +43,10 @@ class UserAction(BaseModel):
         cur_value = self.get_gold()
         if cur_value < ct:
             return False
-        return self.incr("gold", -ct)
+        res = self.incr("gold", -ct)
+        if res >= 0:
+            self.send_task_update('cost_gold', ct)
+        return res
 
     def add_diamond(self, ct):
         self.incr("diamond", ct)
@@ -51,8 +56,15 @@ class UserAction(BaseModel):
         cur_value = self.get_diamond()
         if cur_value < ct:
             return False
-        self.incr("diamond", -ct)
-        return True
+        res = self.incr("diamond", -ct)
+        if res >= 0:
+            self.send_task_update('cost_diamond', ct)
+        return res
+
+    def send_task_update(self, *data):
+        from grabDoll.action.record_action import RecordAction
+        re_action = RecordAction(self.u_id)
+        re_action.add_action_ct(*data)
 
     def add_exp(self, ct):
         self.incr("exp", ct)
@@ -94,6 +106,9 @@ class UserAction(BaseModel):
             else:
                 res[key] = 0
         return res
+
+    def update_info(self, info):
+        return self.set_values(info)
 
     # 创建新用户
     def create_model(self):

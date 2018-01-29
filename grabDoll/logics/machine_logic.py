@@ -6,8 +6,10 @@ from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
+from grabDoll.action.record_action import RecordAction
 from grabDoll.models.config_model import ConfigModel
 import grabDoll.logics.book_logic as book_logic
+import grabDoll.logics.user as user_logic
 import time
 import random
 __author__ = 'du_du'
@@ -43,13 +45,17 @@ def reset_machine(uid, mach_id):
     egg_refresh_time = note_model.get_machine_create_time(mach_id)
     cd = 600
     # 剩余时间
-    remain_time = cur_time - egg_refresh_time - cd
-    cost_gold = 100
-    user_action = UserAction(uid)
-    cur_gold = user_action.get_gold()
-    if cur_gold < cost_gold:
-        return False
-    check_cost = user_action.reduce_gold(cost_gold)
+    remain_time = egg_refresh_time + cd - cur_time
+    if remain_time > 0:
+        cost_gold = 100
+        user_action = UserAction(uid)
+        cur_gold = user_action.get_gold()
+        if cur_gold < cost_gold:
+            return False
+        check_cost = user_action.reduce_gold(cost_gold)
+    else:
+        cost_gold = 0
+        check_cost = True
     # 需要先扣钱
     if check_cost:
         note_model.set_machine_create_time(mach_id)
@@ -65,12 +71,20 @@ def reset_machine(uid, mach_id):
 
 
 def start_grab(uid, key_id):
+    mach_action = MachineAction(uid)
+    egg = mach_action.get_egg_info(key_id)
+    if egg is False:
+        print("egg  is not exits")
+        return False
+    item_id = egg.get('id', False)
+    if item_id is False:
+        return False
     user_action = UserAction(uid)
     vit = user_action.get_vit()
     vit_cost = 1
     if vit < vit_cost or user_action.reduce_vit(vit_cost) is False:
         return False
-    config = ConfigModel('egg').get_config_by_id(key_id)
+    config = ConfigModel('egg').get_config_by_id(item_id)
     probability = int(config['lv']) / 100
     rand = random.random()
     res = dict()
@@ -92,9 +106,14 @@ def grab_egg(uid, key_id, eggs):
     if item_id is False:
         return False
     config = ConfigModel('egg').get_config_by_id(item_id)
-    if config['lv'] <= 2:
-        res = open_egg(uid, item_id)
+    print(config)
+    if config['lv'] < 2:
+        if mach_action.delete_egg(key_id):
+            res = open_egg(uid, item_id)
+        else:
+            return False
     else:
+        print('is hatch')
         hatch_action = HatchAction(uid)
         available_hatch = hatch_action.get_hatch_available()
         if available_hatch is None:
@@ -109,6 +128,7 @@ def grab_egg(uid, key_id, eggs):
     cur_eggs_keys = mach_action.get_egg_group(mach_id)
     values = {k: v for k, v in eggs.items() if k in cur_eggs_keys and k != key_id}
     mach_action.add_egg_list(values)
+    res['update_exp'] = user_logic.add_exp(uid, 1)
     return res
 
 
@@ -143,6 +163,8 @@ def open_egg(uid, egg_id):
         elif int(a_id) / 10000 == 4:
             if hero_action.get_doll_exist(a_id) is False:
                 res['doll'] = hero_action.add_model(a_id)
+                re_action = RecordAction(uid)
+                re_action.add_action_ct('get_hero', 1)
             else:
                 cur_hero = hero_action.get_doll_info_by_id(a_id)
                 hero_config_model = ConfigModel('doll_upgrade')
@@ -191,13 +213,20 @@ def open_egg(uid, egg_id):
 
 # 查看奖励
 def get_award(item_id):
-    ct = 2
-    data = dict()
-    data['gold'] = ct
-    doll_id = random.randint(40001, 40150)
-    data[doll_id] = 1
-    print('get_award', data)
-    return data
+    egg_config_model = ConfigModel('egg')
+    cur_egg_config = egg_config_model.get_config_by_id(item_id)
+    if cur_egg_config is False:
+        print('cur_egg_config is null')
+        return False
+    doll_id = cur_egg_config.get('doll_id')
+    hero_config_model = ConfigModel('doll')
+    hero_config = hero_config_model.get_config_by_id(doll_id)
+    if hero_config:
+        rand_value = random.random()
+        if rand_value < hero_config.get('rate', 0):
+            return {'gold': hero_config.get('gold', 1)}
+        return {doll_id: 1}
+    return False
 
 
 # 根据时间自动刷新娃娃蛋
@@ -241,6 +270,7 @@ def reset_machine_egg_info(uid, mach_id):
     if res:
         return data
     return False
+
 
 
 if __name__ == "__main__":

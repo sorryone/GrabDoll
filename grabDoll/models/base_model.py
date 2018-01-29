@@ -144,22 +144,23 @@ class BaseModel(object):
             return data
     """
 
+    # 获得多个人的信息
+    def get_all_by_userlist(self, userList, manydict={}):
+        if self.is_DBTable:
+            model_data = self.model.objects.filter(u_id__in=userList, **manydict)
+            data = self.modelSerializer(model_data, many=True).data
+            if len(data) == 1:
+                data = data[0]
+            return data
+        return False
+
     # 获取当前用户当前表的所有数据
     def get_all(self, manydict={}):
         if self.is_DBTable:
-            if not manydict:
-                model_data = self.model.objects.filter(u_id=self.u_id)
-                data = self.modelSerializer(model_data, many=True).data
-                if len(data) == 1:
-                    data = data[0]
-            else:
-                try:
-                    model_data = self.model.objects.get(
-                            u_id=self.u_id, **manydict)
-                except self.model.DoesNotExist:
-                    print(self.model.__class__, "Not Data Error")
-                    return None
-                data = self.modelSerializer(model_data).data
+            model_data = self.model.objects.filter(u_id=self.u_id, **manydict)
+            data = self.modelSerializer(model_data, many=True).data
+            if len(data) == 1:
+                data = data[0]
             return data
 
         elif self.is_KVTable:
@@ -245,6 +246,23 @@ class BaseModel(object):
             self.hash_model.set_values(mapping)
             return True
 
+    # 当前表写入批量数据
+    def update_values(self, mapping, manydict={}):
+        if self.is_DBTable:
+            model_data = self.model.objects.filter(u_id=self.u_id,
+                                                   **manydict)
+            for data in model_data:
+                for k, v in mapping.iteritems():
+                    if hasattr(data, str(k)):
+                        setattr(data, str(k), v)
+                data.save()
+            datas = self.modelSerializer(model_data, many=True).data
+            if len(datas) == 1:
+                datas = datas[0]
+            return datas
+        elif self.is_KVTable:
+            return False
+
     def incr(self, key, amount=1, manydict={}):
         if self.is_DBTable:
             value = self.model._meta.get_field(key)
@@ -280,17 +298,22 @@ class BaseModel(object):
             self.hash_model.incr(key, amount)
             return model_data.value
 
-    def remove(self, key):
+    def remove(self, key, manydict={}):
         if self.is_DBTable:
+            model_data = self.model.objects.filter(u_id=self.u_id, **manydict)
+            for i in model_data:
+                i.delete()
+
             return None
 
         elif self.is_KVTable:
+            if manydict:
+                return False
             try:
                 model_data = self.model.objects.get(u_id=self.u_id, key_id=key)
             except self.model.DoesNotExist:
                 print(self.model.__class__, "remove ERROR")
                 return None
-
             model_data.delete()
             self.hash_model.pop(key)
             return True

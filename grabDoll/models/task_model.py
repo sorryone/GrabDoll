@@ -6,29 +6,24 @@ from grabDoll.common.serializerutils import UnixEpochDateField
 __author__ = 'du_du'
 
 
-class MailModel(HashModel):
+class TaskModel(HashModel):
     pass
 
 
-class MailTable(models.Model):
+class TaskTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    key_id = models.CharField(max_length=32, unique=True)
-    fr_id = models.CharField(max_length=32,)
-    mType = models.IntegerField(default=0)
-    info = models.CharField(max_length=512,)
-    award = models.CharField(max_length=512,)
-    read = models.BooleanField(default=False)
-    can_delete = models.BooleanField(default=False)
-    is_delete = models.BooleanField(default=False)
+    key_id = models.IntegerField(default=0)
+    t_value = models.IntegerField(default=0)
+    is_award = models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
     modify_at = models.DateTimeField(auto_now=True)
 
 
-class MailTableSerializer(serializers.ModelSerializer):
+class TaskTableSerializer(serializers.ModelSerializer):
     create_at = UnixEpochDateField(required=False, allow_null=True)
     modify_at = UnixEpochDateField(required=False, allow_null=True)
 
     class Meta:
-        model = MailTable
+        model = TaskTable
         unique_together = (("u_id", "key_id"),)
         fields = '__all__'

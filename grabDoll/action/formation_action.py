@@ -47,6 +47,11 @@ class FormationAction(BaseModel):
             data[self.explore_formation_str] = self.change_list_by_ct(data[self.explore_formation_str], self.explore_length)
             return data
 
+    def get_private_info(self):
+        data = self.get_all()
+        keys_group = (self.income_str, self.fight_atk_str)
+        return data
+
     def get_income(self):
         res = self.get_value(self.income_str, 0)
         if isinstance(res, (int, long)):

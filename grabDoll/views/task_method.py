@@ -1,27 +1,21 @@
 # -*- coding: utf-8 -*-
-
 import json
 from lib.djhelper.api_view import api_render, api_view, api_result
-from grabDoll.logics import user as user_logic
-from grabDoll.logics import game_logic as game_logic
-__author__ = 'maxijie'
+from grabDoll.logics import task_logic
+__author__ = 'du_du'
 
 
 @api_view(["GET"])
 @api_result
-def get_user(request):
+def get_task_info(request):
     if request.method == "GET":
         try:
-            print('get_user', 'user')
             uid = request.query_params.get('uid')
-            open_key = request.query_params.get('openkey')
-            is_debug = request.query_params.get('isDebug')
         except Exception as e:
             print(e)
             return 1, "参数错误"
-
     try:
-        data = game_logic.get_game_info(uid, open_key, is_debug)
+        data = task_logic.get_task_info(uid)
         return 0, data
     except Exception as e:
         print(e)
@@ -30,21 +24,35 @@ def get_user(request):
 
 @api_view(["GET"])
 @api_result
-def get_user_data(request):
+def get_task_award(request):
     if request.method == "GET":
         try:
-            print('get_user_data', 'user')
             uid = request.query_params.get('uid')
-            open_key = request.query_params.get('openkey')
-            is_debug = request.query_params.get('isDebug')
+            task_id = int(request.query_params.get('task_id'))
         except Exception as e:
             print(e)
             return 1, "参数错误"
-
     try:
-        data = game_logic.get_user_data(uid, open_key, is_debug)
+        data = task_logic.get_task_award(uid, task_id)
         return 0, data
     except Exception as e:
         print(e)
         return 1, "数据错误"
 
+
+@api_view(["GET"])
+@api_result
+def get_box_award(request):
+    if request.method == "GET":
+        try:
+            uid = request.query_params.get('uid')
+            box_id = int(request.query_params.get('box_id'))
+        except Exception as e:
+            print(e)
+            return 1, "参数错误"
+    try:
+        data = task_logic.get_box_award(uid, box_id)
+        return 0, data
+    except Exception as e:
+        print(e)
+        return 1, "数据错误"
