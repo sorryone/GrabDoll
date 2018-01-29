@@ -84,6 +84,18 @@ def get_rcmd_friends(openid, openkey):
     return j_data
 
 
+def is_friend(openid, openkey, fopenid):
+    api = OpenAPIV3(appid, appkey, iplist)
+    pf = 'qzone'
+    j_data = api.call('v3/relation/is_friend', {
+        'pf': pf,
+        'openid': openid,
+        'openkey': openkey,
+        'fopenid': fopenid
+    })
+    return j_data
+
+
 def add_pal(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
