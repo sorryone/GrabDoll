@@ -60,10 +60,33 @@ def get_info(openid, openkey):
     return j_data
 
 
+# 获取推荐的好友列表
 def get_app_friends(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
     pf = 'qzone'
     j_data = api.call('/v3/relation/get_app_friends', {
+        'pf': pf,
+        'openid': openid,
+        'openkey': openkey
+    })
+    return j_data
+
+
+def get_rcmd_friends(openid, openkey):
+    api = OpenAPIV3(appid, appkey, iplist)
+    pf = 'qzone'
+    j_data = api.call('/v3/relation/get_rcmd_friends', {
+        'pf': pf,
+        'openid': openid,
+        'openkey': openkey
+    })
+    return j_data
+
+
+def add_pal(openid, openkey):
+    api = OpenAPIV3(appid, appkey, iplist)
+    pf = 'qzone'
+    j_data = api.call('fusion2.dialog.addPal', {
         'pf': pf,
         'openid': openid,
         'openkey': openkey
