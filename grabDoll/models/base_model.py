@@ -150,7 +150,8 @@ class BaseModel(object):
             model_data = self.model.objects.filter(u_id__in=userList, **manydict)
             data = self.modelSerializer(model_data, many=True).data
             if len(data) == 1:
-                data = data[0]
+                # data = data[0]
+                pass
             return data
         return False
 
