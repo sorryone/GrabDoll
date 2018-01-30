@@ -15,7 +15,7 @@ def get_rank_info(uid, open_key):
         'my_rank': 10111,
         'friend_list': friend_list,
         'all_list': top_list,
-        'list_info': get_my_friend_platform_info(all_list),
+        'list_info': get_my_friend_platform_info(list(all_list)),
     }
 
 
