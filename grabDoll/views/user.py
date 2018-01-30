@@ -9,40 +9,19 @@ __author__ = 'maxijie'
 
 @api_view(["GET"])
 @api_result
-def get_user(request):
-    if request.method == "GET":
-        try:
-            print('get_user', 'user')
-            uid = request.query_params.get('uid')
-            open_key = request.query_params.get('openkey')
-            is_debug = request.query_params.get('isDebug')
-        except Exception as e:
-            print(e)
-            return 1, "参数错误"
-
-    try:
-        data = game_logic.get_game_info(uid, open_key, is_debug)
-        return 0, data
-    except Exception as e:
-        print(e)
-        return 1, "数据错误"
-
-
-@api_view(["GET"])
-@api_result
 def get_user_data(request):
     if request.method == "GET":
         try:
             print('get_user_data', 'user')
             uid = request.query_params.get('uid')
             open_key = request.query_params.get('openkey')
-            is_debug = request.query_params.get('isDebug')
+            platform = request.query_params.get('platform')
         except Exception as e:
             print(e)
             return 1, "参数错误"
 
     try:
-        data = game_logic.get_user_data(uid, open_key, is_debug)
+        data = game_logic.get_user_data(uid, open_key, platform)
         return 0, data
     except Exception as e:
         print(e)

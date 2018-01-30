@@ -11,13 +11,7 @@ iplist = ('api.urlshare.cn',)
 pf = 'wanba_ts'     # qzone
 
 
-def get_user_info_by_platform(openid, openkey, is_debug=False):
-
-    if openid == 'VIP' and openkey == 'VIP':
-        print("IS VIP")
-        action = PlatformAction(openid)
-        return action.get_model_info()
-    print("NOT VIP")
+def get_user_info_by_platform(openid, openkey, platform):
     set_up_info = is_setup(openid, openkey)
     user_info = get_info(openid, openkey)
     if type(set_up_info) is str or type(set_up_info) is object:

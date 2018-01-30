@@ -25,8 +25,6 @@ def get_rank_info(uid, open_key):
 def get_top_100_list(uid):
     # 获取全区前100的 用户ID
     res = list()
-    res.append('Test10')
-    res.append('Test11')
     return res
 
 

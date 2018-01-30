@@ -5,6 +5,7 @@ from grabDoll.action.platform_action import PlatformAction
 from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.formation_action import FormationAction
 from grabDoll.logics import island_logic
+from grabDoll.logics import rank_logic
 import random
 __author__ = 'du_du'
 
@@ -25,9 +26,16 @@ def enter_friend_home(uid, f_id):
 
 # 申请成为好友
 def add_friend(uid, friend_id):
+    # 先确定好友存不存在
+    f_u_action = UserAction(friend_id)
+    if f_u_action.check_exist() is False:
+        return False
     friend_action = FriendAction(uid)
     friend_action.set_value(friend_id, {})
-    return True
+    res = {
+        'add': rank_logic.get_my_friend_platform_info(uid, [friend_id])
+    }
+    return res
 
 
 # 接受好友请求

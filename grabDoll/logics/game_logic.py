@@ -17,17 +17,14 @@ import time
 __author__ = 'du_du'
 
 
-def get_game_info(uid, open_key, is_debug=False):
-    return False
-
-
-def get_user_data(uid, open_key, is_debug=False):
+def get_user_data(uid, open_key, platform):
 
     print('get_user_data', 'logic')
-    platform_info = platform_logic.get_user_info_by_platform(uid, open_key, is_debug)
+    platform_info = platform_logic.get_user_info_by_platform(uid, open_key, platform)
     if platform_info is False:
         return False
 
+    # 需要获得一个用户的游戏里的唯一ID
     # 当日首次登陆的检查
     note_model = NoteModel(uid)
     last_refresh_time = note_model.get_login_time()
