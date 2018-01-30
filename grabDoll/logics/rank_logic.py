@@ -61,7 +61,7 @@ def get_my_friend_platform_info(uid, fir_list):
     r_dict_info = {}
     for data in r_info_data:
         r_dict_info[data['u_id']] = data
-    res = []
+    res = dict()
     for f_id in fir_list:
         item = {
             'id': f_id,
@@ -71,7 +71,7 @@ def get_my_friend_platform_info(uid, fir_list):
         }
         if item.get('platform') is False or item.get('userInfo') is False:
             continue
-        res.append(item)
+        res[f_id] = item
     return res
 
 
