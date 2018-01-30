@@ -11,7 +11,6 @@ class FriendAction(BaseModel):
         super(FriendAction, self).__init__(
                     u_id, FriendModel, FriendTable, FriendTableSerializer, False)
 
-    # 移除当前娃娃机里的娃娃蛋
     def get_model_info(self):
         data = self.get_all()
         res = dict()
