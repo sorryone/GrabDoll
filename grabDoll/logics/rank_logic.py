@@ -54,13 +54,13 @@ def get_my_friend_platform_info(uid, fir_list):
 
     p_dict_info = {}
     for data in p_info_data:
-        p_dict_info[data['uid']] = data
+        p_dict_info[data['u_id']] = data
     u_dict_info = {}
     for data in u_info_data:
-        u_dict_info[data['uid']] = data
+        u_dict_info[data['u_id']] = data
     r_dict_info = {}
     for data in r_info_data:
-        r_dict_info[data['uid']] = data
+        r_dict_info[data['u_id']] = data
     res = dict()
     for f_id in fir_list:
         item = {
