@@ -13,7 +13,7 @@ def get_rank_info(uid, open_key):
     all_list = set(top_list + friend_list)
     list_info = get_my_friend_platform_info(uid, list(all_list))
     f_list = [f_id for f_id in friend_list if f_id in list_info]
-    print friend_list - f_list
+    print set(friend_list) - set(f_list)
     return {
         'my_rank': 10111,
         'friend_list': f_list,
