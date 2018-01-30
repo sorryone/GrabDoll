@@ -8,6 +8,7 @@ __author__ = 'du_du'
 appid = 1106233605
 appkey = 'STwl4MAK67bcemOd'
 iplist = ('openapi.sparta.html5.qq.com',)
+pf = 'wanba_ts'     # qzone
 
 
 def get_user_info_by_platform(openid, openkey, is_debug=False):
@@ -51,7 +52,6 @@ def get_user_info_by_platform(openid, openkey, is_debug=False):
 
 def get_info(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
-    pf = 'qzone'
     j_data = api.call('/v3/user/get_info', {
         'pf': pf,
         'openid': openid,
@@ -63,7 +63,6 @@ def get_info(openid, openkey):
 # 获取推荐的好友列表
 def get_app_friends(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
-    pf = 'qzone'
     j_data = api.call('/v3/relation/get_app_friends', {
         'pf': pf,
         'openid': openid,
@@ -75,7 +74,6 @@ def get_app_friends(openid, openkey):
 # 这个接口需要申请
 def get_rcmd_friends(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
-    pf = 'qzone'
     j_data = api.call('/v3/relation/get_rcmd_friends', {
         'pf': pf,
         'openid': openid,
@@ -86,7 +84,6 @@ def get_rcmd_friends(openid, openkey):
 
 def is_friend(openid, openkey, fopenid):
     api = OpenAPIV3(appid, appkey, iplist)
-    pf = 'qzone'
     j_data = api.call('v3/relation/is_friend', {
         'pf': pf,
         'openid': openid,
@@ -98,7 +95,6 @@ def is_friend(openid, openkey, fopenid):
 
 def add_pal(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
-    pf = 'qzone'
     j_data = api.call('fusion2.dialog.addPal', {
         'pf': pf,
         'openid': openid,
@@ -109,7 +105,6 @@ def add_pal(openid, openkey):
 
 def is_setup(openid, openkey):
     api = OpenAPIV3(appid, appkey, iplist)
-    pf = 'qzone'
     j_data = api.call('/v3/user/is_setup', {
         'pf': pf,
         'openid': openid,
