@@ -54,7 +54,7 @@ def get_user_data(uid, open_key, is_debug=False):
         'note': machine_logic.get_note_info(uid),
         'hatch': hatch_logic.get_hatch_info(uid),
         'book': machine_logic.get_book_info(uid),
-        'rank': rank_logic.get_rank_info(uid),
+        'rank': rank_logic.get_rank_info(uid, open_key),
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
         'pve': pve_logic.get_pve_info(uid),

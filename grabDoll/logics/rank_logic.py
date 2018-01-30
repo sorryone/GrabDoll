@@ -7,8 +7,8 @@ from grabDoll.action.formation_action import FormationAction
 __author__ = 'du_du'
 
 
-def get_rank_info(uid):
-    friend_list = get_my_friend_list(uid)
+def get_rank_info(uid, open_key):
+    friend_list = get_my_friend_list(uid, open_key)
     top_list = get_top_100_list(uid)
     all_list = set(top_list + friend_list)
     return {
@@ -28,14 +28,21 @@ def get_top_100_list(uid):
 
 
 # 我的好友列表
-def get_my_friend_list(uid):
-    action = FriendAction(uid)
-    data = action.get_keys()
-    return data
+def get_my_friend_list(uid, open_key):
+    from grabDoll.logics import platform_logic
+    data = platform_logic.get_app_friends(uid, open_key)
+    return data.get('items', [])
 
 
 def get_my_rank_info(uid):
     res = dict()
+    return res
+
+
+# 我的好友平台信息列表
+def get_my_friend_platform_info(uid, fir_list):
+    p_action = PlatformAction(uid)
+    res = p_action.get_all_by_userlist(fir_list)
     return res
 
 
