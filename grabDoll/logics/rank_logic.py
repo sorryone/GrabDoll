@@ -31,7 +31,7 @@ def get_top_100_list(uid):
 def get_my_friend_list(uid, open_key):
     from grabDoll.logics import platform_logic
     data = platform_logic.get_app_friends(uid, open_key)
-    res = [item.openid for item in data.get('items', [])]
+    res = [str(item['openid'])for item in data.get('items', [])]
     return res
 
 
