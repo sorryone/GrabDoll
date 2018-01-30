@@ -43,7 +43,32 @@ def get_my_rank_info(uid):
 # 我的好友平台信息列表
 def get_my_friend_platform_info(uid, fir_list):
     p_action = PlatformAction(uid)
-    res = p_action.get_all_by_userlist(fir_list)
+    u_action = UserAction(uid)
+    f_action = FormationAction(uid)
+    p_info_data = p_action.get_all_by_userlist(fir_list)
+    u_info_data = u_action.get_all_by_userlist(fir_list)
+    r_info_data = f_action.get_all_by_userlist(fir_list)
+
+    p_dict_info = {}
+    for data in p_info_data:
+        p_dict_info[data['uid']] = data
+    u_dict_info = {}
+    for data in u_info_data:
+        u_dict_info[data['uid']] = data
+    r_dict_info = {}
+    for data in r_info_data:
+        r_dict_info[data['uid']] = data
+    res = dict()
+    for f_id in fir_list:
+        item = {
+            'id': f_id,
+            'platform': p_dict_info.get(f_id, False),
+            'userInfo': u_dict_info.get(f_id, False),
+            'formation': r_dict_info.get(f_id, False),
+        }
+        if item.get('platform') is False or item.get('userInfo') is False:
+            continue
+        res.append(item)
     return res
 
 
