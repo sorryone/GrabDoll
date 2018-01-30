@@ -7,7 +7,7 @@ __author__ = 'du_du'
 
 appid = 1106233605
 appkey = 'STwl4MAK67bcemOd'
-iplist = ('openapi.sparta.html5.qq.com',)
+iplist = ('api.urlshare.cn',)
 pf = 'wanba_ts'     # qzone
 
 
