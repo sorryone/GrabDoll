@@ -30,7 +30,6 @@ def get_user_data(open_id, open_key, platform):
     if game_user_id is False:
         game_user_id = a_action.create_model(open_id, platform)
     uid = game_user_id
-
     # 当日首次登陆的检查
     note_model = NoteModel(uid)
     last_refresh_time = note_model.get_login_time()

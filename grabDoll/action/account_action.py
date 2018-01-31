@@ -34,7 +34,6 @@ class AccountAction(BaseModel):
         str_id = str(system_id)[0:str_id_len]
         game_u_id = '%d%d%d%s' % (head_id, platform, self.get_last_id(), str_id)
         self.u_id = game_u_id
-        return self.u_id
         if self.set_values({self.open_id_str: open_id, self.platform_str: platform}):
             return self.u_id
         return False
