@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db.models.fields import IntegerField
 # from grabDoll import models
+from django.db.models import Avg,Max
 __author__ = 'maxijie'
 
 """
@@ -152,6 +153,28 @@ class BaseModel(object):
             if len(data) == 1:
                 # data = data[0]
                 pass
+            return data
+        return False
+
+    # 获取上一个用户的ID
+    def get_last_id(self):
+        if self.is_DBTable:
+            try:
+                last_id = self.model.objects.aggregate(Max('id')).values()[0]
+            except self.model.DoesNotExist:
+                print(self.model.__class__, "No Data")
+                return 1
+
+            return last_id
+        return 0
+
+    # 获取账号
+    def get_user_id_by_matching(self, manydict={}):
+        if self.is_DBTable:
+            model_data = self.model.objects.filter(**manydict)
+            data = self.modelSerializer(model_data, many=True).data
+            if len(data) > 1:
+                raise ValueError
             return data
         return False
 
