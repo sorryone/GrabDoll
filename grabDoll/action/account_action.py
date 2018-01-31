@@ -13,7 +13,8 @@ class AccountAction(BaseModel):
         self.account_id_str = 'account_id'
         self.open_id_str = 'open_id'
         self.platform_str = 'platform'
-        self.account_len = 5
+        self.account_ran_len = 5
+        self.head_rate = 10000000
         super(AccountAction, self).__init__(
                     u_id, AccountModel, AccountTable, AccountTableSerializer, True)
 
@@ -28,8 +29,8 @@ class AccountAction(BaseModel):
     def create_model(self, open_id, platform):
         system_id = uuid.uuid3(uuid.NAMESPACE_DNS, open_id + platform).int
         last_id = self.get_last_id()
-        head_id = max(1, last_id/10000000)
-        str_id_len = max(self.account_len - len(str(last_id)), 1)
+        head_id = max(1, last_id/self.head_rate)
+        str_id_len = max(self.account_ran_len - len(str(last_id)), 1)
         str_id = str(system_id)[0:str_id_len]
         game_u_id = head_id + self.get_last_id() + str_id
         self.u_id = game_u_id
