@@ -13,18 +13,24 @@ from grabDoll.logics import pve_logic as pve_logic
 from grabDoll.logics import mail_logic as mail_logic
 from grabDoll.models.note_model import NoteModel
 from grabDoll.action.record_action import RecordAction
+from grabDoll.action.account_action import AccountAction
 import time
 __author__ = 'du_du'
 
 
-def get_user_data(uid, open_key, platform):
+def get_user_data(open_id, open_key, platform):
 
     print('get_user_data', 'logic')
-    platform_info = platform_logic.get_user_info_by_platform(uid, open_key, platform)
+    platform_info = platform_logic.get_user_info_by_platform(open_id, open_key, platform)
     if platform_info is False:
         return False
-
     # 需要获得一个用户的游戏里的唯一ID
+    a_action = AccountAction('')
+    game_user_id = a_action.get_model_info_by_id(open_id, platform)
+    if game_user_id is False:
+        game_user_id = a_action.create_model(open_id, platform)
+    uid = game_user_id
+
     # 当日首次登陆的检查
     note_model = NoteModel(uid)
     last_refresh_time = note_model.get_login_time()
@@ -44,6 +50,7 @@ def get_user_data(uid, open_key, platform):
     r_action = RecordAction(uid)
     r_info = r_action.get_model_info()
     return {
+        'game_user_id': uid,
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
         'inventory': inventory_logic.get_inventory_info(uid),
