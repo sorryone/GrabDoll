@@ -24,7 +24,7 @@ class AccountAction(BaseModel):
 
     def get_model_info_by_id(self, open_id, platform):
         data = self.get_user_id_by_matching({self.open_id_str: open_id, self.platform_str: platform})
-        if data is False or len(data):
+        if data is False or len(data) == 0:
             return False
         return data
 
