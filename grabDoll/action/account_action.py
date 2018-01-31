@@ -27,7 +27,7 @@ class AccountAction(BaseModel):
         return data
 
     def create_model(self, open_id, platform):
-        system_id = uuid.uuid3(uuid.NAMESPACE_DNS, open_id + platform).int
+        system_id = uuid.uuid3(uuid.NAMESPACE_DNS, open_id + str(platform)).int
         last_id = self.get_last_id()
         head_id = max(1, last_id/self.head_rate)
         str_id_len = max(self.account_ran_len - len(str(last_id)), 1)
