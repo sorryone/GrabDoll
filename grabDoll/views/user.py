@@ -15,7 +15,7 @@ def get_user_data(request):
             print('get_user_data', 'user')
             uid = request.query_params.get('openid').encode('utf-8')
             open_key = request.query_params.get('openkey').encode('utf-8')
-            platform = request.query_params.get('platform')
+            platform = int(request.query_params.get('platform'))
         except Exception as e:
             print(e)
             return 1, "参数错误"
