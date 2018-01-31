@@ -10,6 +10,7 @@ class AccountAction(BaseModel):
 
     def __init__(self, u_id):
         self.u_id = u_id
+        self.u_id_str = 'u_id'
         self.open_id_str = 'open_id'
         self.platform_str = 'platform'
         self.account_ran_len = 5
@@ -25,7 +26,7 @@ class AccountAction(BaseModel):
         data = self.get_user_id_by_matching({self.open_id_str: open_id, self.platform_str: platform})
         if data is False or len(data) == 0:
             return False
-        return data
+        return data[self.u_id_str]
 
     def create_model(self, open_id, platform):
         system_id = uuid.uuid3(uuid.NAMESPACE_DNS, str(open_id) + str(platform)).int
