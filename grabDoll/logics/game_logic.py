@@ -20,7 +20,6 @@ __author__ = 'du_du'
 
 def get_user_data(open_id, open_key, platform):
 
-    print('get_user_data', 'logic')
     platform_info = platform_logic.get_user_info_by_platform(open_id, open_key, platform)
     if platform_info is False:
         return False
@@ -30,6 +29,7 @@ def get_user_data(open_id, open_key, platform):
     if game_user_id is False:
         game_user_id = a_action.create_model(open_id, platform)
     uid = game_user_id
+    print('game_user_id', game_user_id)
     # 当日首次登陆的检查
     note_model = NoteModel(uid)
     last_refresh_time = note_model.get_login_time()

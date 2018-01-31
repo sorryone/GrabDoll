@@ -20,10 +20,6 @@ def get_user_info_by_platform(openid, openkey, platform):
         user_info = eval(user_info)
     if set_up_info['ret'] != 0 or user_info['ret'] != 0:
         return False
-
-    print("Start Dict")
-    print(set_up_info)
-    print(user_info)
     res = dict()
     if set_up_info['setuped'] == 1:
         print("a new user enter game")
@@ -31,7 +27,6 @@ def get_user_info_by_platform(openid, openkey, platform):
         res['create_time'] = time.time()
     else:
         print("old user enter game")
-
     canshu_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
     for canshu in canshu_group:
         if canshu in user_info:
@@ -40,7 +35,6 @@ def get_user_info_by_platform(openid, openkey, platform):
     print(res)
     action = PlatformAction(openid)
     action.set_values(res)
-    print('return value')
     return res
 
 
