@@ -14,3 +14,4 @@ from grabDoll.models import pve_model
 from grabDoll.models import record_model
 from grabDoll.models import mail_model
 from grabDoll.models import task_model
+from grabDoll.models import account_model

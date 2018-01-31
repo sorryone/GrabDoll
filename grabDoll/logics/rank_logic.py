@@ -4,6 +4,7 @@ from grabDoll.action.user_action import UserAction
 from grabDoll.action.friend_action import FriendAction
 from grabDoll.action.platform_action import PlatformAction
 from grabDoll.action.formation_action import FormationAction
+import uuid
 __author__ = 'du_du'
 
 
@@ -26,6 +27,11 @@ def get_top_100_list(uid):
     # 获取全区前100的 用户ID
     res = list()
     return res
+
+
+def test_uuid(openid, platform):
+    uu = uuid.uuid3(openid + platform)
+    return uu
 
 
 # 我的好友列表
