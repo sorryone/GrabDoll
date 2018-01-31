@@ -13,7 +13,7 @@ def get_user_data(request):
     if request.method == "GET":
         try:
             print('get_user_data', 'user')
-            uid = request.query_params.get('uid')
+            uid = request.query_params.get('openid')
             open_key = request.query_params.get('openkey')
             platform = request.query_params.get('platform')
         except Exception as e:
