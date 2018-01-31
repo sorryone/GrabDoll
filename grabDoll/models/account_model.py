@@ -12,7 +12,6 @@ class AccountModel(HashModel):
 
 class AccountTable(models.Model):
     u_id = models.IntegerField(default=0, unique=True)
-    account_id = models.CharField(max_length=32, unique=True)
     open_id = models.CharField(max_length=32)
     platform = models.IntegerField(default=0)
     create_at = models.DateTimeField(auto_now_add=True)
@@ -25,5 +24,5 @@ class AccountTableSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AccountTable
-        unique_together = (("u_id", "open_id", "platform", "account_id"),)
+        unique_together = (("u_id", "open_id", "platform"),)
         fields = '__all__'

@@ -10,7 +10,6 @@ class AccountAction(BaseModel):
 
     def __init__(self, u_id):
         self.u_id = u_id
-        self.account_id_str = 'account_id'
         self.open_id_str = 'open_id'
         self.platform_str = 'platform'
         self.account_ran_len = 5
