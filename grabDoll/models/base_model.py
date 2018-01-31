@@ -164,8 +164,8 @@ class BaseModel(object):
             except self.model.DoesNotExist:
                 print(self.model.__class__, "No Data")
                 return 1
-
-            return last_id
+            if last_id is not None:
+                return last_id
         return 0
 
     # 获取账号
