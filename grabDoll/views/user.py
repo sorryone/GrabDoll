@@ -19,7 +19,6 @@ def get_user_data(request):
         except Exception as e:
             print(e)
             return 1, "参数错误"
-
     try:
         data = game_logic.get_user_data(uid, open_key, platform)
         return 0, data

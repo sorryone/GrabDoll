@@ -6,8 +6,6 @@ from django.conf import settings
 __author__ = 'du_du'
 
 config_path = r'../config/'
-file_name = 'machine.xlsx'
-
 
 def read_xls_file(path, name):
     xls_data = get_data(path+name)
@@ -33,7 +31,8 @@ def add_redis(data, name):
 
 
 def test():
-    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade', 'pve', 'turntable', 'task', 'user_lv ', 'box')
+    config_group = ('egg', 'item', 'artifact', 'doll', 'machine', 'shop', 'doll_upgrade', 'pve', 'turntable', 'task',
+                    'user_lv', 'box', 'guild')
     data = dict()
     for config_name in config_group:
         data[config_name] = ConfigModel(config_name).get_model_info()
@@ -54,6 +53,7 @@ def read_files():
     read_xls_file(config_dir, 'task.xlsx')
     read_xls_file(config_dir, 'user_lv.xlsx')
     read_xls_file(config_dir, 'box.xlsx')
+    read_xls_file(config_dir, 'guild.xlsx')
     print test()
 
 
