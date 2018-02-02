@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hero_action import HeroAction
-from grabDoll.action.record_action import RecordAction
 from grabDoll.action.mail_action import MailAction
 from grabDoll.logics import artifact_logic
+from grabDoll.logics import record_logic
 import random
 import time
 import math
@@ -109,8 +108,7 @@ def catch(uid, opponent):
         award['gold'] = gold
         res['update'] = update_data
         result = True
-        re_action = RecordAction(uid)
-        re_action.add_action_ct('rob', 1)
+        record_logic.add_record(uid, 'rob', 1)
         mail_action = MailAction(opponent)
         mail_action.add_fight_message(uid)
     else:

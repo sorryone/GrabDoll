@@ -20,7 +20,7 @@ class TaskAction(BaseModel):
     def get_model_info(self):
         data = self.get_all()
         res = []
-        if len(data) == 0 and self.add_task('100005'):
+        if len(data) == 0 and self.add_task(100005):
             # 重新获取一次
             data = self.get_all()
         if isinstance(data, (list,)):

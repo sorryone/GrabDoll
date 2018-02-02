@@ -6,10 +6,10 @@ from grabDoll.action.hero_action import HeroAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hatch_action import HatchAction
 from grabDoll.action.book_action import HandBookAction
-from grabDoll.action.record_action import RecordAction
 from grabDoll.models.config_model import ConfigModel
 import grabDoll.logics.book_logic as book_logic
 import grabDoll.logics.user as user_logic
+from grabDoll.logics import record_logic
 import time
 import random
 __author__ = 'du_du'
@@ -163,8 +163,7 @@ def open_egg(uid, egg_id):
         elif int(a_id) / 10000 == 4:
             if hero_action.get_doll_exist(a_id) is False:
                 res['doll'] = hero_action.add_model(a_id)
-                re_action = RecordAction(uid)
-                re_action.add_action_ct('get_hero', 1)
+                record_logic.add_record(uid, 'get_hero', 1)
             else:
                 cur_hero = hero_action.get_doll_info_by_id(a_id)
                 hero_config_model = ConfigModel('doll_upgrade')

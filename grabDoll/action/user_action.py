@@ -62,9 +62,8 @@ class UserAction(BaseModel):
         return res
 
     def send_task_update(self, *data):
-        from grabDoll.action.record_action import RecordAction
-        re_action = RecordAction(self.u_id)
-        re_action.add_action_ct(*data)
+        from grabDoll.logics import record_logic
+        record_logic.add_record(self.u_id, *data)
 
     def add_exp(self, ct):
         self.incr("exp", ct)
