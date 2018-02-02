@@ -12,7 +12,7 @@ class TaskModel(HashModel):
 
 class TaskTable(models.Model):
     u_id = models.CharField(max_length=32, unique=True)
-    key_id = models.IntegerField(default=0)
+    key_id = models.CharField(max_length=32)
     t_value = models.IntegerField(default=0)
     is_award = models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
