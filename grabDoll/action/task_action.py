@@ -42,4 +42,9 @@ class TaskAction(BaseModel):
 
     def get_cur_task_group(self):
         data = self.get_all({self.is_award_str: 0})
-        return data
+        res = []
+        if isinstance(data, (list,)):
+            res = data
+        elif isinstance(data, (dict, collections.OrderedDict)):
+            res.append(data)
+        return res

@@ -13,7 +13,7 @@ def add_record(u_id, action_str, ct):
     r_action.add_action_ct(action_str, ct)
     t_action = TaskAction(u_id)
     cur_task = t_action.get_cur_task_group()
-    cur_task_ids = [task_info[t_action.key_id_str] for task_info in cur_task.items()]
+    cur_task_ids = [task_info[t_action.key_id_str] for task_info in cur_task.values()]
     print cur_task_ids
     config_model = ConfigModel('task')
     task_config_groups = config_model.get_model_info()
