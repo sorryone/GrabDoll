@@ -14,6 +14,7 @@ from grabDoll.logics import mail_logic as mail_logic
 from grabDoll.models.note_model import NoteModel
 from grabDoll.action.record_action import RecordAction
 from grabDoll.action.account_action import AccountAction
+from grabDoll.logics import task_logic as task_logic
 import time
 __author__ = 'du_du'
 
@@ -64,6 +65,7 @@ def get_user_data(open_id, open_key, platform):
         'mail': mail_logic.get_mail_info(uid),
         'refresh': refresh_config,
         'record': r_info,
+        'task': task_logic.get_task_info(uid),
     }
 
 

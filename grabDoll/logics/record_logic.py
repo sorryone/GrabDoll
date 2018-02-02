@@ -17,4 +17,6 @@ def add_record(u_id, action_str, ct):
     task_math_ids = [config_id for config_id, config_data in task_config_groups.items() if
                      str(config_data.get('action_type')) + str(config_data.get('action_target')) == action_str and
                      config_data.get('mainType') != 'day']
+    cur_task = t_action.get_cur_task_group()
+    print cur_task
     print task_math_ids

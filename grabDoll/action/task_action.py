@@ -20,11 +20,18 @@ class TaskAction(BaseModel):
     def get_model_info(self):
         data = self.get_all()
         res = []
+        if len(data) == 0 and self.add_task('100005'):
+            # 重新获取一次
+            data = self.get_all()
         if isinstance(data, (list,)):
             res = data
         elif isinstance(data, (dict, collections.OrderedDict)):
             res.append(data)
         return res
+
+    def add_task(self, task_id):
+        data = {self.key_id_str: task_id}
+        return self.set_values(data, data)
 
     def get_task_info_by_id(self, task_id):
         data = self.get_all({self.key_id_str: task_id})
@@ -33,5 +40,6 @@ class TaskAction(BaseModel):
     def update_task_info_by_id(self, task_id, update_info):
         return self.set_values(update_info, {self.key_id_str: task_id})
 
-    def get_award(self):
-        return 0
+    def get_cur_task_group(self):
+        data = self.get_all({self.is_award_str: 0})
+        return data
