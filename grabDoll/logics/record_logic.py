@@ -22,11 +22,12 @@ def add_record(u_id, action_str, ct):
                      config_data.get('mainType') != 'day' and
                      config_id in cur_task_ids]
 
+    if len(task_math_ids) == 0:
+        return 0
     task_id = task_math_ids[0]
     t_action.add_value(ct, task_id)
     if task_config_groups[task_id]['mainType'] == 'guild' \
             and task_data[task_id][t_action.value_str] + ct >= task_config_groups[task_id]['action_value']:
         t_action.add_task(task_config_groups[task_id]['next_task'])
         print('add task', task_id)
-
     return task_math_ids
