@@ -15,6 +15,6 @@ def add_record(u_id, action_str, ct):
     config_model = ConfigModel('task')
     task_config_groups = config_model.get_model_info()
     task_math_ids = [config_id for config_id, config_data in task_config_groups.items() if
-                     config_data.get('action_type') + config_data.get('action_target') == action_str and
+                     str(config_data.get('action_type')) + str(config_data.get('action_target')) == action_str and
                      config_data.get('mainType') != 'day']
     print task_math_ids
