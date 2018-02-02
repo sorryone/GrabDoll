@@ -137,6 +137,7 @@ def save_eggs_pos_info():
 
 
 def open_egg(uid, egg_id):
+    print ('open_egg', egg_id)
     # 奖励
     awards = get_award(egg_id)
     item_action = ItemAction(uid)

@@ -6,6 +6,7 @@ __author__ = 'du_du'
 
 
 def add_record(u_id, action_str, ct):
+    print ('add_record', action_str, ct)
     r_action = RecordAction(u_id)
     r_action.add_action_ct(action_str, ct)
     t_action = TaskAction(u_id)
@@ -21,10 +22,11 @@ def add_record(u_id, action_str, ct):
                      str(config_data.get('action_type')) + str(config_data.get('action_target')) == action_str and
                      config_data.get('mainType') != 'day' and
                      config_id in cur_task_ids]
-
+    print ('task_math_ids', task_math_ids)
     if len(task_math_ids) == 0:
         return 0
     task_id = task_math_ids[0]
+    print ('task_id', task_id)
     t_action.add_value(ct, task_id)
     if task_config_groups[task_id]['mainType'] == 'guild' \
             and task_data[task_id][t_action.value_str] + ct >= task_config_groups[task_id]['action_value']:
