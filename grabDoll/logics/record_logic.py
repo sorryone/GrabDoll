@@ -13,11 +13,11 @@ def add_record(u_id, action_str, ct):
     r_action.add_action_ct(action_str, ct)
     t_action = TaskAction(u_id)
     cur_task = t_action.get_cur_task_group()
-    cur_task_ids = [task_info[t_action.key_id_str] for index, task_info in enumerate(cur_task)]
+    cur_task_ids = [int(task_info[t_action.key_id_str]) for index, task_info in enumerate(cur_task)]
     print cur_task_ids
     config_model = ConfigModel('task')
     task_config_groups = config_model.get_model_info()
-    task_math_ids = [config_id for config_id, config_data in task_config_groups.items() if
+    task_math_ids = [int(config_id) for config_id, config_data in task_config_groups.items() if
                      str(config_data.get('action_type')) + str(config_data.get('action_target')) == action_str and
                      config_data.get('mainType') != 'day' and
                      config_id in cur_task_ids]
