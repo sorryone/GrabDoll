@@ -38,7 +38,7 @@ class TaskAction(BaseModel):
         return data
 
     def add_value(self, value, task_id):
-        self.incr(self.value_str, value, {{self.key_id_str: task_id}})
+        self.incr(self.value_str, value, {self.key_id_str: task_id})
 
     def update_task_info_by_id(self, task_id, update_info):
         return self.set_values(update_info, {self.key_id_str: task_id})
