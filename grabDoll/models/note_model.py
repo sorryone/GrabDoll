@@ -9,6 +9,8 @@ class NoteModel(HashModel):
     def __init__(self, uid):
         self.login_time_str = 'login_time'
         self.buy_vit_ct_str = 'buy_vit_ct'
+        self.add_task_str = 'add_task'
+        self.complete_task_str = 'complete_task'
         HashModel.__init__(self, uid)
 
     def get_model_info(self):
@@ -80,6 +82,12 @@ class NoteModel(HashModel):
         if res == 0 or res is not False:
             return True
         return False
+
+    def mark_complete_task(self, task_id):
+        return self.set_value(self.complete_task_str, task_id)
+
+    def mark_new_task(self, task_id):
+        return self.set_value(self.add_task_str, task_id)
 
     def get_redis(self):
         self.get_client()

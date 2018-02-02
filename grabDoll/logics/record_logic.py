@@ -2,6 +2,7 @@
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.task_action import TaskAction
 from grabDoll.action.record_action import RecordAction
+from grabDoll.models.note_model import NoteModel
 __author__ = 'du_du'
 
 
@@ -22,14 +23,21 @@ def add_record(u_id, action_str, ct):
                      str(config_data.get('action_type')) + str(config_data.get('action_target')) == action_str and
                      config_data.get('mainType') != 'day' and
                      config_id in cur_task_ids]
-    print ('task_math_ids', task_math_ids)
     if len(task_math_ids) == 0:
         return 0
     task_id = task_math_ids[0]
-    print ('task_id', task_id)
-    t_action.add_value(ct, task_id)
+
     if task_config_groups[task_id]['mainType'] == 'guild' \
             and task_data[task_id][t_action.value_str] + ct >= task_config_groups[task_id]['action_value']:
         t_action.add_task(task_config_groups[task_id]['next_task'])
+        update_data = {
+            t_action.value_str: task_data[task_id][t_action.value_str] + ct,
+            t_action.is_award_str: True
+        }
+        t_action.update_task_info_by_id(task_id, update_data)
+        n_model = NoteModel(u_id)
+        n_model.add_buy_vit_ct()
         print('add task', task_id)
+    else:
+        t_action.add_value(ct, task_id)
     return task_math_ids
