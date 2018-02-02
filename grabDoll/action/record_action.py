@@ -75,6 +75,8 @@ class RecordAction(BaseModel):
         return data
 
     def add_action_ct(self, action_str, ct):
+        if action_str not in self.default_list:
+            return False
         return self.incr(action_str, ct, {self.key_str: self.day_id})
 
     def update_model_info(self, data):
