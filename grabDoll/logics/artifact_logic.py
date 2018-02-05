@@ -32,7 +32,7 @@ def upgrade_artifact(uid, artifact):
     item_model = ItemAction(uid)
     all_item_info = item_model.get_model_info()
     for a_id, ct in upgrade_items.iteritems():
-        if int(all_item_info.get(a_id)) < ct:
+        if int(all_item_info.get(a_id, 0)) < ct:
             print('消耗物品不够', a_id)
             return False
     for a_id, ct in upgrade_items.iteritems():
