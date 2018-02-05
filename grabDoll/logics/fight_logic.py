@@ -68,6 +68,7 @@ def fight_against(uid, opponent):
                 award['gold'] = award_fail_gold
         res['award'] = award
         res['result'] = result
+        record_logic.add_record(uid, 'fight', 1)
     return res
 
 
@@ -90,6 +91,7 @@ def guild_attack(uid):
         award[award_item] = award_item_ct
     res['award'] = award
     res['result'] = result
+    record_logic.add_record(uid, 'fight', 1)
     return res
 
 
@@ -154,4 +156,5 @@ def guild_catch(uid):
     award['gold'] = gold
     res['award'] = award
     res['result'] = True
+    record_logic.add_record(uid, 'rob', 1)
     return res
