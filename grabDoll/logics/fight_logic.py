@@ -13,12 +13,14 @@ __author__ = 'du_du'
 
 
 def fight_against(uid, opponent):
+    if opponent == 'VIP':
+        return guild_attack(uid)
     my_formation = FormationAction(uid)
     my_formation_info = my_formation.get_model_info()
     opponent_formation = FormationAction(opponent)
     opponent_info = opponent_formation.get_model_info()
-    my_atk = my_formation_info.get(opponent_formation.fight_atk_str)
-    opponent_atk = opponent_info.get(opponent_formation.fight_atk_str)
+    my_atk = my_formation_info.get(opponent_formation.fight_atk_str, 0)
+    opponent_atk = opponent_info.get(opponent_formation.fight_atk_str, 10000)
     my_art_info = artifact_logic.get_artifact_akt(uid)
     opponent_art_info = artifact_logic.get_artifact_akt(opponent)
     res = dict()
@@ -69,10 +71,33 @@ def fight_against(uid, opponent):
     return res
 
 
+def guild_attack(uid):
+    res = dict()
+    user_action = UserAction(uid)
+    # 体力的扣除
+    cur_vit = user_action.get_vit()
+    cost_vit = 1
+    if cur_vit < cost_vit:
+        return False
+    if user_action.reduce_vit(cost_vit) is False:
+        return False
+    award = dict()
+    item_action = ItemAction(uid)
+    result = True
+    award_item = 20010
+    award_item_ct = 1
+    if item_action.add_model(award_item, award_item_ct):
+        award[award_item] = award_item_ct
+    res['award'] = award
+    res['result'] = result
+    return res
+
+
 def eat_atk(uid, heroes_group, atk):
     hero_action = HeroAction(uid)
     heroes_info = hero_action.get_model_info()
-    check_hero_group = [hero for hero_id, hero in heroes_info.items() if hero_id in heroes_group and hero.get('hp', -1) > 0]
+    check_hero_group = [hero for hero_id, hero in heroes_info.items()
+                        if hero_id in heroes_group and hero.get('hp', -1) > 0]
     hero_ct = len(check_hero_group)
     if hero_ct == 0:
         return False
@@ -84,6 +109,8 @@ def eat_atk(uid, heroes_group, atk):
 
 
 def catch(uid, opponent):
+    if opponent == 'VIP':
+        return guild_catch(uid)
     award = dict()
     res = dict()
     opponent_formation = FormationAction(opponent)
@@ -118,3 +145,13 @@ def catch(uid, opponent):
     return res
 
 
+def guild_catch(uid):
+    award = dict()
+    res = dict()
+    gold = 100
+    user_action = UserAction(uid)
+    user_action.add_gold(gold)
+    award['gold'] = gold
+    res['award'] = award
+    res['result'] = True
+    return res
