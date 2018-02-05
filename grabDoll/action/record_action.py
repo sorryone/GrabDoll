@@ -26,7 +26,7 @@ class RecordAction(BaseModel):
         self.defend_victory_str = 'defend_victory'
         self.defend_fail_str = 'defend_fail'
         self.box_ct_str = 'box_ct'
-        self.artifact_ct_str = 'box_ct'
+        self.artifact_ct_str = 'artifact_ct'
         self.day_task_group_str = 'day_task_group'
         self.day_box_group_str = 'day_box_group'
         self.split_str = ','
