@@ -2,6 +2,7 @@
 from grabDoll.models.config_model import ConfigModel
 from grabDoll.action.artifact_action import ArtifactAction
 from grabDoll.action.item_action import ItemAction
+from grabDoll.logics import record_logic
 __author__ = 'du_du'
 
 
@@ -39,7 +40,10 @@ def upgrade_artifact(uid, artifact):
         remove_res = item_model.remove_model(a_id, ct)
         if remove_res is False:
             print (uid, '删除失败', a_id, ct)
-    return action.replace_model(artifact, next_id)
+    res = action.replace_model(artifact, next_id)
+    if res:
+        record_logic.add_record(uid, 'artifact', 1)
+    return res
 
 
 # 神器的能力

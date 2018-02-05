@@ -26,13 +26,15 @@ class RecordAction(BaseModel):
         self.defend_victory_str = 'defend_victory'
         self.defend_fail_str = 'defend_fail'
         self.box_ct_str = 'box_ct'
+        self.artifact_ct_str = 'box_ct'
         self.day_task_group_str = 'day_task_group'
         self.day_box_group_str = 'day_box_group'
         self.split_str = ','
         self.default_list = (self.key_str, self.point_str, self.grab_doll_str, self.get_hero_str, self.buy_vit_str,
                              self.cost_gold_str, self.rob_str, self.cost_diamond_str, self.fight_str,
                              self.fight_victory_str, self.fight_fail_str, self.defend_str, self.defend_victory_str,
-                             self.defend_fail_str, self.box_ct_str, self.day_task_group_str, self.day_box_group_str)
+                             self.defend_fail_str, self.box_ct_str, self.artifact_ct_str, self.day_task_group_str,
+                             self.day_box_group_str)
         # 今天的日期
         self.day_id = int(datetime.datetime.now().strftime('%Y%m%d'))
         super(RecordAction, self).__init__(
