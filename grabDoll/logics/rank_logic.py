@@ -43,6 +43,7 @@ def get_my_friend_list(uid, open_key):
     f_data = f_action.get_model_info()
     game_fri_list = [f_id for f_id in f_data.keys()]
     all_data = list(set(app_friends + game_fri_list))
+    all_data.append('VIP')
     return all_data
 
 
