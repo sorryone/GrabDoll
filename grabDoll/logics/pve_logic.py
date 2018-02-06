@@ -38,6 +38,9 @@ def open_pve(uid):
         p_action.is_start_str: True,
         p_action.boss_hp_str: pve_config_info.get('hp', 999),
     }
+    if update_date.get(p_action.pve_id_str) == p_action.default_pve_id:
+        # 如果是新手
+        update_date[p_action.boss_hp_str] = 0
     if p_action.set_values(update_date):
         return update_date
     return False
