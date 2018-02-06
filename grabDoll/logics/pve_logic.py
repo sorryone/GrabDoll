@@ -55,6 +55,9 @@ def refresh_pve_info(uid):
     if pve_info.get(p_action.is_start_str) is not True or pve_info.get(p_action.is_award_str) is True:
         return False
     if pve_info.get(p_action.pve_id_str) == p_action.default_pve_id:
+        my_atk = formation_logic.get_pve_atk(uid)
+        if my_atk <= 0:
+            return False
         # 如果是新手
         last_hp = 0
     else:
