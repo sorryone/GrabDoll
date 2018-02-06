@@ -105,8 +105,19 @@ def grab_egg(uid, key_id, eggs):
     item_id = egg.get('id', False)
     if item_id is False:
         return False
+
+    '''如果是新手的话 必出娃娃'''
+    hero_action = HeroAction(uid)
+    cur_hero_keys = hero_action.get_doll_keys()
+    if len(cur_hero_keys) == 0:
+        res = dict()
+        a_id = 40001
+        res['doll'] = hero_action.add_model(a_id)
+        return res
+    '''新手判定结束'''
     config = ConfigModel('egg').get_config_by_id(item_id)
     print(config)
+    # 需要一个判定 如果是新手 直接给一个固定的娃娃
     if config['lv'] < 2:
         if mach_action.delete_egg(key_id):
             res = open_egg(uid, item_id)
@@ -134,6 +145,14 @@ def grab_egg(uid, key_id, eggs):
 
 def save_eggs_pos_info():
     pass
+
+
+def add_guild_hero(uid):
+    hero_action = HeroAction(uid)
+    res = dict()
+    a_id = 40001
+    res['doll'] = hero_action.add_model(a_id)
+    return res
 
 
 def open_egg(uid, egg_id):
@@ -208,7 +227,6 @@ def open_egg(uid, egg_id):
     if unlock_next_book:
         res['egg'] = reset_machine_egg_info(uid, unlock_next_book)
     return res
-    pass
 
 
 # 查看奖励
