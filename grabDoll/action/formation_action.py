@@ -40,12 +40,16 @@ class FormationAction(BaseModel):
 
     def get_model_info(self):
         data = self.get_all()
-        if isinstance(data, (list,)):
-            return {}
-        else:
-            data[self.fight_formation_str] = self.change_list_by_ct(data[self.fight_formation_str], self.fight_length)
-            data[self.explore_formation_str] = self.change_list_by_ct(data[self.explore_formation_str], self.explore_length)
-            return data
+        # 判定是否是新用户
+        if len(data) == 0 and self.create_model():
+            # 重新获取一次
+            data = self.get_all()
+        data[self.fight_formation_str] = self.change_list_by_ct(data[self.fight_formation_str], self.fight_length)
+        data[self.explore_formation_str] = self.change_list_by_ct(data[self.explore_formation_str], self.explore_length)
+        return data
+
+    def create_model(self):
+        self.set_value(self.income_str, 0)
 
     def get_private_info(self):
         data = self.get_all()

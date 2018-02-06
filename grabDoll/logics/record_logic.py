@@ -29,7 +29,9 @@ def add_record(u_id, action_str, ct):
 
     if task_config_groups[task_id]['mainType'] == 'guild' \
             and task_data[task_id][t_action.value_str] + ct >= task_config_groups[task_id]['action_value']:
-        t_action.add_task(task_config_groups[task_id]['next_task'])
+        next_task = task_config_groups[task_id].get('next_task', False)
+        if next_task:
+            t_action.add_task(next_task)
         update_data = {
             t_action.value_str: task_data[task_id][t_action.value_str] + ct,
             t_action.is_award_str: True
