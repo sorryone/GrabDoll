@@ -30,15 +30,16 @@ def add_record(u_id, action_str, ct):
     if task_config_groups[task_id]['mainType'] == 'guild' \
             and task_data[task_id][t_action.value_str] + ct >= task_config_groups[task_id]['action_value']:
         next_task = task_config_groups[task_id].get('next_task', False)
+        #   n_model = NoteModel(u_id)
         if next_task:
             t_action.add_task(next_task)
+            #   n_model.mark_new_task(next_task)
         update_data = {
             t_action.value_str: task_data[task_id][t_action.value_str] + ct,
             t_action.is_award_str: True
         }
         t_action.update_task_info_by_id(task_id, update_data)
-        n_model = NoteModel(u_id)
-        n_model.add_buy_vit_ct()
+        #   n_model.mark_complete_task(task_id)
         print('add task', task_id)
     else:
         t_action.add_value(ct, task_id)
