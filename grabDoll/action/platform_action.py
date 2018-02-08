@@ -23,4 +23,5 @@ class PlatformAction(BaseModel):
     def test_model_info(self):
         start_time = time.time()
         data = self.get_all()
+        print data
         return time.time() - start_time
