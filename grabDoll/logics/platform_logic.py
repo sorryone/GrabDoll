@@ -11,31 +11,54 @@ iplist = ('api.urlshare.cn',)
 pf = 'wanba_ts'     # qzone
 
 
-def get_user_info_by_platform(openid, openkey, platform):
-    set_up_info = is_setup(openid, openkey)
-    user_info = get_info(openid, openkey)
-    if type(set_up_info) is str or type(set_up_info) is object:
-        set_up_info = eval(set_up_info)
-    if type(user_info) is str or type(user_info) is object:
-        user_info = eval(user_info)
-    if set_up_info['ret'] != 0 or user_info['ret'] != 0:
+def get_user_info_by_platform(openid, open_key):
+    # 判断是否已经登陆
+    if check_login(openid, open_key) is False:
         return False
-    res = dict()
-    if set_up_info['setuped'] == 1:
-        print("a new user enter game")
-        # 记录新用户的注册时间
-        res['create_time'] = time.time()
-    else:
-        print("old user enter game")
-    canshu_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
-    for canshu in canshu_group:
-        if canshu in user_info:
-            res[canshu] = user_info[canshu]
-    res['login_time'] = time.time()
-    print(res)
     action = PlatformAction(openid)
-    action.set_values(res)
-    return res
+    p_info = action.get_model_info()
+    if len(p_info) == 0:
+        set_up_info = is_setup(openid, open_key)
+        p_info = get_info(openid, open_key)
+        if type(set_up_info) is str or type(set_up_info) is object:
+            set_up_info = eval(set_up_info)
+        if type(p_info) is str or type(p_info) is object:
+            p_info = eval(p_info)
+        if set_up_info['ret'] != 0 or p_info['ret'] != 0:
+            return False
+        res = dict()
+        if set_up_info['setuped'] == 1:
+            print("a new user enter game")
+            # 记录新用户的注册时间
+            res['create_time'] = time.time()
+        else:
+            print("old user enter game")
+        key_group = ('nickname', 'gender', 'country', 'province', 'city', 'figureurl', 'openid', 'qq_level', 'qq_vip_level')
+        for key_str in key_group:
+            if key_str in p_info:
+                res[key_str] = p_info[key_str]
+        res['login_time'] = time.time()
+        action.set_values(res)
+        return res
+    else:
+        return p_info
+
+
+def check_login(openid, open_key):
+    res_data = is_login(openid, open_key)
+    if type(res_data) is str or type(res_data) is object:
+        res_data = eval(res_data)
+    return res_data.get('ret', -1) == 0
+
+
+def is_login(openid, openkey):
+    api = OpenAPIV3(appid, appkey, iplist)
+    j_data = api.call('/v3/user/is_login', {
+        'pf': pf,
+        'openid': openid,
+        'openkey': openkey
+    })
+    return j_data
 
 
 def get_info(openid, openkey):

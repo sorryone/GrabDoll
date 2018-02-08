@@ -21,7 +21,7 @@ __author__ = 'du_du'
 
 def get_user_data(open_id, open_key, platform):
     start_time = time.time()
-    platform_info = platform_logic.get_user_info_by_platform(open_id, open_key, platform)
+    platform_info = platform_logic.get_user_info_by_platform(open_id, open_key)
     if platform_info is False:
         return False
     # 需要获得一个用户的游戏里的唯一ID
@@ -73,7 +73,7 @@ def get_user_data(open_id, open_key, platform):
 
 def get_user_test(open_id, open_key, platform):
     start_time = time.time()
-    platform_info = platform_logic.get_user_info_by_platform(open_id, open_key, platform)
+    platform_info = platform_logic.get_user_info_by_platform(open_id, open_key)
     if platform_info is False:
         return False
     time_str_0 = time.time()
