@@ -76,6 +76,7 @@ def get_user_test(open_id, open_key, platform):
     platform_info = platform_logic.get_user_info_by_platform(open_id, open_key, platform)
     if platform_info is False:
         return False
+    time_str_0 = time.time()
     # 需要获得一个用户的游戏里的唯一ID
     a_action = AccountAction('')
     game_user_id = a_action.get_model_info_by_id(open_id, platform)
@@ -116,6 +117,7 @@ def get_user_test(open_id, open_key, platform):
     pve_info = pve_logic.get_pve_info(uid)
     mail_info = mail_logic.get_mail_info(uid)
     task_info = task_logic.get_task_info(uid)
+    time_str_5 = time.time()
     res = {
         'game_user_id': uid,
         'user': platform_info,
@@ -134,10 +136,12 @@ def get_user_test(open_id, open_key, platform):
         'record': r_info,
         'task': task_info,
     }
-    print('step1', time_str_1 - start_time)
+    print('step0', time_str_0 - start_time)
+    print('step1', time_str_1 - time_str_1)
     print ('step2', time_str_2 - time_str_1)
     print ('step3', time_str_3 - time_str_2)
     print ('step4', time_str_4 - time_str_3)
+    print ('step5', time_str_5 - time_str_4)
     print ('get_user_data cost time', time.time() - start_time)
     return res
 
