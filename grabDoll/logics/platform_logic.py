@@ -13,8 +13,10 @@ pf = 'wanba_ts'     # qzone
 
 def get_user_info_by_platform(openid, open_key):
     # 判断是否已经登陆
+    """
     if check_login(openid, open_key) is False:
         return False
+    """
     action = PlatformAction(openid)
     p_info = action.get_model_info()
     if len(p_info) == 0:
