@@ -20,7 +20,7 @@ __author__ = 'du_du'
 
 
 def get_user_data(open_id, open_key, platform):
-
+    start_time = time.time()
     platform_info = platform_logic.get_user_info_by_platform(open_id, open_key, platform)
     if platform_info is False:
         return False
@@ -49,7 +49,7 @@ def get_user_data(open_id, open_key, platform):
     }
     r_action = RecordAction(uid)
     r_info = r_action.get_model_info()
-    return {
+    res = {
         'game_user_id': uid,
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
@@ -67,6 +67,8 @@ def get_user_data(open_id, open_key, platform):
         'record': r_info,
         'task': task_logic.get_task_info(uid),
     }
+    print ('get_user_data cost time', time.time() - start_time)
+    return res
 
 
 if __name__ == "__main__":
