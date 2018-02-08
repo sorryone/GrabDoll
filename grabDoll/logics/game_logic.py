@@ -137,7 +137,7 @@ def get_user_test(open_id, open_key, platform):
         'task': task_info,
     }
     print('step0', time_str_0 - start_time)
-    print('step1', time_str_1 - time_str_1)
+    print('step1', time_str_1 - time_str_0)
     print ('step2', time_str_2 - time_str_1)
     print ('step3', time_str_3 - time_str_2)
     print ('step4', time_str_4 - time_str_3)
