@@ -6,6 +6,7 @@ __author__ = 'maxijie'
 urlpatterns = patterns("",
                        url(r'^test/', 'grabDoll.views.test.test'),
                        url(r'^get_user_data/', 'grabDoll.views.user.get_user_data'),
+                       url(r'^get_user_test/', 'grabDoll.views.user.get_user_test'),
                        url(r'^start_grab/', 'grabDoll.views.game_method.start_grab'),
                        url(r'^grab_egg/', 'grabDoll.views.game_method.grab_egg'),
                        # 解锁
