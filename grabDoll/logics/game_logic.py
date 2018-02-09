@@ -209,6 +209,28 @@ def get_user_first_data(open_id, open_key, platform):
     return res
 
 
+def get_user_test(uid, open_key):
+    start_time = time.time()
+    machine_info = machine_logic.get_machine_info(uid)
+    hatch_info = hatch_logic.get_hatch_info(uid)
+    book_info = machine_logic.get_book_info(uid)
+    ran_info = rank_logic.get_rank_info(uid, open_key)
+    formation_info = formation_logic.get_formation_info(uid)
+    pve_info = pve_logic.get_pve_info(uid)
+    mail_info = mail_logic.get_mail_info(uid)
+    res = {
+        'machine': machine_info,
+        'hatch': hatch_info,
+        'book': book_info,
+        'rank': ran_info,
+        'formation': formation_info,
+        'pve': pve_info,
+        'mail': mail_info,
+    }
+    print ('get_user_data cost time', time.time() - start_time)
+    return res
+
+
 if __name__ == "__main__":
     # print get_game_info('ED57884CAA078DF9E0E08750D98CA834', 'F7D770DA0E6E8BDC6FF1D0A652925E2B')
     print get_user_data('VIP', 'VIP')

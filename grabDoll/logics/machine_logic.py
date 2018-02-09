@@ -15,6 +15,21 @@ import random
 __author__ = 'du_du'
 
 
+def get_wawaji_data(uid):
+    res = {
+        'machine': get_machine_info(uid),
+        'hatch': get_hatch_info(uid),
+        'book': get_book_info(uid),
+    }
+    return res
+
+
+def get_hatch_info(uid):
+    action = HatchAction(uid)
+    res = action.get_model_info()
+    return res
+
+
 def get_machine_info(uid):
     refresh_model_info(uid)
     mach_model = MachineAction(uid)
