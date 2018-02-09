@@ -16,7 +16,7 @@ __author__ = 'du_du'
 def get_wawaji_data(request):
     if request.method == "GET":
         try:
-            uid = request.query_params.get('openid').encode('utf-8')
+            uid = request.query_params.get('uid').encode('utf-8')
         except Exception as e:
             print(e)
             return 1, "参数错误"
