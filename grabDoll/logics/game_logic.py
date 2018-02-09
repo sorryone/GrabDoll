@@ -54,10 +54,7 @@ def get_user_data(open_id, open_key, platform):
         'user': platform_info,
         'userInfo': user_logic.get_user_info(uid),
         'inventory': inventory_logic.get_inventory_info(uid),
-        'machine': machine_logic.get_machine_info(uid),
         'note': machine_logic.get_note_info(uid),
-        'hatch': hatch_logic.get_hatch_info(uid),
-        'book': machine_logic.get_book_info(uid),
         'rank': rank_logic.get_rank_info(uid, open_key),
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
@@ -105,11 +102,8 @@ def get_user_test(open_id, open_key, platform):
     time_str_2 = time.time()
     user_info = user_logic.get_user_info(uid)
     inventory = inventory_logic.get_inventory_info(uid)
-    machine_info = machine_logic.get_machine_info(uid)
     note_info = machine_logic.get_note_info(uid)
     time_str_3 = time.time()
-    hatch_info = hatch_logic.get_hatch_info(uid)
-    book_info = machine_logic.get_book_info(uid)
     ran_info = rank_logic.get_rank_info(uid, open_key)
     time_str_4 = time.time()
     formation_info = formation_logic.get_formation_info(uid)
@@ -123,10 +117,7 @@ def get_user_test(open_id, open_key, platform):
         'user': platform_info,
         'user_info': user_info,
         'inventory': inventory,
-        'machine': machine_info,
         'note': note_info,
-        'hatch': hatch_info,
-        'book': book_info,
         'rank': ran_info,
         'formation': formation_info,
         'artifact': artifact_info,
