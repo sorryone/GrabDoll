@@ -108,6 +108,7 @@ DATABASES = {
     }
 }
 
+"""
 LOGGING = {
     'disable_existing_loggers': False,
     'version': 1,
@@ -133,7 +134,7 @@ LOGGING = {
         },
     },
 }
-
+"""
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
