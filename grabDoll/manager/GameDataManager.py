@@ -29,16 +29,17 @@ def clear_user_data(uid):
     book_action = HandBookAction(uid)
     formation_action = FormationAction(uid)
 
+    print ('---------  START REMOVE FRIEND  -----------')
     fri_keys = fri_action.get_keys()
     for fri_id in fri_keys:
         fri_action.remove(fri_id),
         print('remove friend', fri_id)
-
+    print ('---------  START REMOVE ITEM  -----------')
     item_keys = item_action.get_keys()
     for item_id in item_keys:
         item_action.remove(item_id),
         print('remove item', item_id)
-
+    print ('---------  START REMOVE HERO  -----------')
     hero_keys = hero_action.get_keys()
     for hero_id in hero_keys:
         hero_action.remove(hero_id),
