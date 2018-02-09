@@ -11,6 +11,7 @@ from grabDoll.action.book_action import HandBookAction
 from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hero_action import HeroAction
+from grabDoll.action.note_action import NoteAction
 __author__ = 'du_du'
 
 
@@ -28,7 +29,7 @@ def clear_user_data(uid):
     art_action = ArtifactAction(uid)
     book_action = HandBookAction(uid)
     formation_action = FormationAction(uid)
-
+    note_action = NoteAction(uid)
     print ('---------  START REMOVE FRIEND  -----------')
     fri_keys = fri_action.get_keys()
     for fri_id in fri_keys:
@@ -50,6 +51,12 @@ def clear_user_data(uid):
     for book_id in book_keys:
         book_action.remove(book_id),
         print('remove book', book_id)
+
+    print ('---------  START REMOVE NOTE  -----------')
+    note_keys = note_action.cache.get_keys()
+    for note_id in note_keys:
+        note_action.cache.pop(note_id),
+        print('remove note', note_id)
 
     print ('---------  START REMOVE DB  -----------')
 
