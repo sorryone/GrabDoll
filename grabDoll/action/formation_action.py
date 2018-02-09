@@ -41,7 +41,8 @@ class FormationAction(BaseModel):
     def get_model_info(self):
         data = self.get_all()
         # 判定是否是新用户
-        if len(data) == 0 and self.create_model():
+        if len(data) == 0:
+            self.create_model()
             # 重新获取一次
             data = self.get_all()
         data[self.fight_formation_str] = self.change_list_by_ct(data[self.fight_formation_str], self.fight_length)
