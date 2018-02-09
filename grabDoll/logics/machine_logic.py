@@ -31,6 +31,7 @@ def get_hatch_info(uid):
 
 
 def get_machine_info(uid):
+    print ('uid', uid)
     refresh_model_info(uid)
     mach_model = MachineAction(uid)
     return mach_model.get_model_info()
