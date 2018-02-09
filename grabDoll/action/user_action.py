@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.user import User, UserTable, UserTableSerializer
+import time
 __author__ = 'du_du'
 
 
@@ -122,3 +123,9 @@ class UserAction(BaseModel):
         if self.set_values(data):
             return data
         return {}
+
+    def test_model_info(self):
+        start_time = time.time()
+        data = self.get_all()
+        print data
+        return time.time() - start_time
