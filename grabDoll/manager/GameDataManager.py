@@ -25,15 +25,15 @@ def clear_user_data(uid):
     book_action = HandBookAction(uid)
     formation_action = FormationAction(uid)
     res = {
-        'user': u_action.remove(),
-        'hatch': hatch_action.remove(),
-        'pve': p_action.remove(),
-        'friend': fri_action.remove(),
-        'record': rec_action.remove(),
-        'task': task_action.remove(),
-        'mail': mail_action.remove(),
-        'artifact': art_action.remove(),
-        'book': book_action.remove(),
-        'formation': formation_action.remove(),
+        'user': u_action.remove(''),
+        'hatch': hatch_action.remove(''),
+        'pve': p_action.remove(''),
+        'friend': fri_action.remove(''),
+        'record': rec_action.remove(''),
+        'task': task_action.remove(''),
+        'mail': mail_action.remove(''),
+        'artifact': art_action.remove(''),
+        'book': book_action.remove(''),
+        'formation': formation_action.remove(''),
     }
     return res
