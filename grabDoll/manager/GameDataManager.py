@@ -45,6 +45,12 @@ def clear_user_data(uid):
         hero_action.remove(hero_id),
         print('remove hero', hero_id)
 
+    print ('---------  START REMOVE BOOK  -----------')
+    book_keys = book_action.get_keys()
+    for book_id in book_keys:
+        book_action.remove(book_id),
+        print('remove book', book_id)
+
     print ('---------  START REMOVE DB  -----------')
 
     res = {
@@ -55,7 +61,6 @@ def clear_user_data(uid):
         'task': task_action.remove(''),
         'mail': mail_action.remove(''),
         'artifact': art_action.remove(''),
-        'book': book_action.remove(''),
         'formation': formation_action.remove(''),
     }
     return res
