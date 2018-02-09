@@ -45,6 +45,8 @@ def clear_user_data(uid):
         hero_action.remove(hero_id),
         print('remove hero', hero_id)
 
+    print ('---------  START REMOVE DB  -----------')
+
     res = {
         'user': u_action.remove(''),
         'hatch': hatch_action.remove(''),
