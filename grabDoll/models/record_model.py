@@ -29,6 +29,7 @@ class RecordTable(models.Model):
     box_ct = models.IntegerField(default=0)
     artifact = models.IntegerField(default=0)
     pve = models.IntegerField(default=0)
+    fight_group = models.CharField(max_length=2048, null=True)
     day_task_group = models.CharField(max_length=512, null=True)
     day_box_group = models.CharField(max_length=512, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
