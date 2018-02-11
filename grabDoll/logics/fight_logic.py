@@ -16,6 +16,15 @@ __author__ = 'du_du'
 def fight_against(uid, opponent):
     if opponent == 'VIP':
         return guild_attack(uid)
+    res = dict()
+    r_action = RecordAction(uid)
+    r_data = r_action.get_model_info()
+    fight_data = r_data.get(r_action.fight_group_str, [])
+    if fight_data is None:
+        fight_data = []
+    if opponent in fight_data:
+        res['isCD'] = True
+        return res
     my_formation = FormationAction(uid)
     my_formation_info = my_formation.get_model_info()
     opponent_formation = FormationAction(opponent)
@@ -24,21 +33,16 @@ def fight_against(uid, opponent):
     opponent_atk = opponent_info.get(opponent_formation.fight_atk_str, 10000)
     my_art_info = artifact_logic.get_artifact_akt(uid)
     opponent_art_info = artifact_logic.get_artifact_akt(opponent)
-    res = dict()
     res['my_atk'] = my_atk + my_art_info.get('atk', 0)
     res['opponent_atk'] = opponent_atk + opponent_art_info.get('atk', 0)
     my_fight_heroes = my_formation_info.get(my_formation.fight_formation_str)
     my_fight_heroes_group = [i for i in my_fight_heroes if i != '']
 
-    if eat_atk(uid, my_fight_heroes_group, res['opponent_atk']) is False:
+    eat_hero_update = eat_atk(uid, my_fight_heroes_group, res['opponent_atk'])
+    if eat_hero_update is False:
         # 我受伤了已经
         res['error'] = True
         res['update'] = my_formation_info
-    elif False:
-        # elif opponent_info.get(opponent_formation.fight_state_str) == opponent_formation.state_injured:
-        # 对方受伤了已经
-        res['error'] = True
-        res['update'] = opponent_info
     else:
         user_action = UserAction(uid)
         # 体力的扣除
@@ -69,7 +73,12 @@ def fight_against(uid, opponent):
                 award['gold'] = award_fail_gold
         res['award'] = award
         res['result'] = result
-        record_logic.add_record(uid, 'fight', 1)
+        res['update'] = eat_hero_update
+        update_data = {
+            r_action.fight_group_str: fight_data,
+            r_action.fight_str: r_data.get(r_action.fight_str, 0) + 1
+        }
+        record_logic.add_fight_record(uid, update_data)
     return res
 
 
