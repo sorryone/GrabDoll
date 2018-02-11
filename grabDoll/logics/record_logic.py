@@ -10,13 +10,23 @@ def add_record(u_id, action_str, ct):
     print ('add_record', action_str, ct)
     r_action = RecordAction(u_id)
     r_action.add_action_ct(action_str, ct)
+    return refresh_task(u_id, action_str, ct)
+
+
+def add_fight_record(u_id, update_data):
+    print ('add_record', update_data)
+    r_action = RecordAction(u_id)
+    r_action.update_model_info(update_data)
+    return refresh_task(u_id, r_action.fight_str, 1)
+
+
+def refresh_task(u_id, action_str, ct):
     t_action = TaskAction(u_id)
     cur_task = t_action.get_cur_task_group()
     cur_task_ids = [task_info[t_action.key_id_str] for index, task_info in enumerate(cur_task)]
     task_data = {}
     for index, task_info in enumerate(cur_task):
         task_data[task_info[t_action.key_id_str]] = task_info
-
     config_model = ConfigModel('task')
     task_config_groups = config_model.get_model_info()
     task_math_ids = [config_id for config_id, config_data in task_config_groups.items() if
@@ -44,3 +54,5 @@ def add_record(u_id, action_str, ct):
     else:
         t_action.add_value(ct, task_id)
     return task_math_ids
+
+

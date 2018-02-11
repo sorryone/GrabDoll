@@ -3,6 +3,7 @@ from grabDoll.action.formation_action import FormationAction
 from grabDoll.action.user_action import UserAction
 from grabDoll.action.item_action import ItemAction
 from grabDoll.action.hero_action import HeroAction
+from grabDoll.action.record_action import RecordAction
 from grabDoll.action.mail_action import MailAction
 from grabDoll.logics import artifact_logic
 from grabDoll.logics import record_logic
@@ -74,6 +75,12 @@ def fight_against(uid, opponent):
 
 def guild_attack(uid):
     res = dict()
+    r_action = RecordAction(uid)
+    r_data = r_action.get_model_info()
+    fight_data = r_data.get(r_action.fight_group_str, [])
+    if 'VIP' in fight_data:
+        res['isCD'] = True
+        return res
     user_action = UserAction(uid)
     # 体力的扣除
     cur_vit = user_action.get_vit()
@@ -91,7 +98,12 @@ def guild_attack(uid):
         award[award_item] = award_item_ct
     res['award'] = award
     res['result'] = result
-    record_logic.add_record(uid, 'fight', 1)
+    fight_data.append('VIP')
+    update_data = {
+        r_action.fight_group_str: fight_data,
+        r_action.fight_str: r_data.get(r_action.fight_str, 0) + 1
+    }
+    record_logic.add_fight_record(uid, update_data)
     return res
 
 
