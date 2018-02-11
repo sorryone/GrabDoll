@@ -78,7 +78,9 @@ def guild_attack(uid):
     r_action = RecordAction(uid)
     r_data = r_action.get_model_info()
     fight_data = r_data.get(r_action.fight_group_str, [])
-    if fight_data is not None and 'VIP' in fight_data:
+    if fight_data is None:
+        fight_data = []
+    if 'VIP' in fight_data:
         res['isCD'] = True
         return res
     user_action = UserAction(uid)
