@@ -8,8 +8,8 @@ import uuid
 __author__ = 'du_du'
 
 
-def get_rank_info(uid, open_key):
-    friend_list = get_my_friend_list(uid, open_key)
+def get_rank_info(uid, open_key, platform):
+    friend_list = get_my_friend_list(uid, open_key, platform)
     top_list = get_top_100_list(uid)
     all_list = set(top_list + friend_list)
     list_info = get_my_friend_platform_info(uid, list(all_list))
@@ -35,14 +35,18 @@ def test_uuid(openid, platform):
 
 
 # 我的好友列表
-def get_my_friend_list(uid, open_key):
+def get_my_friend_list(uid, open_key, platform):
     from grabDoll.logics import platform_logic
     data = platform_logic.get_app_friends(uid, open_key)
     app_friends = [str(item['openid'])for item in data.get('items', [])]
     f_action = FriendAction(uid)
     f_data = f_action.get_model_info()
     game_fri_list = [f_id for f_id in f_data.keys()]
-    all_data = list(set(app_friends + game_fri_list))
+    from grabDoll.action.account_action import AccountAction
+    # 需要获得一个用户的游戏里的唯一ID
+    a_action = AccountAction('')
+    app_account_ids = a_action.get_all_by_app_uid(app_friends, {a_action.platform_str: platform})
+    all_data = list(set(app_account_ids + game_fri_list))
     all_data.append('VIP')
     return all_data
 

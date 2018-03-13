@@ -55,7 +55,7 @@ def get_user_data(open_id, open_key, platform):
         'userInfo': user_logic.get_user_info(uid),
         'inventory': inventory_logic.get_inventory_info(uid),
         'note': machine_logic.get_note_info(uid),
-        'rank': rank_logic.get_rank_info(uid, open_key),
+        'rank': rank_logic.get_rank_info(uid, open_key, platform),
         'formation': formation_logic.get_formation_info(uid),
         'artifact': artifact_logic.get_artifact_info(uid),
         'pve': pve_logic.get_pve_info(uid),

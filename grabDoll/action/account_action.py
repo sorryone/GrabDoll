@@ -40,4 +40,13 @@ class AccountAction(BaseModel):
             return self.u_id
         return False
 
+    # 获得多个账号的信息
+    def get_all_by_app_uid(self, ids, manydict={}):
+        model_data = self.model.objects.filter(open_id__in=ids, **manydict)
+        data = self.modelSerializer(model_data, many=True).data
+        if len(data) == 1:
+            # data = data[0]
+            pass
+        return data
+
 
