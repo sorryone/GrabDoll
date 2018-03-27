@@ -49,8 +49,7 @@ def api_view(http_method_names=None):
     def decorator(func):
         def handler(*args, **kwargs):
             rest_api = rest_api_view(http_method_names)
-            print ('args', args)
-            print ('query_params', args.query_params)
+            print (args)
             rest_method = rest_api(func)
             response = rest_method(*args, **kwargs)
             if response.status_code != 200:
