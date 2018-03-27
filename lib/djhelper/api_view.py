@@ -49,13 +49,14 @@ def api_view(http_method_names=None):
     def decorator(func):
         def handler(*args, **kwargs):
             rest_api = rest_api_view(http_method_names)
-            print (args)
+            request = args[0]
+            uid = request.query_params.get('uid')
+            if uid is not None:
+                print(uid, 'check')
             rest_method = rest_api(func)
             response = rest_method(*args, **kwargs)
             if response.status_code != 200:
                 return response
-
-            request = args[0]
             path_name = request.path.split('/')[1]
             method_name = request.path.split('/')[2]
             if method_name in IGNORE_METHOD:
