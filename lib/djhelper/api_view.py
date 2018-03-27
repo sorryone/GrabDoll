@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view as rest_api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import render
+from grabDoll.models.note_model import NoteModel
 
 
 class MessageCache(HashModel):
@@ -52,10 +53,10 @@ def api_view(http_method_names=None):
             request = args[0]
             print(request)
             print(request.method)
-            print(request.data)
             uid = request.query_params.get('uid')
             if uid is not None:
-                print(uid, 'check')
+                n_model = NoteModel(uid)
+                n_model.set_interact_time()
             rest_method = rest_api(func)
             response = rest_method(*args, **kwargs)
             if response.status_code != 200:

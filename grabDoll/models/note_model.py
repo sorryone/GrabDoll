@@ -11,6 +11,7 @@ class NoteModel(HashModel):
         self.buy_vit_ct_str = 'buy_vit_ct'
         self.add_task_str = 'add_task'
         self.complete_task_str = 'complete_task'
+        self.last_interact_str = 'last_interact'
         HashModel.__init__(self, uid)
 
     def get_model_info(self):
@@ -91,3 +92,17 @@ class NoteModel(HashModel):
 
     def get_redis(self):
         self.get_client()
+
+    def get_interact_time(self):
+        res = self.get_value(self.last_interact_str)
+        if res is None:
+            res = 0
+        if type(res) is str:
+            res = float(res)
+        return res
+
+    def set_interact_time(self):
+        res = self.set_value(self.last_interact_str, time.time())
+        if res == 0 or res is not False:
+            return True
+        return False

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from grabDoll.models.note_model import NoteModel
+import time
+__author__ = 'du_du'
 
 
 class NoteAction:
@@ -21,4 +23,3 @@ class NoteAction:
                 pass
             # this->cache->set($key, 1, 0, timerMaker()+$time);
         return True
-
