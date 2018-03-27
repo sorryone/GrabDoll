@@ -2,6 +2,7 @@
 from grabDoll.models.base_model import BaseModel
 from grabDoll.models.doll_model import DollModel, DollTable, DollTableSerializer
 from grabDoll.models.config_model import ConfigModel
+import time
 __author__ = 'du_du'
 
 
@@ -13,6 +14,8 @@ class HeroAction(BaseModel):
         self.state = ('normal', 'work', 'sleep', 'fight', 'hurt')
         self.hp_str = 'hp'
         self.doll_id_str = 'doll_id'
+        self.interact_str = 'interact'
+        self.sleep_cd = 36000
         super(HeroAction, self).__init__(
                     u_id, DollModel, DollTable, DollTableSerializer, False)
 
@@ -50,7 +53,8 @@ class HeroAction(BaseModel):
         hero_config_info = hero_config_hero.get_config_by_id(item_id)
         doll = self.get_value(item_id)
         if doll is None or doll == {}:
-            data = {'doll_id': item_id, 'exp': 0, 'lv': 1, 'state': 0, 'hp': hero_config_info.get('hp')}
+            data = {self.doll_id_str: item_id, 'exp': 0, 'lv': 1, 'state': 0, self.hp_str: hero_config_info.get('hp'),
+                    self.interact_str: time.time()}
             res = self.set_value(item_id, data)
             data['type'] = 'new'
         else:
@@ -108,4 +112,14 @@ class HeroAction(BaseModel):
         res = self.incr(item_id, -num)
         if res == 0 or res is not False:
             return True
+        return False
+
+    # 激活娃娃
+    def interact_doll(self, doll_id):
+        doll = self.get_doll_info_by_id(doll_id)
+        if self.interact_str in doll:
+            doll[self.interact_str] = time.time()
+            res = self.set_value(doll_id, doll)
+            if res is not False:
+                return True
         return False
