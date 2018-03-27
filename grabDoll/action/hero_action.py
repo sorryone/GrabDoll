@@ -117,7 +117,7 @@ class HeroAction(BaseModel):
     # 激活娃娃
     def interact_doll(self, doll_id):
         doll = self.get_doll_info_by_id(doll_id)
-        if self.interact_str in doll:
+        if len(doll) > 0:
             doll[self.interact_str] = time.time()
             res = self.set_value(doll_id, doll)
             if res is not False:
