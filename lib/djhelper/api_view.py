@@ -34,6 +34,7 @@ def api_render(func):
 def api_result(func):
     def decorator(*args, **kwargs):
         request = args[0]
+        print(request.query_params)
         uid = request.query_params.get('uid')
         if uid is not None:
             n_model = NoteModel(uid)
