@@ -34,9 +34,12 @@ def api_render(func):
 def api_result(func):
     def decorator(*args, **kwargs):
         request = args[0]
+        print ("--------------------")
         print(request.query_params)
+        print ("--------------------")
         uid = request.query_params.get('uid')
         if uid is not None:
+            print ("uid is", uid)
             n_model = NoteModel(uid)
             n_model.set_interact_time()
         else:
