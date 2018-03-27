@@ -33,6 +33,12 @@ def api_render(func):
 
 def api_result(func):
     def decorator(*args, **kwargs):
+        request = args[0]
+        uid = request.query_params.get('uid')
+        if uid is not None:
+            n_model = NoteModel(uid)
+            n_model.set_interact_time()
+
         rc, data = func(*args, **kwargs)
         if rc > 0:
             code = status.HTTP_400_BAD_REQUEST
@@ -50,15 +56,10 @@ def api_view(http_method_names=None):
     def decorator(func):
         def handler(*args, **kwargs):
             rest_api = rest_api_view(http_method_names)
-            request = args[0]
-            print(request)
-            print(request.method)
-            uid = request.query_params.get('uid')
-            if uid is not None:
-                n_model = NoteModel(uid)
-                n_model.set_interact_time()
             rest_method = rest_api(func)
             response = rest_method(*args, **kwargs)
+
+            request = args[0]
             if response.status_code != 200:
                 return response
             path_name = request.path.split('/')[1]
