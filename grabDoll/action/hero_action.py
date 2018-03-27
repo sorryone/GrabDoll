@@ -88,7 +88,7 @@ class HeroAction(BaseModel):
     # 增加娃娃经验
     def add_doll_exp(self, doll_id, exp):
         doll = self.get_doll_info_by_id(doll_id)
-        if doll.has_key('exp'):
+        if 'exp' in doll:
             doll['exp'] += exp
             return doll
         return False
