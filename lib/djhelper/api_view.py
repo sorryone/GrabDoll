@@ -38,6 +38,8 @@ def api_result(func):
         if uid is not None:
             n_model = NoteModel(uid)
             n_model.set_interact_time()
+        else:
+            print ("uid is none")
 
         rc, data = func(*args, **kwargs)
         if rc > 0:
