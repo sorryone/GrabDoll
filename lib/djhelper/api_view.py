@@ -50,7 +50,7 @@ def api_view(http_method_names=None):
         def handler(*args, **kwargs):
             rest_api = rest_api_view(http_method_names)
             print ('args', args)
-            print ('kwargs', kwargs)
+            print ('query_params', args.query_params)
             rest_method = rest_api(func)
             response = rest_method(*args, **kwargs)
             if response.status_code != 200:
