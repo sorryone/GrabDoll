@@ -50,6 +50,7 @@ def api_view(http_method_names=None):
         def handler(*args, **kwargs):
             rest_api = rest_api_view(http_method_names)
             request = args[0]
+            print(request)
             uid = request.query_params.get('uid')
             if uid is not None:
                 print(uid, 'check')
